@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class ChatServer {
     private static Map<String, ClientThread> clients;
@@ -26,8 +25,8 @@ public class ChatServer {
 
     public static void main(String[] args) {
         if (chatServer == null) chatServer = new ChatServer();
-        try (ServerSocket serverSocket = new ServerSocket(PORT);
-             Scanner scanner = new Scanner(System.in)) {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            new CommandThread().start();
             while (!serverSocket.isClosed()) {
                 new Thread(() -> {
                     try {
@@ -41,7 +40,7 @@ public class ChatServer {
                             newClient.start();
                         }
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
                 }).start();
             }
@@ -79,7 +78,14 @@ public class ChatServer {
         }
     }
 
-    public void shutDown() {
-        System.exit(0);
+    public void processCommand(String command) throws IOException {
+        switch (command) {
+            case "exit":
+                System.exit(0);
+                break;
+            case "sayHi":
+                sendMessage("Server: Hello Everyone!");
+                break;
+        }
     }
 }

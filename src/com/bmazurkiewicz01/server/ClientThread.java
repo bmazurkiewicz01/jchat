@@ -29,15 +29,19 @@ public class ClientThread extends Thread {
                 if (message == null) break;
 
                 if (!message.isBlank()) {
-                    ChatServer.getInstance().sendMessage(message, this);
+                    synchronized (ChatServer.getInstance()) {
+                        ChatServer.getInstance().sendMessage(message, this);
+                    }
                 }
             }
         } catch (IOException e) {
             System.out.println("ClientThread: " + e.getMessage());
         } finally {
             try {
-                ChatServer.getInstance().removeClient(this);
-                ChatServer.getInstance().sendMessage(clientName + " left.");
+                synchronized (ChatServer.getInstance()) {
+                    ChatServer.getInstance().removeClient(this);
+                    ChatServer.getInstance().sendMessage(clientName + " left.");
+                }
                 System.out.println(clientName + " left.");
                 input.close();
                 output.close();
