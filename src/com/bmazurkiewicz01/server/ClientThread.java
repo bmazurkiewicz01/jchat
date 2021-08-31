@@ -9,39 +9,34 @@ import java.net.Socket;
 public class ClientThread extends Thread {
     private final Socket socket;
     private final String clientName;
-    private BufferedReader input;
-    private PrintWriter output;
+    private final BufferedReader input;
+    private final PrintWriter output;
 
     public ClientThread(Socket socket, String clientName) throws IOException {
         this.socket = socket;
         this.clientName = clientName;
-        if (socket != null) {
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new PrintWriter(socket.getOutputStream(), true);
-        }
+        this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        this.output = new PrintWriter(socket.getOutputStream(), true);
     }
 
     @Override
     public void run() {
         try {
-            while (socket.isConnected()) {
-                String message = input.readLine();
+            String message;
+            do {
+                message = input.readLine();
                 if (message == null) break;
 
                 if (!message.isBlank()) {
-                    synchronized (ChatServer.getInstance()) {
-                        ChatServer.getInstance().sendMessage(message, this);
-                    }
+                    JchatServer.getInstance().sendMessage(message, this);
                 }
-            }
+            } while (!socket.isClosed());
         } catch (IOException e) {
             System.out.println("ClientThread: " + e.getMessage());
         } finally {
             try {
-                synchronized (ChatServer.getInstance()) {
-                    ChatServer.getInstance().removeClient(this);
-                    ChatServer.getInstance().sendMessage(clientName + " left.");
-                }
+                JchatServer.getInstance().removeClient(this);
+                JchatServer.getInstance().sendMessage(clientName + " left.");
                 System.out.println(clientName + " left.");
                 input.close();
                 output.close();

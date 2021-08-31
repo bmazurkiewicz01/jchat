@@ -1,25 +1,24 @@
 package com.bmazurkiewicz01.server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ChatServer {
+public final class JchatServer {
     private static List<ClientThread> clients;
-    private static volatile ChatServer instance;
+    private static volatile JchatServer instance;
 
     private static final int PORT = 5555;
 
-    private ChatServer() {
+    private JchatServer() {
         if (instance != null) throw new IllegalStateException("Can't create new instance.");
         clients = new ArrayList<>();
     }
 
-    public static ChatServer getInstance() {
+    public static JchatServer getInstance() {
         if (instance == null) {
-            synchronized (ChatServer.class) {
-                if (instance == null) instance = new ChatServer();
+            synchronized (JchatServer.class) {
+                if (instance == null) instance = new JchatServer();
             }
         }
         return instance;
@@ -28,10 +27,9 @@ public final class ChatServer {
     public static void main(String[] args) {
         try {
             new CommandThread().start();
-            new ClientManagerThread(PORT).start();
-
+            new ServerThread(PORT).start();
         } catch (IOException e) {
-            System.out.println("Server error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 

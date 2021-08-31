@@ -7,16 +7,13 @@ public class CommandThread extends Thread {
     @Override
     public void run() {
         try (Scanner input = new Scanner(System.in)) {
-            while (true) {
-                String command = input.nextLine();
-                synchronized (ChatServer.getInstance()) {
-                    try {
-                        ChatServer.getInstance().processCommand(command);
-                    } catch (IOException e) {
-                        System.out.println("CommandThread: " + e.getMessage());
-                    }
-                }
-            }
+            String command;
+            do {
+                command = input.nextLine();
+                JchatServer.getInstance().processCommand(command);
+            } while (!command.equals("exit"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
