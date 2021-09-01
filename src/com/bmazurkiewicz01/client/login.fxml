@@ -11,14 +11,14 @@
             <Insets top="10" bottom="10" right="10" left="10"/>
         </VBox.margin>
     </TextField>
-    <Button fx:id="loginButton" minWidth="150" alignment="CENTER" onAction="#handleLoginButton" text="Login">
-        <VBox.margin>
-            <Insets top="10" bottom="10" right="10" left="10"/>
-        </VBox.margin>
-    </Button>
     <Label fx:id="errorLabel" alignment="CENTER">
         <VBox.margin>
             <Insets top="10" bottom="10" right="10" left="10"/>
         </VBox.margin>
     </Label>
+    <Button fx:id="loginButton" minWidth="150" alignment="CENTER" onAction="#handleLoginButton" text="Login">
+        <VBox.margin>
+            <Insets top="10" bottom="10" right="10" left="10"/>
+        </VBox.margin>
+    </Button>
 </VBox>

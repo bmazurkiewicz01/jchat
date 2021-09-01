@@ -1,12 +1,8 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.controller.MainController;
-import javafx.concurrent.Task;
 
 import java.io.*;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class InputThread extends Thread {
     private final BufferedReader input;
