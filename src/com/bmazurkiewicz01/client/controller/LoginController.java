@@ -20,6 +20,7 @@ public class LoginController {
 
     @FXML
     public void handleLoginButton(ActionEvent event) {
+        errorLabel.setVisible(false);
         String name = loginField.getText();
         if (name.isBlank()) {
             errorLabel.setVisible(true);
@@ -27,6 +28,10 @@ public class LoginController {
         } else {
             if (ServerConnection.getInstance().connect(name)) {
                 ViewSwitcher.getInstance().switchView(View.MAIN);
+            }
+            else {
+                errorLabel.setVisible(true);
+                errorLabel.setText("Connection refused. Try again later.");
             }
         }
     }

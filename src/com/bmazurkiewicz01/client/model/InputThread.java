@@ -15,7 +15,7 @@ public class InputThread extends Thread {
 
     @Override
     public void run() {
-        while (!ServerConnection.getInstance().isClosed()) {
+        while (ServerConnection.getInstance().isConnected()) {
             try {
                 String message = input.readLine();
                 if (message == null) break;

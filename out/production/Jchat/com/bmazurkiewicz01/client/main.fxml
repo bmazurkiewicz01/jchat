@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<GridPane id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+    <Button fx:id="logoutButton" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="70" text="Logout" onAction="#handleLogoutButton"/>
+    <TextArea id="chatTextArea" fx:id="chatTextArea" editable="false" prefHeight="450.0" prefWidth="500.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+    <TextField id="messageField" fx:id="messageField" prefWidth="440" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <Button id="sendButton" fx:id="sendMessageButton" defaultButton="true" onAction="#handleSendMessageButton" prefHeight="40" prefWidth="60" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label fx:id="errorLabel" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
 
-<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.bmazurkiewicz01.client.controller.MainController" vgap="10" hgap="10" alignment="CENTER">
-    <TextArea GridPane.columnIndex="0" GridPane.rowIndex="0" disable="true" prefHeight="550.0" prefWidth="300.0"
-              fx:id="chatTextArea" GridPane.columnSpan="2"/>
-    <TextField GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="messageField" prefWidth="200"/>
-    <Button GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="sendMessageButton" onAction="#handleSendMessageButton"
-            prefWidth="100" text="Send message"/>
-    <Label GridPane.columnIndex="1" GridPane.rowIndex="2" visible="false" fx:id="errorLabel"/>
+    <stylesheets>
+        <URL value="@../css/mainStyle.css" />
+    </stylesheets>
 </GridPane>

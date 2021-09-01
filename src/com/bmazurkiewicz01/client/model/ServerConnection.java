@@ -40,7 +40,7 @@ public final class ServerConnection {
             protected Boolean call() throws IOException {
                 socket = new Socket(HOST, PORT);
                 new PrintWriter(socket.getOutputStream(), true).println(clientName);
-                return true;
+                return !socket.isClosed();
             }
         };
         new Thread(connectTask).start();
@@ -81,13 +81,6 @@ public final class ServerConnection {
     }
 
     public boolean isConnected() {
-        if (socket != null) {
-            return socket.isConnected();
-        }
-        return false;
-    }
-
-    public boolean isClosed() {
-        return socket.isClosed();
+        return !socket.isClosed();
     }
 }

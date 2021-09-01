@@ -1,0 +1,12 @@
+#loginField {
+    -fx-font-size: 18px;
+    -fx-background-color: rgb(6,6,6);
+    -fx-text-fill: #f4f4f4;
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color: yellow;
+}
+
+#loginButton {
+    -fx-font-size: 18px;
+}
