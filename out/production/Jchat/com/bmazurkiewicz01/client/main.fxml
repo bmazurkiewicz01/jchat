@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.bmazurkiewicz01.client.controller.MainController" vgap="10" hgap="10" alignment="CENTER">
+    <TextArea GridPane.columnIndex="0" GridPane.rowIndex="0" disable="true" prefHeight="550.0" prefWidth="300.0"
+              fx:id="chatTextArea" GridPane.columnSpan="2"/>
+    <TextField GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="messageField" prefWidth="200"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="sendMessageButton" onAction="#handleSendMessageButton"
+            prefWidth="100" text="Send message"/>
+    <Button GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="refreshButton" onAction="#handleRefreshButton"
+            prefWidth="100" text="Refresh"/>
+</GridPane>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+      fx:controller="com.bmazurkiewicz01.client.controller.LoginController">
+    <TextField fx:id="loginField" alignment="CENTER" maxWidth="200">
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+    </TextField>
+    <Label fx:id="errorLabel" text="Label" visible="false"/>
+    <Button fx:id="loginButton" alignment="CENTER" onAction="#handleLoginButton" prefWidth="75.0" text="Login">
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+    </Button>
+</VBox>
