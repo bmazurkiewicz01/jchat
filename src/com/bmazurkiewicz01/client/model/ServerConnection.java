@@ -74,7 +74,7 @@ public final class ServerConnection {
 
     public void close() {
         try {
-            socket.close();
+            if (socket != null) socket.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

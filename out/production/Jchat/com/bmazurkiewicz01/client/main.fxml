@@ -11,6 +11,5 @@
     <TextField GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="messageField" prefWidth="200"/>
     <Button GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="sendMessageButton" onAction="#handleSendMessageButton"
             prefWidth="100" text="Send message"/>
-    <Button GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="refreshButton" onAction="#handleRefreshButton"
-            prefWidth="100" text="Refresh"/>
+    <Label GridPane.columnIndex="1" GridPane.rowIndex="2" visible="false" fx:id="errorLabel"/>
 </GridPane>
