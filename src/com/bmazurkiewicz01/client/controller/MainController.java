@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -22,7 +23,7 @@ public class MainController {
     @FXML
     public TextField messageField;
     @FXML
-    public Button refreshButton;
+    public Label errorLabel;
 
     public void initialize() {
         ServerConnection.getInstance().updateMessage(this);
@@ -32,20 +33,18 @@ public class MainController {
     public void handleSendMessageButton(ActionEvent event) {
         String message = messageField.getText();
         if (message.isBlank()) {
-
+            errorLabel.setVisible(true);
+            errorLabel.setText("You cannot send blank message.");
         } else {
             if (ServerConnection.getInstance().isConnected()) {
+                errorLabel.setVisible(false);
                 ServerConnection.getInstance().sendMessage(message);
                 messageField.clear();
             } else {
-
+                errorLabel.setVisible(true);
+                errorLabel.setText("Connection error. Please restart the application.");
             }
         }
-    }
-
-    @FXML
-    public void handleRefreshButton(ActionEvent event) {
-
     }
 
     public void updateTextArea(String message) {
@@ -53,8 +52,6 @@ public class MainController {
     }
 
     public void closeConnection() {
-        if (ServerConnection.getInstance().isConnected()) {
-            ServerConnection.getInstance().close();
-        }
+        ServerConnection.getInstance().close();
     }
 }
