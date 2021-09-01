@@ -81,7 +81,10 @@ public final class ServerConnection {
     }
 
     public boolean isConnected() {
-        return socket.isConnected();
+        if (socket != null) {
+            return socket.isConnected();
+        }
+        return false;
     }
 
     public boolean isClosed() {

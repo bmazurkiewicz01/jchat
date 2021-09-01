@@ -53,7 +53,7 @@ public class MainController {
     }
 
     public void closeConnection() {
-        if (ServerConnection.getInstance() != null && ServerConnection.getInstance().isConnected()) {
+        if (ServerConnection.getInstance().isConnected()) {
             ServerConnection.getInstance().close();
         }
     }
