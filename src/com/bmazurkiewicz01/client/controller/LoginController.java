@@ -17,16 +17,19 @@ public class LoginController {
     public Button loginButton;
     @FXML
     public Label errorLabel;
+    @FXML
+    public TextField passwordField;
 
     @FXML
-    public void handleLoginButton(ActionEvent event) {
+    public void handleLoginButton() {
         errorLabel.setVisible(false);
         String name = loginField.getText();
-        if (name.isBlank()) {
+        String password = passwordField.getText();
+        if (name.isBlank() || password.isBlank()) {
             errorLabel.setVisible(true);
             errorLabel.setText("Please fill all the fields.");
         } else {
-            if (ServerConnection.getInstance().connect(name)) {
+            if (ServerConnection.getInstance().connect(name, password)) {
                 ViewSwitcher.getInstance().switchView(View.MAIN);
             }
             else {

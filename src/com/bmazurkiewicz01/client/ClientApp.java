@@ -2,6 +2,7 @@ package com.bmazurkiewicz01.client;
 
 import com.bmazurkiewicz01.client.controller.MainController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

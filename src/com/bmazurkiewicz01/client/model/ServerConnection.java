@@ -34,12 +34,12 @@ public final class ServerConnection {
         return instance;
     }
 
-    public boolean connect(String clientName) {
+    public boolean connect(String name, String password) {
         Task<Boolean> connectTask = new Task<>() {
             @Override
             protected Boolean call() throws IOException {
                 socket = new Socket(HOST, PORT);
-                new PrintWriter(socket.getOutputStream(), true).println(clientName);
+                new PrintWriter(socket.getOutputStream(), true).println(String.format("login:%s\t%s", name, password));
                 return !socket.isClosed();
             }
         };
