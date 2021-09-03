@@ -2,7 +2,8 @@ package com.bmazurkiewicz01.client;
 
 public enum View {
     LOGIN("login.fxml"),
-    MAIN("main.fxml");
+    MAIN("main.fxml"),
+    REGISTER("register.fxml");
 
     String fileName;
 

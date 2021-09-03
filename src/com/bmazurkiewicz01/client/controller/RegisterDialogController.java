@@ -5,25 +5,25 @@ import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-
-public class LoginController {
+public class RegisterDialogController {
     @FXML
     public TextField loginField;
     @FXML
-    public Button loginButton;
+    public Button registerButton;
     @FXML
     public Label errorLabel;
     @FXML
     public TextField passwordField;
     @FXML
-    public Button registerButton;
+    public Button cancelButton;
 
     @FXML
-    public void handleLoginButton() {
+    public void handleRegisterButton() {
         errorLabel.setVisible(false);
         String name = loginField.getText();
         String password = passwordField.getText();
@@ -31,18 +31,21 @@ public class LoginController {
             errorLabel.setVisible(true);
             errorLabel.setText("Please fill all the fields.");
         } else {
-            if (ServerConnection.getInstance().connect(name, password)) {
-                ViewSwitcher.getInstance().switchView(View.MAIN);
+            if (ServerConnection.getInstance().register(name, password)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
+                alert.setTitle("Register success");
+                alert.showAndWait();
+                ViewSwitcher.getInstance().switchView(View.LOGIN);
             }
             else {
                 errorLabel.setVisible(true);
-                errorLabel.setText("Connection refused. Try again later.");
+                errorLabel.setText("Register failed. Please try again.");
             }
         }
     }
 
     @FXML
-    public void handleRegisterButton() {
-        ViewSwitcher.getInstance().switchView(View.REGISTER);
+    public void handleCancelButton() {
+        ViewSwitcher.getInstance().switchView(View.LOGIN);
     }
 }

@@ -63,6 +63,15 @@ public final class JchatServer {
         if (clientThread != null) clients.remove(clientThread);
     }
 
+    public boolean searchClient(String clientName) {
+        if (clients == null || clients.isEmpty()) return false;
+
+        for(ClientThread client : clients) {
+            if (client.getClientName().equals(clientName)) return true;
+        }
+        return false;
+    }
+
     public void processCommand(String command) throws IOException {
         switch (command) {
             case "exit":

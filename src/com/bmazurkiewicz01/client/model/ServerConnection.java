@@ -39,8 +39,30 @@ public final class ServerConnection {
             @Override
             protected Boolean call() throws IOException {
                 socket = new Socket(HOST, PORT);
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 new PrintWriter(socket.getOutputStream(), true).println(String.format("login:%s\t%s", name, password));
-                return !socket.isClosed();
+                String connectionStatus = input.readLine();
+                return connectionStatus.equals("conn:accepted");
+            }
+        };
+        new Thread(connectTask).start();
+        try {
+            return connectTask.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean register(String name, String password) {
+        Task<Boolean> connectTask = new Task<>() {
+            @Override
+            protected Boolean call() throws IOException {
+                socket = new Socket(HOST, PORT);
+                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                new PrintWriter(socket.getOutputStream(), true).println(String.format("register:%s\t%s", name, password));
+                String connectionStatus = input.readLine();
+                return connectionStatus.equals("conn:success");
             }
         };
         new Thread(connectTask).start();

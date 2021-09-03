@@ -20,14 +20,12 @@ public class UserDatasource {
     private Connection connection;
     private PreparedStatement queryUsers;
     private PreparedStatement insertUser;
-    private Codec codec;
 
     public UserDatasource() {
         try {
             connection = DriverManager.getConnection(CONNECTION_STRING);
             queryUsers = connection.prepareStatement(QUERY_USERS);
             insertUser = connection.prepareStatement(INSERT_USER);
-            codec = new Codec(KEY);
         } catch (SQLException e) {
             System.out.println("Couldn't connect to database: " + e.getMessage());
         }
@@ -39,7 +37,7 @@ public class UserDatasource {
 
             List<User> users = new ArrayList<>();
             while (result.next()) {
-                User user = new User(result.getString(COLUMN_NAME), codec.decrypt(result.getString(COLUMN_PASSWORD)));
+                User user = new User(result.getString(COLUMN_NAME), result.getString(COLUMN_PASSWORD));
                 users.add(user);
             }
             return users;
@@ -52,7 +50,7 @@ public class UserDatasource {
     public boolean insertUser(User user) {
         try {
             insertUser.setString(1, user.getName());
-            insertUser.setString(2, codec.encrypt(user.getPassword()));
+            insertUser.setString(2, user.getPassword());
             int affectedRows = insertUser.executeUpdate();
 
             return affectedRows == 1;
