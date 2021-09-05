@@ -61,7 +61,15 @@ public class UserDatasource {
         }
     }
 
-    public boolean searchUser(User user) {
+    public synchronized boolean searchUserByName(User user) {
+        List<User> users = queryUsers();
+        if (users == null || users.isEmpty()) return false;
+        for (User anotherUser : users) {
+            if (user.getName().equals(anotherUser.getName())) return true;
+        }
+        return false;
+    }
+    public synchronized boolean searchUser(User user) {
         List<User> users = queryUsers();
         if (users == null || users.isEmpty()) return false;
         return users.contains(user);

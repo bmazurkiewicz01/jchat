@@ -18,3 +18,9 @@
 #loginButton {
     -fx-font-size: 18px;
 }
+#cancelButton {
+    -fx-font-size: 18px;
+}
+#registerButton {
+    -fx-font-size: 18px;
+}

@@ -25,18 +25,17 @@ public class LoginController {
     @FXML
     public void handleLoginButton() {
         errorLabel.setVisible(false);
+        errorLabel.setManaged(false);
         String name = loginField.getText();
         String password = passwordField.getText();
         if (name.isBlank() || password.isBlank()) {
-            errorLabel.setVisible(true);
-            errorLabel.setText("Please fill all the fields.");
+            changeErrorLabel("Please fill all the fields.");
         } else {
             if (ServerConnection.getInstance().connect(name, password)) {
                 ViewSwitcher.getInstance().switchView(View.MAIN);
             }
             else {
-                errorLabel.setVisible(true);
-                errorLabel.setText("Connection refused. Try again later.");
+                changeErrorLabel("Connection refused. Try again later.");
             }
         }
     }
@@ -44,5 +43,11 @@ public class LoginController {
     @FXML
     public void handleRegisterButton() {
         ViewSwitcher.getInstance().switchView(View.REGISTER);
+    }
+
+    public void changeErrorLabel(String message) {
+        errorLabel.setVisible(true);
+        errorLabel.setManaged(true);
+        errorLabel.setText(message);
     }
 }

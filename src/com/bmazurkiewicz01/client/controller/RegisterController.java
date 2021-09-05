@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class RegisterDialogController {
+public class RegisterController {
     @FXML
     public TextField loginField;
     @FXML
@@ -25,11 +25,11 @@ public class RegisterDialogController {
     @FXML
     public void handleRegisterButton() {
         errorLabel.setVisible(false);
+        errorLabel.setManaged(false);
         String name = loginField.getText();
         String password = passwordField.getText();
         if (name.isBlank() || password.isBlank()) {
-            errorLabel.setVisible(true);
-            errorLabel.setText("Please fill all the fields.");
+            changeErrorLabel("Please fill all the fields.");
         } else {
             if (ServerConnection.getInstance().register(name, password)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
@@ -38,8 +38,7 @@ public class RegisterDialogController {
                 ViewSwitcher.getInstance().switchView(View.LOGIN);
             }
             else {
-                errorLabel.setVisible(true);
-                errorLabel.setText("Register failed. Please try again.");
+                changeErrorLabel("Register failed. Please try again.");
             }
         }
     }
@@ -47,5 +46,11 @@ public class RegisterDialogController {
     @FXML
     public void handleCancelButton() {
         ViewSwitcher.getInstance().switchView(View.LOGIN);
+    }
+
+    public void changeErrorLabel(String message) {
+        errorLabel.setVisible(true);
+        errorLabel.setManaged(true);
+        errorLabel.setText(message);
     }
 }
