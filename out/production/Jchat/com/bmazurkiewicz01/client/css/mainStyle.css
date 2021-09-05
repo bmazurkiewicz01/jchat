@@ -21,7 +21,7 @@
 }
 
 #sendButton {
-    -fx-background-image: url('../../../../../../../icons/sendMessageIcon.png');
+    -fx-background-image: url('icons/sendMessageIcon.png');
     -fx-background-color: white;
     -fx-background-size: 40px;
     -fx-background-repeat: no-repeat;
