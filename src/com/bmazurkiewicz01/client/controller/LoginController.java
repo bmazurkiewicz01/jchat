@@ -28,13 +28,16 @@ public class LoginController {
         errorLabel.setManaged(false);
         String name = loginField.getText();
         String password = passwordField.getText();
-        if (name.isBlank() || password.isBlank()) {
-            changeErrorLabel("Please fill all the fields.");
+        if (name.isBlank() && password.isBlank()) {
+            changeErrorLabel("Name and Password cannot be empty.");
+        } else if (name.isBlank()) {
+            changeErrorLabel("Name cannot be empty.");
+        } else if (password.isBlank()) {
+            changeErrorLabel("Password cannot be empty");
         } else {
             if (ServerConnection.getInstance().connect(name, password)) {
                 ViewSwitcher.getInstance().switchView(View.MAIN);
-            }
-            else {
+            } else {
                 changeErrorLabel("Connection refused. Try again later.");
             }
         }

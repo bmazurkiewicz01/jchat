@@ -28,16 +28,19 @@ public class RegisterController {
         errorLabel.setManaged(false);
         String name = loginField.getText();
         String password = passwordField.getText();
-        if (name.isBlank() || password.isBlank()) {
-            changeErrorLabel("Please fill all the fields.");
+        if (name.isBlank() && password.isBlank()) {
+            changeErrorLabel("Name and Password cannot be empty.");
+        } else if (name.isBlank()) {
+            changeErrorLabel("Name cannot be empty.");
+        } else if (password.isBlank()) {
+            changeErrorLabel("Password cannot be empty");
         } else {
             if (ServerConnection.getInstance().register(name, password)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
                 alert.setTitle("Register success");
                 alert.showAndWait();
                 ViewSwitcher.getInstance().switchView(View.LOGIN);
-            }
-            else {
+            } else {
                 changeErrorLabel("Register failed. Please try again.");
             }
         }
