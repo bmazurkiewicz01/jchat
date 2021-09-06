@@ -22,6 +22,8 @@ public class InputThread extends Thread {
                 mainController.updateTextArea(message + "\n");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
+                mainController.updateTextArea("Connection error. Please restart the application.");
+                break;
             }
         }
     }

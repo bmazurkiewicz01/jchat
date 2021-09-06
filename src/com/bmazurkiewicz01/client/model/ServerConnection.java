@@ -32,63 +32,28 @@ public final class ServerConnection {
         return instance;
     }
 
-    public boolean connect(String name, String password) {
+    public String connect(String name, String password) {
         try {
             socket = new Socket(HOST, PORT);
             ConnectionTask connectionTask = new ConnectionTask(socket, String.format("login:%s\t%s", name, password));
             new Thread(connectionTask).start();
-            String result = connectionTask.get();
-            return result.equals("conn:accepted");
+            return connectionTask.get();
         } catch (IOException | ExecutionException | InterruptedException e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
-//        Task<Boolean> connectTask = new Task<>() {
-//            @Override
-//            protected Boolean call() throws IOException {
-//                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//                new PrintWriter(socket.getOutputStream(), true).println(String.format("login:%s\t%s", name, password));
-//                String connectionStatus = input.readLine();
-//                return connectionStatus.equals("conn:accepted");
-//            }
-//        };
-//        new Thread(connectTask).start();
-//        try {
-//            return connectTask.get();
-//        } catch (InterruptedException | ExecutionException e) {
-//            System.out.println(e.getMessage());
-//            return false;
-//        }
     }
 
-    public boolean register(String name, String password) {
+    public String register(String name, String password) {
         try {
             socket = new Socket(HOST, PORT);
             ConnectionTask connectionTask = new ConnectionTask(socket, String.format("register:%s\t%s", name, password));
             new Thread(connectionTask).start();
-            String result = connectionTask.get();
-            return result.equals("conn:success");
+            return connectionTask.get();
         } catch (IOException | ExecutionException | InterruptedException e) {
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
-//        Task<Boolean> connectTask = new Task<>() {
-//            @Override
-//            protected Boolean call() throws IOException {
-//                socket = new Socket(HOST, PORT);
-//                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//                new PrintWriter(socket.getOutputStream(), true).println(String.format("register:%s\t%s", name, password));
-//                String connectionStatus = input.readLine();
-//                return connectionStatus.equals("conn:success");
-//            }
-//        };
-//        new Thread(connectTask).start();
-//        try {
-//            return connectTask.get();
-//        } catch (InterruptedException | ExecutionException e) {
-//            System.out.println(e.getMessage());
-//            return false;
-//        }
     }
 
     public void sendMessage(String message) {

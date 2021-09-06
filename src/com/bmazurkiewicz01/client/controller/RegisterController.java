@@ -35,13 +35,16 @@ public class RegisterController {
         } else if (password.isBlank()) {
             changeErrorLabel("Password cannot be empty");
         } else {
-            if (ServerConnection.getInstance().register(name, password)) {
+            String result = ServerConnection.getInstance().register(name, password);
+            if (result == null || result.equals("conn:failed")) {
+                changeErrorLabel("Register failed. Please try again.");
+            } else if (result.equals("conn:taken")) {
+                changeErrorLabel("Name is taken. Try another one.");
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
                 alert.setTitle("Register success");
                 alert.showAndWait();
                 ViewSwitcher.getInstance().switchView(View.LOGIN);
-            } else {
-                changeErrorLabel("Register failed. Please try again.");
             }
         }
     }

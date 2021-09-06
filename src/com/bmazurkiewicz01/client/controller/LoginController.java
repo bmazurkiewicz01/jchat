@@ -35,10 +35,18 @@ public class LoginController {
         } else if (password.isBlank()) {
             changeErrorLabel("Password cannot be empty");
         } else {
-            if (ServerConnection.getInstance().connect(name, password)) {
-                ViewSwitcher.getInstance().switchView(View.MAIN);
-            } else {
+            String result = ServerConnection.getInstance().connect(name, password);
+            if (result == null) {
                 changeErrorLabel("Connection refused. Try again later.");
+            }
+            else if (result.equals("conn:invalid")) {
+                changeErrorLabel("Invalid name or password.");
+            }
+            else if (result.equals("conn:isalready")) {
+                changeErrorLabel(String.format("%s is already on the server", name));
+            }
+            else {
+                ViewSwitcher.getInstance().switchView(View.MAIN);
             }
         }
     }

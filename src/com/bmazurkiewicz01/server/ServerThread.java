@@ -34,29 +34,55 @@ public class ServerThread extends Thread {
                 User user = new User(name, password);
 
                 if (initMessage.startsWith("login:")) {
-                    if (userDatasource.searchUser(user) && !JchatServer.getInstance().searchClient(user.getName())) {
+                    if (!userDatasource.searchUser(user)) {
+                        output.println("conn:invalid");
+                        clientSocket.close();
+                    } else if (JchatServer.getInstance().searchClient(user.getName())) {
+                        output.println("conn:isalready");
+                        clientSocket.close();
+                    } else {
                         ClientThread newClient = new ClientThread(clientSocket, name);
                         System.out.println(newClient.getClientName() + " connected to server.");
                         output.println("conn:accepted");
                         JchatServer.getInstance().sendMessage(newClient.getClientName() + " connected to server.");
                         JchatServer.getInstance().addClient(newClient);
                         newClient.start();
-                    } else {
-                        output.println("conn:rejected");
-                        clientSocket.close();
                     }
-                } else if (initMessage.startsWith("register:")) {
-                    if (!userDatasource.searchUser(user)) {
+                }
+                else if (initMessage.startsWith("register:")) {
+                    if (userDatasource.searchUserByName(name)) {
+                        output.println("conn:taken");
+                    } else {
                         if (userDatasource.insertUser(user)) output.println("conn:success");
                         else output.println("conn:failed");
-                    } else {
-                        output.println("conn:failed");
                     }
                     clientSocket.close();
-                } else {
-                    output.println("conn:error");
-                    clientSocket.close();
                 }
+
+//                if (initMessage.startsWith("login:")) {
+//                    if (userDatasource.searchUser(user) && !JchatServer.getInstance().searchClient(user.getName())) {
+//                        ClientThread newClient = new ClientThread(clientSocket, name);
+//                        System.out.println(newClient.getClientName() + " connected to server.");
+//                        output.println("conn:accepted");
+//                        JchatServer.getInstance().sendMessage(newClient.getClientName() + " connected to server.");
+//                        JchatServer.getInstance().addClient(newClient);
+//                        newClient.start();
+//                    } else {
+//                        output.println("conn:rejected");
+//                        clientSocket.close();
+//                    }
+//                } else if (initMessage.startsWith("register:")) {
+//                    if (!userDatasource.searchUser(user)) {
+//                        if (userDatasource.insertUser(user)) output.println("conn:success");
+//                        else output.println("conn:failed");
+//                    } else {
+//                        output.println("conn:failed");
+//                    }
+//                    clientSocket.close();
+//                } else {
+//                    output.println("conn:error");
+//                    clientSocket.close();
+//                }
 
             } while (!serverSocket.isClosed());
         } catch (IOException e) {
