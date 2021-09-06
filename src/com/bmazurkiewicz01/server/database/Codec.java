@@ -1,48 +1,82 @@
 package com.bmazurkiewicz01.server.database;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.*;
-import java.util.Base64;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 
 public class Codec {
-    private final byte[] key;
-    public static final String ALGORITHM = "AES";
+    public static final String HASH_ALGORITHM = "PBKDF2WithHmacSHA1";
+    public static final String SALT_ALGORITHM = "SHA1PRNG";
+    private final int iterations;
 
-    public Codec(String key) {
-        this.key = key.getBytes();
+    public Codec(int iterations) {
+        this.iterations = iterations;
     }
 
-    public String encrypt(String password)  {
+    public String generateHashedPassword(String password) {
         try {
-            Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.ENCRYPT_MODE, generateKey());
-            byte[] encryptedPassword = cipher.doFinal(password.getBytes());
-            return Base64.getEncoder().encodeToString(encryptedPassword);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-                | IllegalBlockSizeException | BadPaddingException e) {
+            char[] chars = password.toCharArray();
+            byte[] salt = getSalt();
+
+            PBEKeySpec keySpec = new PBEKeySpec(chars, salt, iterations, 64 * 8);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(HASH_ALGORITHM);
+            byte[] hash = skf.generateSecret(keySpec).getEncoded();
+            return iterations + ":" + toHex(salt) + ":" + toHex(hash);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
 
-    public String decrypt(String password) {
+    public boolean validatePassword(String password, String storedPassword) {
+        String[] parts = storedPassword.split(":");
+        int iterations = Integer.parseInt(parts[0]);
+        byte[] salt = fromHex(parts[1]);
+        byte[] hash = fromHex(parts[2]);
+
+        PBEKeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt, iterations, hash.length * 8);
         try {
-            Cipher cipher = Cipher.getInstance(ALGORITHM);
-            cipher.init(Cipher.DECRYPT_MODE, generateKey());
-            byte[] decryptedPassword = cipher.doFinal(Base64.getDecoder().decode(password));
-            return new String(decryptedPassword);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
-                | BadPaddingException | InvalidKeyException e) {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance(HASH_ALGORITHM);
+            byte[] testHash = skf.generateSecret(keySpec).getEncoded();
+
+            int diff = hash.length ^ testHash.length;
+            for (int i = 0; i < hash.length && i < testHash.length; i++) {
+                diff |= hash[i] ^ testHash[i];
+            }
+            return diff == 0;
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             System.out.println(e.getMessage());
-            return null;
+            return false;
+        }
+
+    }
+
+    private byte[] getSalt() throws NoSuchAlgorithmException {
+        SecureRandom secureRandom = SecureRandom.getInstance(SALT_ALGORITHM);
+        byte[] salt = new byte[16];
+        secureRandom.nextBytes(salt);
+        return salt;
+    }
+
+    private String toHex(byte[] array) throws NoSuchAlgorithmException {
+        BigInteger bigInteger = new BigInteger(1, array);
+        String hex = bigInteger.toString(16);
+        int paddingLength = (array.length * 2) - hex.length();
+        if (paddingLength > 0) {
+            return String.format("%0" + paddingLength + "d", 0) + hex;
+        } else {
+            return hex;
         }
     }
 
-    private SecretKey generateKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
-        keyGenerator.init(128);
-        return keyGenerator.generateKey();
+    private byte[] fromHex(String hex) {
+        byte[] bytes = new byte[hex.length() / 2];
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+        }
+        return bytes;
     }
 }

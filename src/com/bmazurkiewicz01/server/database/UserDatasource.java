@@ -7,7 +7,7 @@ import java.util.List;
 public class UserDatasource {
     public static final String DB_NAME = "users.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:C:\\Users\\Bartosz\\Documents\\GitHub\\jchat\\databases\\" + DB_NAME;
-    public static final String KEY = "KI873219$@!S32sd";
+    public static final int ITERATIONS = 1000;
 
     public static final String TABLE_NAME = "users";
     public static final String COLUMN_ID = "id";
@@ -18,12 +18,14 @@ public class UserDatasource {
     public static final String INSERT_USER = String.format("INSERT INTO %s (%s,%s) VALUES(?,?)", TABLE_NAME, COLUMN_NAME, COLUMN_PASSWORD);
 
     private Connection connection;
+    private Codec codec;
     private PreparedStatement queryUsers;
     private PreparedStatement insertUser;
 
     public UserDatasource() {
         try {
             connection = DriverManager.getConnection(CONNECTION_STRING);
+            codec = new Codec(ITERATIONS);
             queryUsers = connection.prepareStatement(QUERY_USERS);
             insertUser = connection.prepareStatement(INSERT_USER);
         } catch (SQLException e) {
@@ -50,7 +52,7 @@ public class UserDatasource {
     public boolean insertUser(User user) {
         try {
             insertUser.setString(1, user.getName());
-            insertUser.setString(2, user.getPassword());
+            insertUser.setString(2, codec.generateHashedPassword(user.getPassword()));
             int affectedRows = insertUser.executeUpdate();
 
             return affectedRows == 1;
@@ -69,10 +71,25 @@ public class UserDatasource {
         }
         return false;
     }
+
     public boolean searchUser(User user) {
         List<User> users = queryUsers();
         if (users == null || users.isEmpty()) return false;
-        return users.contains(user);
+
+        int userId;
+        if ((userId = getUserId(user.getName(), users)) != -1) {
+            return codec.validatePassword(user.getPassword(), users.get(userId).getPassword());
+        }
+        return false;
+    }
+
+    private int getUserId(String name, List<User> users) {
+        for (int i = 0; i < users.size(); i++) {
+            if (name.equals(users.get(i).getName())) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean close() {
