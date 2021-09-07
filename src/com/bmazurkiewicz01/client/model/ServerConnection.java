@@ -1,14 +1,17 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.controller.MainController;
-import javafx.collections.ObservableList;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.concurrent.ExecutionException;
 
 public final class ServerConnection {
     private Socket socket;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
     private static volatile ServerConnection instance;
 
     public static final String HOST = "localhost";
@@ -34,7 +37,9 @@ public final class ServerConnection {
     public String connect(String name, String password) {
         try {
             socket = new Socket(HOST, PORT);
-            ConnectionTask connectionTask = new ConnectionTask(socket, String.format("login:%s\t%s", name, password));
+            output = new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());
+            ConnectionTask connectionTask = new ConnectionTask(String.format("login:%s\t%s", name, password), output, input);
             new Thread(connectionTask).start();
             return connectionTask.get();
         } catch (IOException | ExecutionException | InterruptedException e) {
@@ -45,8 +50,10 @@ public final class ServerConnection {
 
     public String register(String name, String password) {
         try {
-            socket = new Socket(HOST, PORT);
-            ConnectionTask connectionTask = new ConnectionTask(socket, String.format("register:%s\t%s", name, password));
+            Socket socket = new Socket(HOST, PORT);
+            ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+            ConnectionTask connectionTask = new ConnectionTask(String.format("register:%s\t%s", name, password), output, input);
             new Thread(connectionTask).start();
             return connectionTask.get();
         } catch (IOException | ExecutionException | InterruptedException e) {
@@ -56,34 +63,15 @@ public final class ServerConnection {
     }
 
     public void sendMessage(String message) {
-        try {
-            OutputTask outputTask = new OutputTask(socket.getOutputStream());
-            outputTask.setMessage(message);
-            new Thread(outputTask).start();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        OutputTask outputTask = new OutputTask(output);
+        outputTask.setMessage(message);
+        new Thread(outputTask).start();
     }
 
     public void updateMessage(MainController mainController) {
-        try {
-            InputThread inputThread = new InputThread(new BufferedReader(new InputStreamReader(socket.getInputStream())), mainController);
-            inputThread.start();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        InputThread inputThread = new InputThread(input, mainController);
+        inputThread.start();
 
-    }
-
-    public ObservableList<String> getActiveUsers() {
-        try {
-            UpdateActiveUsersTask activeUsersTask = new UpdateActiveUsersTask();
-            new Thread(activeUsersTask).start();
-            return activeUsersTask.get();
-        } catch (InterruptedException | ExecutionException | IOException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
     }
 
     public void close() {

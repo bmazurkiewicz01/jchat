@@ -2,22 +2,25 @@ package com.bmazurkiewicz01.client.model;
 
 import javafx.concurrent.Task;
 
-import java.io.*;
-import java.net.Socket;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ConnectionTask extends Task<String> {
-    private final Socket socket;
     private final String connectionString;
+    private final ObjectOutputStream output;
+    private final ObjectInputStream input;
 
-    public ConnectionTask(Socket socket, String connectionString) {
-        this.socket = socket;
+    public ConnectionTask(String connectionString, ObjectOutputStream output, ObjectInputStream input) {
         this.connectionString = connectionString;
+        this.output = output;
+        this.input = input;
     }
 
     @Override
-    protected String call() throws IOException {
-        BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        new PrintWriter(socket.getOutputStream(), true).println(connectionString);
-        return input.readLine();
+    protected String call() throws IOException, ClassNotFoundException {
+        output.writeObject(connectionString);
+        output.flush();
+        return (String) input.readObject();
     }
 }

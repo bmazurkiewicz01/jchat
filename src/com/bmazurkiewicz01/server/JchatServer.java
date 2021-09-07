@@ -41,17 +41,19 @@ public final class JchatServer {
 
         for (ClientThread client : clients) {
             if (client == excludeClient) {
-                client.getOutput().println("Me: " + message);
+                client.getOutput().writeObject("Me: " + message);
             } else {
-                client.getOutput().println(excludeClient.getClientName() + ": " + message);
+                client.getOutput().writeObject(excludeClient.getClientName() + ": " + message);
             }
+            client.getOutput().flush();
         }
     }
 
     public void sendMessage(String message) throws IOException {
         if (message == null || message.isBlank()) return;
         for (ClientThread client : clients) {
-            client.getOutput().println(message);
+            client.getOutput().writeObject(message);
+            client.getOutput().flush();
         }
     }
 
@@ -59,8 +61,11 @@ public final class JchatServer {
         if (clientThread != null) clients.add(clientThread);
     }
 
-    public void removeClient(ClientThread clientThread) {
-        if (clientThread != null) clients.remove(clientThread);
+    public void removeClient(ClientThread clientThread) throws IOException {
+        if (clientThread != null) {
+            clients.remove(clientThread);
+            sendConnectedUsers();
+        }
     }
 
     public boolean searchClient(String clientName) {
@@ -70,6 +75,13 @@ public final class JchatServer {
             if (client.getClientName().equals(clientName)) return true;
         }
         return false;
+    }
+
+    public void sendConnectedUsers() throws IOException {
+        List<String> users = getConnectedUsers();
+        for (ClientThread client : clients) {
+            client.getOutput().writeObject(users);
+        }
     }
 
     public List<String> getConnectedUsers() {

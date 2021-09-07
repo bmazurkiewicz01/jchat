@@ -6,14 +6,14 @@ import java.net.Socket;
 public class ClientThread extends Thread {
     private final Socket socket;
     private final String clientName;
-    private final BufferedReader input;
-    private final PrintWriter output;
+    private final ObjectOutputStream output;
+    private final ObjectInputStream input;
 
-    public ClientThread(Socket socket, String clientName) throws IOException {
+    public ClientThread(Socket socket, String clientName, ObjectOutputStream output, ObjectInputStream input) throws IOException {
         this.socket = socket;
         this.clientName = clientName;
-        this.input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        this.output = new PrintWriter(socket.getOutputStream(), true);
+        this.output = output;
+        this.input = input;
     }
 
     @Override
@@ -21,14 +21,14 @@ public class ClientThread extends Thread {
         try {
             String message;
             do {
-                message = input.readLine();
+                message = (String) input.readObject();
                 if (message == null) break;
 
                 if (!message.isBlank()) {
                     JchatServer.getInstance().sendMessage(message, this);
                 }
             } while (!socket.isClosed());
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println("ClientThread: " + e.getMessage());
         } finally {
             try {
@@ -48,7 +48,7 @@ public class ClientThread extends Thread {
         return clientName;
     }
 
-    public PrintWriter getOutput() {
+    public ObjectOutputStream getOutput() {
         return output;
     }
 }

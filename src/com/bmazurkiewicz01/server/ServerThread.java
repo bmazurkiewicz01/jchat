@@ -22,50 +22,57 @@ public class ServerThread extends Thread {
         try {
             do {
                 Socket clientSocket = serverSocket.accept();
+                ObjectOutputStream output = new ObjectOutputStream(clientSocket.getOutputStream());
+                ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
 
-                String initMessage = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())).readLine();
+                String initMessage = (String) input.readObject();
 
                 if (initMessage.startsWith("conn:getusers")) {
-                    ObjectOutputStream outputObject = new ObjectOutputStream(clientSocket.getOutputStream());
                     List<String> users = JchatServer.getInstance().getConnectedUsers();
-                    outputObject.writeObject(users);
-                    outputObject.close();
+                    output.writeObject(users);
+                    output.flush();
+                    output.close();
                     continue;
                 }
 
-                PrintWriter output = new PrintWriter(clientSocket.getOutputStream(), true);
                 String[] data = initMessage.replaceFirst("login:", "").replaceFirst("register:", "").split("\t");
+                System.out.println(initMessage);
                 String name = data[0];
                 String password = data[1];
                 User user = new User(name, password);
 
                 if (initMessage.startsWith("login:")) {
                     if (!userDatasource.searchUser(user)) {
-                        output.println("conn:invalid");
+                        output.writeObject("conn:invalid");
+                        output.flush();
                         clientSocket.close();
                     } else if (JchatServer.getInstance().searchClient(user.getName())) {
-                        output.println("conn:isalready");
+                        output.writeObject("conn:isalready");
+                        output.flush();
                         clientSocket.close();
                     } else {
-                        ClientThread newClient = new ClientThread(clientSocket, name);
+                        ClientThread newClient = new ClientThread(clientSocket, name, output, input);
                         System.out.println(newClient.getClientName() + " connected to server.");
-                        output.println("conn:accepted");
+                        output.writeObject("conn:accepted");
+                        output.flush();
                         JchatServer.getInstance().sendMessage(newClient.getClientName() + " connected to server.");
                         JchatServer.getInstance().addClient(newClient);
                         newClient.start();
+                        JchatServer.getInstance().sendConnectedUsers();
                     }
                 }
                 else if (initMessage.startsWith("register:")) {
                     if (userDatasource.searchUserByName(name)) {
-                        output.println("conn:taken");
+                        output.writeObject("conn:taken");
                     } else {
-                        if (userDatasource.insertUser(user)) output.println("conn:success");
-                        else output.println("conn:failed");
+                        if (userDatasource.insertUser(user)) output.writeObject("conn:success");
+                        else output.writeObject("conn:failed");
                     }
+                    output.flush();
                     clientSocket.close();
                 }
             } while (!serverSocket.isClosed());
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

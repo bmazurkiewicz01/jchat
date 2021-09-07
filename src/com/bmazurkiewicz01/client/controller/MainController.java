@@ -26,8 +26,6 @@ public class MainController {
 
     public void initialize() {
         ServerConnection.getInstance().updateMessage(this);
-
-        updateListView(ServerConnection.getInstance().getActiveUsers());
     }
 
     @FXML
@@ -56,7 +54,7 @@ public class MainController {
 
     @FXML
     public void handleRefreshButton() {
-        updateListView(ServerConnection.getInstance().getActiveUsers());
+
     }
 
     public void updateTextArea(String message) {

@@ -1,14 +1,17 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.controller.MainController;
+import javafx.collections.FXCollections;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.List;
 
 public class InputThread extends Thread {
-    private final BufferedReader input;
+    private final ObjectInputStream input;
     private final MainController mainController;
 
-    public InputThread(BufferedReader input, MainController mainController) {
+    public InputThread(ObjectInputStream input, MainController mainController) {
         this.input = input;
         this.mainController = mainController;
     }
@@ -17,10 +20,14 @@ public class InputThread extends Thread {
     public void run() {
         while (ServerConnection.getInstance().isConnected()) {
             try {
-                String message = input.readLine();
+                Object message = input.readObject();
                 if (message == null) break;
-                mainController.updateTextArea(message + "\n");
-            } catch (IOException e) {
+                else if (message instanceof String) {
+                    mainController.updateTextArea(message + "\n");
+                } else if (message instanceof List) {
+                    mainController.updateListView(FXCollections.observableArrayList((List<String>) message));
+                }
+            } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.getMessage());
                 mainController.handleError("Connection error. Please logout or restart the application.\n");
                 break;

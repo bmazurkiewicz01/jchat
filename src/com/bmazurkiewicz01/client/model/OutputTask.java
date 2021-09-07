@@ -2,15 +2,15 @@ package com.bmazurkiewicz01.client.model;
 
 import javafx.concurrent.Task;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class OutputTask extends Task<Void> {
-    private final OutputStream outputStream;
+    private final ObjectOutputStream output;
     private String message;
 
-    public OutputTask(OutputStream outputStream) {
-        this.outputStream = outputStream;
+    public OutputTask(ObjectOutputStream output) {
+        this.output = output;
     }
 
     public void setMessage(String message) {
@@ -18,9 +18,9 @@ public class OutputTask extends Task<Void> {
     }
 
     @Override
-    protected Void call() {
-        PrintWriter printWriter = new PrintWriter(outputStream, true);
-        printWriter.println(message);
+    protected Void call() throws IOException {
+        output.writeObject(message);
+        output.flush();
         return null;
     }
 }

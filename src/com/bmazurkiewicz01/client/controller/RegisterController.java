@@ -3,7 +3,6 @@ package com.bmazurkiewicz01.client.controller;
 import com.bmazurkiewicz01.client.View;
 import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
