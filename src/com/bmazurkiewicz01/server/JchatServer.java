@@ -77,6 +77,23 @@ public final class JchatServer {
         return false;
     }
 
+    private boolean kickClient(String clientName) {
+        if (clients == null || clients.isEmpty()) return false;
+
+        for(ClientThread client : clients) {
+            if (client.getClientName().equals(clientName)) {
+                try {
+                    client.getSocket().close();
+                    return true;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     public void sendConnectedUsers() throws IOException {
         List<String> users = getConnectedUsers();
         for (ClientThread client : clients) {
@@ -93,13 +110,16 @@ public final class JchatServer {
     }
 
     public void processCommand(String command) throws IOException {
-        switch (command) {
-            case "exit":
-                System.exit(0);
-                break;
-            case "sayHi":
-                sendMessage("Server: Hello Everyone!");
-                break;
-        }
+       if (command.equals("exit")) {
+           System.exit(0);
+       } else if (command.startsWith("say ")) {
+           sendMessage("Server: " + command.replaceFirst("say ", ""));
+       } else if (command.startsWith("kick ")) {
+           String clientName = command.replaceFirst("kick ", "");
+           if (kickClient(clientName)) System.out.println(clientName + " successfully kicked out of the server");
+           else System.out.println("Kicking out " + clientName + " failed.");
+       } else if (command.equals("printUsers")) {
+           getConnectedUsers().forEach(System.out::println);
+       }
     }
 }

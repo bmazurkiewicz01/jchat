@@ -51,4 +51,8 @@ public class ClientThread extends Thread {
     public ObjectOutputStream getOutput() {
         return output;
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
 }
