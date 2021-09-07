@@ -4,14 +4,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
-    <Button fx:id="logoutButton" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="70" text="Logout" onAction="#handleLogoutButton"/>
-    <TextArea id="chatTextArea" fx:id="chatTextArea" editable="false" prefHeight="450.0" prefWidth="500.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-    <TextField id="messageField" fx:id="messageField" prefWidth="440" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <Button id="sendButton" fx:id="sendMessageButton" defaultButton="true" onAction="#handleSendMessageButton" prefHeight="40" prefWidth="60" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <Label fx:id="errorLabel" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+<GridPane id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefWidth="70" text="Logout" GridPane.columnIndex="0"
+            GridPane.rowIndex="0"/>
+    <TextArea id="chatTextArea" fx:id="chatTextArea" editable="false" prefHeight="450.0" prefWidth="500.0"
+              GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
+    <TextField id="messageField" fx:id="messageField" prefWidth="440" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <Button id="sendButton" fx:id="sendMessageButton" defaultButton="true" onAction="#handleSendMessageButton"
+            prefHeight="40" prefWidth="60" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label fx:id="errorLabel" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2"
+           GridPane.rowIndex="3"/>
+    <ListView fx:id="usersListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+    <Button fx:id="refreshButton" onAction="#handleRefreshButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="124.0" text="Refresh"
+            GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
 
     <stylesheets>
-        <URL value="@css/mainStyle.css" />
+        <URL value="@css/mainStyle.css"/>
     </stylesheets>
 </GridPane>

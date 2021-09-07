@@ -20,6 +20,8 @@ public class ClientApp extends Application {
         ViewSwitcher.getInstance().setScene(scene);
         ViewSwitcher.getInstance().switchView(View.LOGIN);
 
+        primaryStage.resizableProperty().setValue(Boolean.FALSE);
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("icons/logo.png"))));
         primaryStage.setTitle("JChat");
         primaryStage.setScene(scene);

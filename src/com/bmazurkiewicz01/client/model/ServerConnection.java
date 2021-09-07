@@ -1,10 +1,9 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.controller.MainController;
+import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.ExecutionException;
 
@@ -74,6 +73,17 @@ public final class ServerConnection {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public ObservableList<String> getActiveUsers() {
+        try {
+            UpdateActiveUsersTask activeUsersTask = new UpdateActiveUsersTask();
+            new Thread(activeUsersTask).start();
+            return activeUsersTask.get();
+        } catch (InterruptedException | ExecutionException | IOException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public void close() {

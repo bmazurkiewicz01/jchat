@@ -33,7 +33,7 @@ public final class JchatServer {
         }
     }
 
-    public void sendMessage(String message, ClientThread excludeClient) {
+    public void sendMessage(String message, ClientThread excludeClient) throws IOException {
         if (message == null || message.isBlank()) {
             return;
         }
@@ -48,7 +48,7 @@ public final class JchatServer {
         }
     }
 
-    public void sendMessage(String message) {
+    public void sendMessage(String message) throws IOException {
         if (message == null || message.isBlank()) return;
         for (ClientThread client : clients) {
             client.getOutput().println(message);
@@ -70,6 +70,14 @@ public final class JchatServer {
             if (client.getClientName().equals(clientName)) return true;
         }
         return false;
+    }
+
+    public List<String> getConnectedUsers() {
+        List<String> users = new ArrayList<>();
+        for (ClientThread clientThread : clients) {
+            users.add(clientThread.getClientName());
+        }
+        return users;
     }
 
     public void processCommand(String command) throws IOException {

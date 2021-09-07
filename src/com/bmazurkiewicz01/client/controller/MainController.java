@@ -3,13 +3,9 @@ package com.bmazurkiewicz01.client.controller;
 import com.bmazurkiewicz01.client.View;
 import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 
 public class MainController {
@@ -23,9 +19,15 @@ public class MainController {
     public TextField messageField;
     @FXML
     public Label errorLabel;
+    @FXML
+    public Button refreshButton;
+    @FXML
+    public ListView<String> usersListView;
 
     public void initialize() {
         ServerConnection.getInstance().updateMessage(this);
+
+        updateListView(ServerConnection.getInstance().getActiveUsers());
     }
 
     @FXML
@@ -41,7 +43,7 @@ public class MainController {
                 messageField.clear();
             } else {
                 errorLabel.setVisible(true);
-                errorLabel.setText("Connection error. Please restart the application.");
+                errorLabel.setText("Connection error. Please restart the application.\n");
             }
         }
     }
@@ -52,11 +54,28 @@ public class MainController {
         ViewSwitcher.getInstance().switchView(View.LOGIN);
     }
 
+    @FXML
+    public void handleRefreshButton() {
+        updateListView(ServerConnection.getInstance().getActiveUsers());
+    }
+
     public void updateTextArea(String message) {
         chatTextArea.appendText(message);
+    }
+
+    public void updateListView(ObservableList<String> activeUsers) {
+        usersListView.setItems(activeUsers);
+    }
+
+    public void handleError(String message) {
+        errorLabel.setVisible(true);
+        messageField.setDisable(true);
+        sendMessageButton.setDisable(true);
+        updateTextArea(message);
     }
 
     public void closeConnection() {
         ServerConnection.getInstance().close();
     }
+
 }

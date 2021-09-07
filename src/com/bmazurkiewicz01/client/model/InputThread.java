@@ -22,7 +22,7 @@ public class InputThread extends Thread {
                 mainController.updateTextArea(message + "\n");
             } catch (IOException e) {
                 System.out.println(e.getMessage());
-                mainController.updateTextArea("Connection error. Please restart the application.");
+                mainController.handleError("Connection error. Please logout or restart the application.\n");
                 break;
             }
         }
