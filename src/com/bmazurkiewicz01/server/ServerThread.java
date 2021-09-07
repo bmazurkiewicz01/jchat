@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
                     List<String> users = JchatServer.getInstance().getConnectedUsers();
                     output.writeObject(users);
                     output.flush();
-                    output.close();
+                    clientSocket.close();
                     continue;
                 }
 

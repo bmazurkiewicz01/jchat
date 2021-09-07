@@ -14,8 +14,8 @@ public final class ServerConnection {
     private ObjectInputStream input;
     private static volatile ServerConnection instance;
 
-    public static final String HOST = "localhost";
-    public static final int PORT = 5555;
+    private static final String HOST = "localhost";
+    private static final int PORT = 5555;
 
     private ServerConnection() throws IOException {
         if (instance != null) throw new IllegalStateException("Cannot create new instance.");

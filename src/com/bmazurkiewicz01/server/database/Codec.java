@@ -8,8 +8,8 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 public class Codec {
-    public static final String HASH_ALGORITHM = "PBKDF2WithHmacSHA1";
-    public static final String SALT_ALGORITHM = "SHA1PRNG";
+    private static final String HASH_ALGORITHM = "PBKDF2WithHmacSHA1";
+    private static final String SALT_ALGORITHM = "SHA1PRNG";
     private final int iterations;
 
     public Codec(int iterations) {
