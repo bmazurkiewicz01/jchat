@@ -20,8 +20,6 @@ public class MainController {
     @FXML
     public Label errorLabel;
     @FXML
-    public Button refreshButton;
-    @FXML
     public ListView<String> usersListView;
 
     public void initialize() {
@@ -50,11 +48,6 @@ public class MainController {
     public void handleLogoutButton() {
         ServerConnection.getInstance().close();
         ViewSwitcher.getInstance().switchView(View.LOGIN);
-    }
-
-    @FXML
-    public void handleRefreshButton() {
-
     }
 
     public void updateTextArea(String message) {

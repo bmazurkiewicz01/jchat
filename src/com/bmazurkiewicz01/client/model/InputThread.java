@@ -1,6 +1,7 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.controller.MainController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class InputThread extends Thread {
                 else if (message instanceof String) {
                     mainController.updateTextArea(message + "\n");
                 } else if (message instanceof List) {
-                    mainController.updateListView(FXCollections.observableArrayList((List<String>) message));
+                    Platform.runLater(() -> mainController.updateListView(FXCollections.observableArrayList((List<String>) message)));
                 }
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.getMessage());
