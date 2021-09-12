@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
-    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="94.0" text="Logout" GridPane.columnIndex="0" GridPane.rowIndex="0">
-      <font>
-         <Font size="18.0" />
-      </font>
-      <GridPane.margin>
-         <Insets />
-      </GridPane.margin></Button>
-    <TextArea id="chatTextArea" fx:id="chatTextArea" editable="false" prefHeight="450.0" prefWidth="500.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1"/>
-    <TextField id="messageField" fx:id="messageField" prefWidth="440" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-    <Button id="sendButton" fx:id="sendMessageButton" defaultButton="true" onAction="#handleSendMessageButton" prefHeight="40" prefWidth="60" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-    <Label fx:id="errorLabel" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-    <ListView fx:id="usersListView" prefHeight="213.0" prefWidth="156.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-   <Label text="Connected users:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-      <font>
-         <Font size="19.0" />
-      </font>
-      <GridPane.margin>
-         <Insets bottom="-20.0" />
-      </GridPane.margin>
-   </Label>
-
-    <stylesheets>
-        <URL value="@css/mainStyle.css" />
-    </stylesheets>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<GridPane fx:id="mainPane" id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="94.0" text="Logout"
+            GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Button>
+    <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="94.0" text="Add room"
+            GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <font>
+            <Font size="18.0"/>
+        </font>
+    </Button>
+    <TableView fx:id="roomTableView" prefHeight="354.0" prefWidth="439.0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn fx:id="nameColumn" prefWidth="161.0" text="Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="ownerColumn" prefWidth="139.0" text="Owner">
+                <cellValueFactory>
+                    <PropertyValueFactory property="owner"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="connectedColumn" prefWidth="139.0" text="Connected">
+                <cellValueFactory>
+                    <PropertyValueFactory property="connected"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
 </GridPane>

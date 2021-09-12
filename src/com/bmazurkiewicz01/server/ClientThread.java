@@ -23,6 +23,14 @@ public class ClientThread extends Thread {
             do {
                 message = (String) input.readObject();
                 if (message == null) break;
+                System.out.println(message);
+
+                if (message.startsWith("addroom:\t")) {
+                    String[] data = message.split("\t");
+                    JchatServer.getInstance().addRoom(new ServerRoom(data[1], data[2]));
+                    JchatServer.getInstance().sendRooms();
+                    continue;
+                }
 
                 if (!message.isBlank()) {
                     JchatServer.getInstance().sendMessage(message, this);

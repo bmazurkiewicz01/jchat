@@ -1,0 +1,15 @@
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<DialogPane prefHeight="250.0" prefWidth="250.0"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="com.bmazurkiewicz01.client.controller.AddRoomDialogController">
+   <content>
+      <GridPane hgap="5" vgap="5">
+          <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+          <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          <Label text="Owner" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+          <TextField fx:id="ownerField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </GridPane>
+   </content>
+</DialogPane>

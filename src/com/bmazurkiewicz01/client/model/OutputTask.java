@@ -19,8 +19,10 @@ public class OutputTask extends Task<Void> {
 
     @Override
     protected Void call() throws IOException {
-        output.writeObject(message);
-        output.flush();
+        synchronized (output) {
+            output.writeObject(message);
+            output.flush();
+        }
         return null;
     }
 }

@@ -2,10 +2,12 @@ package com.bmazurkiewicz01.client;
 
 public enum View {
     LOGIN("login.fxml"),
+    REGISTER("register.fxml"),
     MAIN("main.fxml"),
-    REGISTER("register.fxml");
+    ROOM("room.fxml");
 
-    String fileName;
+
+    private final String fileName;
 
     View(String fileName) {
         this.fileName = fileName;

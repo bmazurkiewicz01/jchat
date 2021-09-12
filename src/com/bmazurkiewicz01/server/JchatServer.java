@@ -6,6 +6,7 @@ import java.util.List;
 
 public final class JchatServer {
     private static List<ClientThread> clients;
+    private List<ServerRoom> rooms;
     private static volatile JchatServer instance;
 
     private static final int PORT = 5555;
@@ -13,6 +14,7 @@ public final class JchatServer {
     private JchatServer() {
         if (instance != null) throw new IllegalStateException("Can't create new instance.");
         clients = new ArrayList<>();
+        rooms = new ArrayList<>();
     }
 
     public static JchatServer getInstance() {
@@ -101,12 +103,41 @@ public final class JchatServer {
         }
     }
 
-    public List<String> getConnectedUsers() {
+    private List<String> getConnectedUsers() {
         List<String> users = new ArrayList<>();
         for (ClientThread clientThread : clients) {
             users.add(clientThread.getClientName());
         }
         return users;
+    }
+
+    public void addRoom(ServerRoom room) {
+        if (room != null) rooms.add(room);
+    }
+
+    public void removeRoom(ServerRoom room) {
+        if (room != null) {
+            rooms.remove(room);
+        }
+    }
+
+    public void sendRooms() throws IOException {
+        List<String> rooms = getRoomsToString();
+        for (ClientThread client : clients) {
+            client.getOutput().writeObject(rooms);
+        }
+    }
+
+    private List<String> getRoomsToString() {
+        List<String> roomsToString = new ArrayList<>();
+        for (ServerRoom room : rooms) {
+            roomsToString.add(room.toString());
+        }
+        return roomsToString;
+    }
+
+    public List<ServerRoom> getRooms() {
+        return rooms;
     }
 
     public void processCommand(String command) throws IOException {
