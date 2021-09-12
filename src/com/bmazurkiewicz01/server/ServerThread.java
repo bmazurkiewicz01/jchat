@@ -3,10 +3,11 @@ package com.bmazurkiewicz01.server;
 import com.bmazurkiewicz01.server.database.User;
 import com.bmazurkiewicz01.server.database.UserDatasource;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 public class ServerThread extends Thread {
     private final ServerSocket serverSocket;
@@ -26,15 +27,6 @@ public class ServerThread extends Thread {
                 ObjectInputStream input = new ObjectInputStream(clientSocket.getInputStream());
 
                 String initMessage = (String) input.readObject();
-
-                if (initMessage.startsWith("conn:getusers")) {
-                    List<String> users = JchatServer.getInstance().getConnectedUsers();
-                    output.writeObject(users);
-                    output.flush();
-                    clientSocket.close();
-                    continue;
-                }
-
                 String[] data = initMessage.replaceFirst("login:", "").replaceFirst("register:", "").split("\t");
                 System.out.println(initMessage);
                 String name = data[0];

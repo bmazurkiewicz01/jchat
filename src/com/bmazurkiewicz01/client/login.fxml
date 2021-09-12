@@ -12,18 +12,18 @@
             <Image url="@icons/logo.png" />
         </image>
     </ImageView>
-    <TextField id="loginField" fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Name">
+    <TextField styleClass="loginField" fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Name">
         <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </VBox.margin>
     </TextField>
-    <PasswordField id="passwordField" fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Password">
+    <PasswordField styleClass="loginField" fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Password">
         <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </VBox.margin>
     </PasswordField>
     <Label fx:id="errorLabel" managed="false" text="Label" textFill="red" visible="false" />
-    <Button id="loginButton" fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#handleLoginButton" prefWidth="75.0" text="Login">
+    <Button styleClass="loginButton" fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#handleLoginButton" prefWidth="75.0" text="Login">
         <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </VBox.margin>
@@ -33,7 +33,7 @@
          <Insets left="10.0" right="10.0" />
       </VBox.margin>
    </Separator>
-    <Button id="registerButton" fx:id="registerButton" alignment="CENTER" onAction="#handleRegisterButton" prefWidth="125.0" text="Register">
+    <Button styleClass="loginButton" fx:id="registerButton" alignment="CENTER" onAction="#handleRegisterButton" prefWidth="125.0" text="Register">
         <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
         </VBox.margin>
