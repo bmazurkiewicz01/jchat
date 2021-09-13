@@ -1,24 +1,21 @@
 package com.bmazurkiewicz01.client.model;
 
-import com.bmazurkiewicz01.client.Room;
 import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;
-import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public final class ServerConnection {
     private Socket socket;
     private ObjectOutputStream output;
     private ObjectInputStream input;
+    private InputThread inputThread;
     private static volatile ServerConnection instance;
+    private String inputMessage;
 
     private static final String HOST = "localhost";
     private static final int PORT = 5555;
@@ -68,49 +65,59 @@ public final class ServerConnection {
         }
     }
 
+    public String connectToRoom(String name, String owner) {
+        String message = String.format("connectroom:\t%s\t%s", name, owner);
+        RoomConnectionTask roomConnectionTask = new RoomConnectionTask(output, input, message);
+        new Thread(roomConnectionTask).start();
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        return inputMessage;
+    }
+
     public void sendMessage(String message) {
         OutputTask outputTask = new OutputTask(output);
         outputTask.setMessage(message);
         new Thread(outputTask).start();
     }
 
-    public void updateMessage(RoomController roomController) {
-        InputThread inputThread = new InputThread(input, roomController);
-        inputThread.start();
+    public void updateMessage() {
+        if (inputThread == null) inputThread = new InputThread(input);
+        if (!inputThread.isAlive()) inputThread.start();
 
     }
 
-    public void addRoom(Room room) {
-        if (room != null) {
+    public void setMainControllerInInputThread(MainController mainController) {
+        inputThread.setMainController(mainController);
+    }
+
+    public void setRoomControllerInInputThread(RoomController roomController) {
+        inputThread.setRoomController(roomController);
+    }
+
+    public void addRoom(String roomName) {
+        if (!roomName.isBlank()) {
             OutputTask outputTask = new OutputTask(output);
-            outputTask.setMessage(String.format("addroom:\t%s\t%s", room.getName(), room.getOwner()));
+            outputTask.setMessage(String.format("addroom:\t%s", roomName));
             new Thread(outputTask).start();
         }
     }
 
-    public void updateRooms(MainController mainController) {
-        new Thread(() -> {
-            while (ServerConnection.getInstance().isConnected()) {
-                Object message;
-                try {
-                    message = input.readObject();
-                    if (message == null) break;
-                    if (message instanceof List) {
-                        if (((List<String>) message).get(0).split("\t").length > 1) {
-                            List<Room> newRooms = new ArrayList<>();
-                            for (String room : (ArrayList<String>) message) {
-                                String[] data = room.split("\t");
-                                Arrays.stream(data).forEach(System.out::println);
-                                newRooms.add(new Room(data[0], data[1], Integer.parseInt(data[2])));
-                            }
-                            Platform.runLater(() -> mainController.setRooms(newRooms));
-                        }
-                    }
-                } catch (IOException | ClassNotFoundException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }).start();
+    public void leaveRoom() {
+        OutputTask outputTask = new OutputTask(output);
+        outputTask.setMessage("conn:roomleft");
+        new Thread(outputTask).start();
+    }
+
+    public void updateRooms() {
+        inputThread = new InputThread(input);
+        if (!inputThread.isAlive()) inputThread.start();
+    }
+
+    public void setInputMessage(String inputMessage) {
+        this.inputMessage = inputMessage;
     }
 
     public void close() {

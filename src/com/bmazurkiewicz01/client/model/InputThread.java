@@ -1,6 +1,7 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.Room;
+import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.application.Platform;
 
@@ -12,11 +13,11 @@ import java.util.List;
 
 public class InputThread extends Thread {
     private final ObjectInputStream input;
-    private final RoomController roomController;
+    private RoomController roomController;
+    private MainController mainController;
 
-    public InputThread(ObjectInputStream input, RoomController roomController) {
+    public InputThread(ObjectInputStream input) {
         this.input = input;
-        this.roomController = roomController;
     }
 
     @Override
@@ -28,27 +29,45 @@ public class InputThread extends Thread {
                     message = input.readObject();
                 }
                 if (message == null) break;
-                else if (message instanceof String) {
-                    roomController.updateTextArea(message + "\n");
-                } else if (message instanceof List) {
-                    if (((List<?>) message).contains("\t")) {
-                        List<Room> newRooms = new ArrayList<>();
-                        for (String room : (ArrayList<String>) message) {
-                            String[] data = room.split("\t");
-                            Arrays.stream(data).forEach(System.out::println);
-                            newRooms.add(new Room(data[0], data[1], Integer.valueOf(data[2])));
-                        }
-                        //Platform.runLater(() -> MainController.setRooms(newRooms));
+
+                if (roomController != null) {
+                    if (message instanceof String) {
+                        roomController.updateTextArea(message + "\n");
+                    } else if (message instanceof List) {
+                        List<String> messages = (List<String>) message;
+                        if (messages.get(0).contains("\t")) continue;
+                        Platform.runLater(() -> roomController.updateListView(messages));
                     }
-                    else {
-                        Platform.runLater(() -> roomController.updateListView((List<String>) message));
+                } else if (mainController != null) {
+                    if (message instanceof List) {
+                        List<String> rooms = (List<String>) message;
+                        if (rooms.isEmpty()) Platform.runLater(() -> mainController.setRooms(new ArrayList<>()));
+                        if (rooms.get(0).contains("\t")) {
+                            List<Room> newRooms = new ArrayList<>();
+                            for (String room : rooms) {
+                                String[] data = room.split("\t");
+                                Arrays.stream(data).forEach(System.out::println);
+                                newRooms.add(new Room(data[0], data[1], Integer.parseInt(data[2])));
+                            }
+                            Platform.runLater(() -> mainController.setRooms(newRooms));
+                        }
+                    } else if (message instanceof String) {
+                        ServerConnection.getInstance().setInputMessage((String) message);
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.getMessage());
-                roomController.handleError("Connection error. Please logout or restart the application.\n", true);
+                if (roomController != null) roomController.handleError("Connection error. Please logout or restart the application.\n", true);
                 break;
             }
         }
+    }
+
+    public void setRoomController(RoomController roomController) {
+        this.roomController = roomController;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 }

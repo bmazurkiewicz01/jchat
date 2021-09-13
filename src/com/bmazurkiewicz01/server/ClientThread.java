@@ -8,6 +8,7 @@ public class ClientThread extends Thread {
     private final String clientName;
     private final ObjectOutputStream output;
     private final ObjectInputStream input;
+    private ServerRoom currentRoom;
 
     public ClientThread(Socket socket, String clientName, ObjectOutputStream output, ObjectInputStream input) throws IOException {
         this.socket = socket;
@@ -25,23 +26,37 @@ public class ClientThread extends Thread {
                 if (message == null) break;
                 System.out.println(message);
 
-                if (message.startsWith("addroom:\t")) {
+                if (currentRoom == null) {
                     String[] data = message.split("\t");
-                    JchatServer.getInstance().addRoom(new ServerRoom(data[1], data[2]));
-                    JchatServer.getInstance().sendRooms();
-                    continue;
-                }
-
-                if (!message.isBlank()) {
-                    JchatServer.getInstance().sendMessage(message, this);
+                    if (message.startsWith("addroom:\t")) {
+                        JchatServer.getInstance().addRoom(new ServerRoom(data[1], clientName));
+                        JchatServer.getInstance().sendRooms();
+                    } else if (message.startsWith("connectroom:\t")) {
+                        currentRoom = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
+                        if (currentRoom != null) {
+                            JchatServer.getInstance().addClientToRoom(this, currentRoom);
+                            JchatServer.getInstance().sendConnectedUsers();
+                            output.writeObject("conn:roomconnected");
+                        }
+                        else output.writeObject("conn:roomfailed");
+                        output.flush();
+                    }
+                } else {
+                    if (message.startsWith("conn:roomleft")) {
+                        JchatServer.getInstance().removeClientFromRoom(this, currentRoom);
+                        currentRoom = null;
+                    }
+                    else if (!message.isBlank()) {
+                        JchatServer.getInstance().sendMessage(message, this, currentRoom);
+                    }
                 }
             } while (!socket.isClosed());
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("ClientThread: " + e.getMessage());
         } finally {
             try {
+                JchatServer.getInstance().removeClientFromRoom(this, currentRoom);
                 JchatServer.getInstance().removeClient(this);
-                JchatServer.getInstance().sendMessage(clientName + " left.");
                 System.out.println(clientName + " left.");
                 input.close();
                 output.close();
@@ -62,5 +77,13 @@ public class ClientThread extends Thread {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public ServerRoom getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(ServerRoom currentRoom) {
+        this.currentRoom = currentRoom;
     }
 }

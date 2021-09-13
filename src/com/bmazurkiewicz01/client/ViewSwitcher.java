@@ -10,12 +10,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public final class ViewSwitcher {
-    private Scene scene;
+    private static Scene scene;
+    private static Map<View, Parent> cache;
 
     private static ViewSwitcher instance;
 
     private ViewSwitcher() {
         if (instance != null) throw new IllegalStateException("Cannot create new instance.");
+        cache = new HashMap<>();
     }
 
     public static ViewSwitcher getInstance() {
@@ -24,17 +26,22 @@ public final class ViewSwitcher {
     }
 
     public void setScene(Scene scene) {
-        if (scene != null) this.scene = scene;
+        if (scene != null) ViewSwitcher.scene = scene;
     }
 
-    public void switchView(View view) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(Objects.requireNonNull(ViewSwitcher.class.getResource(view.getFileName())));
-            scene.setRoot(root);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+    public void switchView(View view, boolean useCache) {
+        Parent root = null;
 
+        if (useCache && cache.containsKey(view)) root = cache.get(view);
+        else {
+            try {
+                root = FXMLLoader.load(Objects.requireNonNull(ViewSwitcher.class.getResource(view.getFileName())));
+                cache.put(view, root);
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if (root != null) scene.setRoot(root);
+        else System.out.println("ViewSwitcher: root was null");
     }
 }

@@ -24,7 +24,8 @@ public class RoomController {
     public ListView<String> usersListView;
 
     public void initialize() {
-        ServerConnection.getInstance().updateMessage(this);
+        ServerConnection.getInstance().updateMessage();
+        ServerConnection.getInstance().setRoomControllerInInputThread(this);
     }
 
     @FXML
@@ -35,6 +36,7 @@ public class RoomController {
         } else {
             if (ServerConnection.getInstance().isConnected()) {
                 errorLabel.setVisible(false);
+                errorLabel.setManaged(false);
                 ServerConnection.getInstance().sendMessage(message);
                 messageField.clear();
             } else {
@@ -45,7 +47,9 @@ public class RoomController {
 
     @FXML
     public void handleBackButton() {
-        ViewSwitcher.getInstance().switchView(View.MAIN);
+        ServerConnection.getInstance().leaveRoom();
+        ServerConnection.getInstance().setRoomControllerInInputThread(null);
+        ViewSwitcher.getInstance().switchView(View.MAIN, true);
     }
 
     public void updateTextArea(String message) {
@@ -62,6 +66,7 @@ public class RoomController {
             sendMessageButton.setDisable(true);
         }
         errorLabel.setVisible(true);
+        errorLabel.setManaged(true);
         updateTextArea(message);
     }
 }

@@ -18,7 +18,7 @@ public class ClientApp extends Application {
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Pane(), 800, 600);
         ViewSwitcher.getInstance().setScene(scene);
-        ViewSwitcher.getInstance().switchView(View.LOGIN);
+        ViewSwitcher.getInstance().switchView(View.LOGIN, false);
 
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.setResizable(false);

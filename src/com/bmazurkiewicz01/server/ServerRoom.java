@@ -2,6 +2,7 @@ package com.bmazurkiewicz01.server;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ServerRoom {
     private String name;
@@ -34,6 +35,14 @@ public class ServerRoom {
         return clientList;
     }
 
+    public void addClient(ClientThread client) {
+        if (client != null) clientList.add(client);
+    }
+
+    public void removeClient(ClientThread client) {
+        if (client != null) clientList.remove(client);
+    }
+
     public int getConnected() {
         return clientList.size();
     }
@@ -41,5 +50,18 @@ public class ServerRoom {
     @Override
     public String toString() {
         return String.format("%s\t%s\t%d", name, owner, getConnected());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ServerRoom that = (ServerRoom) o;
+        return name.equals(that.name) && owner.equals(that.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, owner) * 17;
     }
 }

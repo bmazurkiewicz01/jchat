@@ -3,7 +3,6 @@ package com.bmazurkiewicz01.client.controller;
 import com.bmazurkiewicz01.client.View;
 import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,14 +45,14 @@ public class LoginController {
                 changeErrorLabel(String.format("%s is already on the server", name));
             }
             else {
-                ViewSwitcher.getInstance().switchView(View.MAIN);
+                ViewSwitcher.getInstance().switchView(View.MAIN, false);
             }
         }
     }
 
     @FXML
     public void handleRegisterButton() {
-        ViewSwitcher.getInstance().switchView(View.REGISTER);
+        ViewSwitcher.getInstance().switchView(View.REGISTER, false);
     }
 
     public void changeErrorLabel(String message) {

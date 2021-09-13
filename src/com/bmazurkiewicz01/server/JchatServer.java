@@ -35,13 +35,15 @@ public final class JchatServer {
         }
     }
 
-    public void sendMessage(String message, ClientThread excludeClient) throws IOException {
+    public void sendMessage(String message, ClientThread excludeClient, ServerRoom room) throws IOException {
         if (message == null || message.isBlank()) {
             return;
         }
-        System.out.println(excludeClient.getClientName() + ": " + message);
+        System.out.println(excludeClient.getClientName()+ " in room " + room.getName() + ": " + message);
 
-        for (ClientThread client : clients) {
+        List<ClientThread> roomClients = room.getClientList();
+
+        for (ClientThread client : roomClients) {
             if (client == excludeClient) {
                 client.getOutput().writeObject("Me: " + message);
             } else {
@@ -121,6 +123,33 @@ public final class JchatServer {
         }
     }
 
+    public ServerRoom getSingleRoom(String name, String owner) {
+        for (ServerRoom room : rooms) {
+            if (room.getName().equals(name) && room.getOwner().equals(owner)) return room;
+        }
+        return null;
+    }
+
+    public void addClientToRoom(ClientThread client, ServerRoom room) {
+        if (client != null && room != null) {
+            for (ServerRoom serverRoom : rooms) {
+                if (serverRoom.equals(room)) {
+                    serverRoom.addClient(client);
+                }
+            }
+        }
+    }
+
+    public void removeClientFromRoom(ClientThread client, ServerRoom room) {
+        if (client != null && room != null) {
+            for (ServerRoom serverRoom : rooms) {
+                if (serverRoom.equals(room)) {
+                    serverRoom.removeClient(client);
+                }
+            }
+        }
+    }
+
     public void sendRooms() throws IOException {
         List<String> rooms = getRoomsToString();
         for (ClientThread client : clients) {
@@ -134,10 +163,6 @@ public final class JchatServer {
             roomsToString.add(room.toString());
         }
         return roomsToString;
-    }
-
-    public List<ServerRoom> getRooms() {
-        return rooms;
     }
 
     public void processCommand(String command) throws IOException {

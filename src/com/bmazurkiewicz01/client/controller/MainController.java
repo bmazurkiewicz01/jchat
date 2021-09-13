@@ -4,10 +4,12 @@ import com.bmazurkiewicz01.client.Room;
 import com.bmazurkiewicz01.client.View;
 import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -34,13 +36,15 @@ public class MainController {
     public TableColumn<Room, Integer> connectedColumn;
 
     public void initialize() {
-        ServerConnection.getInstance().updateRooms(this);
+        ServerConnection.getInstance().updateRooms();
+        ServerConnection.getInstance().setMainControllerInInputThread(this);
     }
 
     @FXML
     public void handleLogoutButton() {
+        ServerConnection.getInstance().setMainControllerInInputThread(null);
         closeConnection();
-        ViewSwitcher.getInstance().switchView(View.LOGIN);
+        ViewSwitcher.getInstance().switchView(View.LOGIN, false);
     }
 
     @FXML
@@ -55,14 +59,33 @@ public class MainController {
             System.out.println(e.getMessage());
             return;
         }
+
         AddRoomDialogController controller = fxmlLoader.getController();
         addRoomDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         addRoomDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        addRoomDialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
+                Bindings.createBooleanBinding(() -> controller.getNameField().getText().isBlank(), controller.getNameField().textProperty()));
         addRoomDialog.setTitle("Adding new room");
 
         Optional<ButtonType> result = addRoomDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             controller.processResults();
+        }
+    }
+
+    @FXML
+    public void handleRowClick(MouseEvent mouseEvent) {
+        Room room = roomTableView.getSelectionModel().getSelectedItem();
+        if (room != null && mouseEvent.getClickCount() == 2) {
+            String result = ServerConnection.getInstance().connectToRoom(room.getName(), room.getOwner());
+            System.out.println(result);
+            if (result != null && result.equals("conn:roomconnected")) {
+                ServerConnection.getInstance().setMainControllerInInputThread(null);
+                ViewSwitcher.getInstance().switchView(View.ROOM, false);
+            }
+            else {
+                System.out.println("we fucked up");
+            }
         }
     }
 
@@ -74,4 +97,5 @@ public class MainController {
         newRooms.forEach(System.out::println);
         roomTableView.setItems(FXCollections.observableList(newRooms));
     }
+
 }

@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<GridPane fx:id="mainPane" id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
-    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="94.0" text="Logout"
-            GridPane.columnIndex="0" GridPane.rowIndex="0">
+<GridPane id="mainPane" fx:id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="94.0" text="Logout" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <font>
-            <Font size="18.0"/>
+            <Font size="18.0" />
         </font>
     </Button>
-    <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="94.0" text="Add room"
-            GridPane.columnIndex="1" GridPane.rowIndex="0">
+    <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="116.0" text="Add room" GridPane.columnIndex="1" GridPane.rowIndex="0">
         <font>
-            <Font size="18.0"/>
+            <Font size="18.0" />
         </font>
     </Button>
-    <TableView fx:id="roomTableView" prefHeight="354.0" prefWidth="439.0" GridPane.rowIndex="1">
+    <TableView fx:id="roomTableView" onMouseClicked="#handleRowClick" prefHeight="354.0" prefWidth="439.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
         <columns>
             <TableColumn fx:id="nameColumn" prefWidth="161.0" text="Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="name"/>
+                    <PropertyValueFactory property="name" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="ownerColumn" prefWidth="139.0" text="Owner">
                 <cellValueFactory>
-                    <PropertyValueFactory property="owner"/>
+                    <PropertyValueFactory property="owner" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="connectedColumn" prefWidth="139.0" text="Connected">
                 <cellValueFactory>
-                    <PropertyValueFactory property="connected"/>
+                    <PropertyValueFactory property="connected" />
                 </cellValueFactory>
             </TableColumn>
         </columns>

@@ -43,14 +43,14 @@ public class RegisterController {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
                 alert.setTitle("Register success");
                 alert.showAndWait();
-                ViewSwitcher.getInstance().switchView(View.LOGIN);
+                ViewSwitcher.getInstance().switchView(View.LOGIN, false);
             }
         }
     }
 
     @FXML
     public void handleCancelButton() {
-        ViewSwitcher.getInstance().switchView(View.LOGIN);
+        ViewSwitcher.getInstance().switchView(View.LOGIN, false);
     }
 
     public void changeErrorLabel(String message) {

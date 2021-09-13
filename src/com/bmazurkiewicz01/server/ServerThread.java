@@ -47,10 +47,9 @@ public class ServerThread extends Thread {
                         System.out.println(newClient.getClientName() + " connected to server.");
                         output.writeObject("conn:accepted");
                         output.flush();
-                        JchatServer.getInstance().sendMessage(newClient.getClientName() + " connected to server.");
+                        JchatServer.getInstance().sendRooms();
                         JchatServer.getInstance().addClient(newClient);
                         newClient.start();
-                        JchatServer.getInstance().sendConnectedUsers();
                     }
                 }
                 else if (initMessage.startsWith("register:")) {
