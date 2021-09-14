@@ -52,7 +52,7 @@ public class MainController {
     public void handleAddRoomButton() {
         Dialog<ButtonType> addRoomDialog = new Dialog<>();
         addRoomDialog.initOwner(mainPane.getScene().getWindow());
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addRoomDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/addRoomDialog.fxml"));
 
         try {
             addRoomDialog.getDialogPane().setContent(fxmlLoader.load());

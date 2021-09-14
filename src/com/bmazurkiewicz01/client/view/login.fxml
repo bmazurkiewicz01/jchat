@@ -9,7 +9,7 @@
 <VBox alignment="CENTER" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.LoginController">
     <ImageView fitHeight="160" fitWidth="220">
         <image>
-            <Image url="@icons/logo.png" />
+            <Image url="@../icons/logo.png" />
         </image>
     </ImageView>
     <TextField styleClass="loginField" fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Name">
@@ -40,6 +40,6 @@
     </Button>
 
     <stylesheets>
-        <URL value="@css/loginStyle.css" />
+        <URL value="@../css/loginStyle.css" />
     </stylesheets>
 </VBox>

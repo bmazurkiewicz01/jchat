@@ -45,6 +45,6 @@
     </HBox>
 
     <stylesheets>
-        <URL value="@css/loginStyle.css" />
+        <URL value="@../css/loginStyle.css" />
     </stylesheets>
 </VBox>
