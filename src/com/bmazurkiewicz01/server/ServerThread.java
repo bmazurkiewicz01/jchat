@@ -28,7 +28,6 @@ public class ServerThread extends Thread {
 
                 String initMessage = (String) input.readObject();
                 String[] data = initMessage.replaceFirst("login:", "").replaceFirst("register:", "").split("\t");
-                System.out.println(initMessage);
                 String name = data[0];
                 String password = data[1];
                 User user = new User(name, password);
@@ -47,8 +46,8 @@ public class ServerThread extends Thread {
                         System.out.println(newClient.getClientName() + " connected to server.");
                         output.writeObject("conn:accepted");
                         output.flush();
-                        JchatServer.getInstance().sendRooms();
                         JchatServer.getInstance().addClient(newClient);
+                        JchatServer.getInstance().sendRooms();
                         newClient.start();
                     }
                 }

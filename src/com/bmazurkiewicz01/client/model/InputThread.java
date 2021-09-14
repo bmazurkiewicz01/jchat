@@ -39,7 +39,10 @@ public class InputThread extends Thread {
                         Platform.runLater(() -> roomController.updateListView(messages));
                     }
                 } else if (mainController != null) {
-                    if (message instanceof List) {
+                    if (message instanceof String) {
+                        ServerConnection.getInstance().setInputMessage((String) message);
+                    }
+                    else if (message instanceof List) {
                         List<String> rooms = (List<String>) message;
                         if (rooms.isEmpty()) Platform.runLater(() -> mainController.setRooms(new ArrayList<>()));
                         if (rooms.get(0).contains("\t")) {
@@ -51,8 +54,6 @@ public class InputThread extends Thread {
                             }
                             Platform.runLater(() -> mainController.setRooms(newRooms));
                         }
-                    } else if (message instanceof String) {
-                        ServerConnection.getInstance().setInputMessage((String) message);
                     }
                 }
             } catch (IOException | ClassNotFoundException e) {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public final class JchatServer {
     private static List<ClientThread> clients;
-    private List<ServerRoom> rooms;
+    private static List<ServerRoom> rooms;
     private static volatile JchatServer instance;
 
     private static final int PORT = 5555;
@@ -14,7 +14,6 @@ public final class JchatServer {
     private JchatServer() {
         if (instance != null) throw new IllegalStateException("Can't create new instance.");
         clients = new ArrayList<>();
-        rooms = new ArrayList<>();
     }
 
     public static JchatServer getInstance() {
@@ -28,6 +27,8 @@ public final class JchatServer {
 
     public static void main(String[] args) {
         try {
+            rooms = new ArrayList<>();
+            rooms.add(new ServerRoom("All Chat", "Server"));
             new CommandThread().start();
             new ServerThread(PORT).start();
         } catch (IOException e) {
@@ -39,7 +40,7 @@ public final class JchatServer {
         if (message == null || message.isBlank()) {
             return;
         }
-        System.out.println(excludeClient.getClientName()+ " in room " + room.getName() + ": " + message);
+        System.out.println("[" + room.getName() + "]" + excludeClient.getClientName() + ": " + message);
 
         List<ClientThread> roomClients = room.getClientList();
 
@@ -68,7 +69,6 @@ public final class JchatServer {
     public void removeClient(ClientThread clientThread) throws IOException {
         if (clientThread != null) {
             clients.remove(clientThread);
-            sendConnectedUsers();
         }
     }
 
@@ -98,17 +98,29 @@ public final class JchatServer {
         return false;
     }
 
-    public void sendConnectedUsers() throws IOException {
-        List<String> users = getConnectedUsers();
-        for (ClientThread client : clients) {
+    public void sendConnectedUsers(ServerRoom room) throws IOException {
+        List<String> users = getConnectedUsers(room);
+        List<ClientThread> roomClients = room.getClientList();
+        for (ClientThread client : roomClients) {
+            System.out.print(client.getClientName() + ", ");
             client.getOutput().writeObject(users);
         }
+        System.out.println();
     }
 
-    private List<String> getConnectedUsers() {
+    private List<String> getConnectedUsers(ServerRoom room) {
         List<String> users = new ArrayList<>();
-        for (ClientThread clientThread : clients) {
-            users.add(clientThread.getClientName());
+        List<ClientThread> roomClients = room.getClientList();
+        for (ClientThread client : roomClients) {
+            users.add(client.getClientName());
+        }
+        return users;
+    }
+
+    private List<String> getAllConnectedUsers() {
+        List<String> users = new ArrayList<>();
+        for (ClientThread client : clients) {
+            users.add(client.getClientName());
         }
         return users;
     }
@@ -175,7 +187,7 @@ public final class JchatServer {
            if (kickClient(clientName)) System.out.println(clientName + " successfully kicked out of the server");
            else System.out.println("Kicking out " + clientName + " failed.");
        } else if (command.equals("printUsers")) {
-           getConnectedUsers().forEach(System.out::println);
+           getAllConnectedUsers().forEach(System.out::println);
        }
     }
 }

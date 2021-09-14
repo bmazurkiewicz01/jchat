@@ -38,13 +38,14 @@ public class MainController {
     public void initialize() {
         ServerConnection.getInstance().updateRooms();
         ServerConnection.getInstance().setMainControllerInInputThread(this);
+        ViewSwitcher.getInstance().setMainController(this);
     }
 
     @FXML
     public void handleLogoutButton() {
         ServerConnection.getInstance().setMainControllerInInputThread(null);
         closeConnection();
-        ViewSwitcher.getInstance().switchView(View.LOGIN, false);
+        ViewSwitcher.getInstance().switchView(View.LOGIN);
     }
 
     @FXML
@@ -81,9 +82,10 @@ public class MainController {
             System.out.println(result);
             if (result != null && result.equals("conn:roomconnected")) {
                 ServerConnection.getInstance().setMainControllerInInputThread(null);
-                ViewSwitcher.getInstance().switchView(View.ROOM, false);
+                ViewSwitcher.getInstance().switchView(View.ROOM);
             }
             else {
+                // TODO: 14/09/2021  
                 System.out.println("we fucked up");
             }
         }

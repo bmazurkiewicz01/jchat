@@ -1,5 +1,6 @@
 package com.bmazurkiewicz01.client;
 
+import com.bmazurkiewicz01.client.controller.MainController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import java.util.Objects;
 public final class ViewSwitcher {
     private static Scene scene;
     private static Map<View, Parent> cache;
+    private MainController mainController;
 
     private static ViewSwitcher instance;
 
@@ -43,5 +45,26 @@ public final class ViewSwitcher {
         }
         if (root != null) scene.setRoot(root);
         else System.out.println("ViewSwitcher: root was null");
+    }
+
+    public void switchView(View view) {
+        Parent root = null;
+
+        try {
+            root = FXMLLoader.load(Objects.requireNonNull(ViewSwitcher.class.getResource(view.getFileName())));
+            cache.put(view, root);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        if (root != null) scene.setRoot(root);
+        else System.out.println("ViewSwitcher: root was null");
+    }
+
+    public MainController getMainController() {
+        return mainController;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 }

@@ -49,6 +49,8 @@ public class RoomController {
     public void handleBackButton() {
         ServerConnection.getInstance().leaveRoom();
         ServerConnection.getInstance().setRoomControllerInInputThread(null);
+        ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+
         ViewSwitcher.getInstance().switchView(View.MAIN, true);
     }
 

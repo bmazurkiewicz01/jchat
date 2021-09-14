@@ -24,7 +24,6 @@ public class ClientThread extends Thread {
             do {
                 message = (String) input.readObject();
                 if (message == null) break;
-                System.out.println(message);
 
                 if (currentRoom == null) {
                     String[] data = message.split("\t");
@@ -35,16 +34,23 @@ public class ClientThread extends Thread {
                         currentRoom = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
                         if (currentRoom != null) {
                             JchatServer.getInstance().addClientToRoom(this, currentRoom);
-                            JchatServer.getInstance().sendConnectedUsers();
                             output.writeObject("conn:roomconnected");
                         }
                         else output.writeObject("conn:roomfailed");
                         output.flush();
+                        try {
+                            Thread.sleep(50);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        JchatServer.getInstance().sendConnectedUsers(currentRoom);
                     }
                 } else {
                     if (message.startsWith("conn:roomleft")) {
                         JchatServer.getInstance().removeClientFromRoom(this, currentRoom);
+                        JchatServer.getInstance().sendConnectedUsers(currentRoom);
                         currentRoom = null;
+                        JchatServer.getInstance().sendRooms();
                     }
                     else if (!message.isBlank()) {
                         JchatServer.getInstance().sendMessage(message, this, currentRoom);

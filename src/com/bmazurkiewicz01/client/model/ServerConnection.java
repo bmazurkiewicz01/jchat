@@ -67,10 +67,10 @@ public final class ServerConnection {
 
     public String connectToRoom(String name, String owner) {
         String message = String.format("connectroom:\t%s\t%s", name, owner);
-        RoomConnectionTask roomConnectionTask = new RoomConnectionTask(output, input, message);
+        RoomConnectionTask roomConnectionTask = new RoomConnectionTask(output, message);
         new Thread(roomConnectionTask).start();
         try {
-            Thread.sleep(50);
+            Thread.sleep(20);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }

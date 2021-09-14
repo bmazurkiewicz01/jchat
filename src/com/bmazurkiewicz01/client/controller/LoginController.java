@@ -45,14 +45,14 @@ public class LoginController {
                 changeErrorLabel(String.format("%s is already on the server", name));
             }
             else {
-                ViewSwitcher.getInstance().switchView(View.MAIN, false);
+                ViewSwitcher.getInstance().switchView(View.MAIN);
             }
         }
     }
 
     @FXML
     public void handleRegisterButton() {
-        ViewSwitcher.getInstance().switchView(View.REGISTER, false);
+        ViewSwitcher.getInstance().switchView(View.REGISTER);
     }
 
     public void changeErrorLabel(String message) {
