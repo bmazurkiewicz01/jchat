@@ -35,6 +35,7 @@ public class ClientThread extends Thread {
                         if (currentRoom != null) {
                             JchatServer.getInstance().addClientToRoom(this, currentRoom);
                             output.writeObject("conn:roomconnected");
+                            JchatServer.getInstance().sendRooms();
                         }
                         else output.writeObject("conn:roomfailed");
                         output.flush();

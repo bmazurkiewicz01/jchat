@@ -165,7 +165,7 @@ public final class JchatServer {
     public void sendRooms() throws IOException {
         List<String> rooms = getRoomsToString();
         for (ClientThread client : clients) {
-            client.getOutput().writeObject(rooms);
+            if (client.getCurrentRoom() == null) client.getOutput().writeObject(rooms);
         }
     }
 
