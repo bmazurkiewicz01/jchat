@@ -1,6 +1,7 @@
 package com.bmazurkiewicz01.client;
 
 import com.bmazurkiewicz01.client.controller.MainController;
+import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -56,6 +57,22 @@ public final class ViewSwitcher {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        if (root != null) scene.setRoot(root);
+        else System.out.println("ViewSwitcher: root was null");
+    }
+
+    public void joinRoomAndSetLabels(String room, String owner) {
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewSwitcher.class.getResource(View.ROOM.getFileName()));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+            cache.put(View.ROOM, root);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        RoomController roomController = fxmlLoader.getController();
+        roomController.setRoomAndOwnerText(room, owner);
+
         if (root != null) scene.setRoot(root);
         else System.out.println("ViewSwitcher: root was null");
     }

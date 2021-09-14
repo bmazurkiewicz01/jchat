@@ -52,7 +52,7 @@ public class MainController {
     public void handleAddRoomButton() {
         Dialog<ButtonType> addRoomDialog = new Dialog<>();
         addRoomDialog.initOwner(mainPane.getScene().getWindow());
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/addRoomDialog.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.ADD_ROOM_DIALOG.getFileName()));
 
         try {
             addRoomDialog.getDialogPane().setContent(fxmlLoader.load());
@@ -82,7 +82,7 @@ public class MainController {
             System.out.println(result);
             if (result != null && result.equals("conn:roomconnected")) {
                 ServerConnection.getInstance().setMainControllerInInputThread(null);
-                ViewSwitcher.getInstance().switchView(View.ROOM);
+                ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner());
             }
             else {
                 // TODO: 14/09/2021  
@@ -91,13 +91,13 @@ public class MainController {
         }
     }
 
-    public void closeConnection() {
-        ServerConnection.getInstance().close();
-    }
-
     public void setRooms(List<Room> newRooms) {
         newRooms.forEach(System.out::println);
         roomTableView.setItems(FXCollections.observableList(newRooms));
+    }
+
+    public void closeConnection() {
+        ServerConnection.getInstance().close();
     }
 
 }

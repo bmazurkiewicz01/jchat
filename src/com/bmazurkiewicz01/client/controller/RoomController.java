@@ -11,9 +11,15 @@ import java.util.List;
 
 public class RoomController {
     @FXML
+    public Label roomLabel;
+    @FXML
+    public Label ownerLabel;
+    @FXML
     public TextArea chatTextArea;
     @FXML
     public Button sendMessageButton;
+    @FXML
+    public Button logoutButton;
     @FXML
     public Button backButton;
     @FXML
@@ -54,12 +60,27 @@ public class RoomController {
         ViewSwitcher.getInstance().switchView(View.MAIN, true);
     }
 
+    @FXML
+    public void handleLogoutButton() {
+        ServerConnection.getInstance().leaveRoom();
+        ServerConnection.getInstance().setMainControllerInInputThread(null);
+        ServerConnection.getInstance().setRoomControllerInInputThread(null);
+        new MainController().closeConnection();
+        ViewSwitcher.getInstance().switchView(View.LOGIN);
+
+    }
+
     public void updateTextArea(String message) {
         chatTextArea.appendText(message);
     }
 
     public void updateListView(List<String> activeUsers) {
         usersListView.setItems(FXCollections.observableList(activeUsers));
+    }
+
+    public void setRoomAndOwnerText(String room, String owner) {
+        roomLabel.setText(room);
+        ownerLabel.setText(owner);
     }
 
     public void handleError(String message, boolean fatal) {
@@ -71,4 +92,5 @@ public class RoomController {
         errorLabel.setManaged(true);
         updateTextArea(message);
     }
+
 }
