@@ -45,6 +45,7 @@ public class LoginController {
                 changeErrorLabel(String.format("%s is already on the server", name));
             }
             else {
+                ServerConnection.getInstance().setUserName(name);
                 ViewSwitcher.getInstance().switchView(View.MAIN);
             }
         }

@@ -1,6 +1,8 @@
 package com.bmazurkiewicz01.client.model;
 
 import com.bmazurkiewicz01.client.Room;
+import com.bmazurkiewicz01.client.View;
+import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.application.Platform;
@@ -32,7 +34,15 @@ public class InputThread extends Thread {
 
                 if (roomController != null) {
                     if (message instanceof String) {
-                        roomController.updateTextArea(message + "\n");
+                        if (message.equals("conn:\tkicked")) {
+                            ServerConnection.getInstance().leaveRoom();
+                            ServerConnection.getInstance().setRoomControllerInInputThread(null);
+                            ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+
+                            ViewSwitcher.getInstance().switchView(View.MAIN, true);
+                        } else {
+                            roomController.updateTextArea(message + "\n");
+                        }
                     } else if (message instanceof List) {
                         List<String> messages = (List<String>) message;
                         if (messages.get(0).contains("\t")) continue;

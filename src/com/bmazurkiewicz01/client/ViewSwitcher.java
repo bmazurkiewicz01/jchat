@@ -61,7 +61,7 @@ public final class ViewSwitcher {
         else System.out.println("ViewSwitcher: root was null");
     }
 
-    public void joinRoomAndSetLabels(String room, String owner) {
+    public void joinRoomAndSetLabels(String room, String owner, boolean isOwner) {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewSwitcher.class.getResource(View.ROOM.getFileName()));
         Parent root = null;
         try {
@@ -72,6 +72,7 @@ public final class ViewSwitcher {
         }
         RoomController roomController = fxmlLoader.getController();
         roomController.setRoomAndOwnerText(room, owner);
+        if (isOwner) roomController.setUpOwnerRoom();
 
         if (root != null) scene.setRoot(root);
         else System.out.println("ViewSwitcher: root was null");

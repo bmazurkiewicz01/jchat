@@ -33,8 +33,9 @@ public class ClientThread extends Thread {
                     } else if (message.startsWith("connectroom:\t")) {
                         currentRoom = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
                         if (currentRoom != null) {
-                            JchatServer.getInstance().addClientToRoom(this, currentRoom);
-                            output.writeObject("conn:roomconnected");
+                            boolean isOwner = JchatServer.getInstance().addClientToRoom(this, currentRoom);
+                            String result = isOwner ? "conn:ownerperm" : "conn:guestperm";
+                            output.writeObject(result);
                             JchatServer.getInstance().sendRooms();
                         }
                         else output.writeObject("conn:roomfailed");
@@ -52,6 +53,13 @@ public class ClientThread extends Thread {
                         JchatServer.getInstance().sendConnectedUsers(currentRoom);
                         currentRoom = null;
                         JchatServer.getInstance().sendRooms();
+                    }
+                    else if (message.startsWith("kick:\t")) {
+                        if (currentRoom.getOwner().equals(clientName)) {
+                            String userName = message.split("\t")[1];
+                            System.out.println(userName + " has to be kicked");
+                            JchatServer.getInstance().kickClientFromRoom(userName, currentRoom);
+                        }
                     }
                     else if (!message.isBlank()) {
                         JchatServer.getInstance().sendMessage(message, this, currentRoom);

@@ -44,7 +44,7 @@
          <Insets />
       </GridPane.margin>
     </Label>
-    <ListView fx:id="usersListView" prefHeight="213.0" prefWidth="156.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <ListView fx:id="usersListView" prefHeight="213.0" prefWidth="156.0" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
 
     <TextArea id="chatTextArea" fx:id="chatTextArea" editable="false" prefHeight="450.0" prefWidth="500.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
     <TextField id="messageField" fx:id="messageField" prefWidth="440" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />

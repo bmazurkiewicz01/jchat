@@ -28,7 +28,7 @@ public final class JchatServer {
     public static void main(String[] args) {
         try {
             rooms = new ArrayList<>();
-            rooms.add(new ServerRoom("All Chat", "Server"));
+            rooms.add(new ServerRoom("All Chat", "Admin"));
             new CommandThread().start();
             new ServerThread(PORT).start();
         } catch (IOException e) {
@@ -81,12 +81,24 @@ public final class JchatServer {
         return false;
     }
 
+    public void kickClientFromRoom(String clientName, ServerRoom room) throws IOException {
+        for (ClientThread client : room.getClientList()) {
+            if (client.getClientName().equals(clientName)) {
+                client.getOutput().writeObject("conn:\tkicked");
+                client.getOutput().flush();
+                break;
+            }
+        }
+    }
+
     private boolean kickClient(String clientName) {
         if (clients == null || clients.isEmpty()) return false;
 
         for(ClientThread client : clients) {
             if (client.getClientName().equals(clientName)) {
                 try {
+                    removeClientFromRoom(client, client.getCurrentRoom());
+                    removeClient(client);
                     client.getSocket().close();
                     return true;
                 } catch (IOException e) {
@@ -142,14 +154,16 @@ public final class JchatServer {
         return null;
     }
 
-    public void addClientToRoom(ClientThread client, ServerRoom room) {
+    public boolean addClientToRoom(ClientThread client, ServerRoom room) {
         if (client != null && room != null) {
             for (ServerRoom serverRoom : rooms) {
                 if (serverRoom.equals(room)) {
                     serverRoom.addClient(client);
+                    return serverRoom.getOwner().equals(client.getClientName());
                 }
             }
         }
+        return false;
     }
 
     public void removeClientFromRoom(ClientThread client, ServerRoom room) {

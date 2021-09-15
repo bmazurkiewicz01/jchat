@@ -67,6 +67,7 @@ public class MainController {
         addRoomDialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
                 Bindings.createBooleanBinding(() -> controller.getNameField().getText().isBlank(), controller.getNameField().textProperty()));
         addRoomDialog.setTitle("Adding new room");
+        controller.setNameField(String.format("%s's Room", ServerConnection.getInstance().getUserName()));
 
         Optional<ButtonType> result = addRoomDialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -80,11 +81,13 @@ public class MainController {
         if (room != null && mouseEvent.getClickCount() == 2) {
             String result = ServerConnection.getInstance().connectToRoom(room.getName(), room.getOwner());
             System.out.println(result);
-            if (result != null && result.equals("conn:roomconnected")) {
-                ServerConnection.getInstance().setMainControllerInInputThread(null);
-                ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner());
-            }
-            else {
+            if (result != null) {
+                if (result.equals("conn:guestperm")) {
+                    ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner(), false);
+                } else if (result.equals("conn:ownerperm")) {
+                    ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), "You", true);
+                }
+            } else {
                 // TODO: 14/09/2021  
                 System.out.println("we fucked up");
             }

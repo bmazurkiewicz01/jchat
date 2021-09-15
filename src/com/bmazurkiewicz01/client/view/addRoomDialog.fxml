@@ -7,7 +7,7 @@
    <content>
       <GridPane hgap="5" vgap="5">
           <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-          <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+          <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="0" focusTraversable="false"/>
           <Label fx:id="errorLabel" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" managed="false" visible="false"/>
       </GridPane>
    </content>

@@ -24,6 +24,10 @@ public class AddRoomDialogController {
         errorLabel.setText(message);
     }
 
+    public void setNameField(String text) {
+        if (text != null) nameField.setPromptText(text);
+    }
+
     public TextField getNameField() {
         return nameField;
     }

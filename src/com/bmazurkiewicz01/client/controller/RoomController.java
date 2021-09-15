@@ -3,6 +3,7 @@ package com.bmazurkiewicz01.client.controller;
 import com.bmazurkiewicz01.client.View;
 import com.bmazurkiewicz01.client.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -65,9 +66,39 @@ public class RoomController {
         ServerConnection.getInstance().leaveRoom();
         ServerConnection.getInstance().setMainControllerInInputThread(null);
         ServerConnection.getInstance().setRoomControllerInInputThread(null);
+        try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new MainController().closeConnection();
         ViewSwitcher.getInstance().switchView(View.LOGIN);
 
+    }
+
+    public void setUpOwnerRoom() {
+        usersListView.setCellFactory(stringListView -> {
+            ListCell<String> cell = new ListCell<>();
+            ContextMenu menu = new ContextMenu();
+            MenuItem kickUser = new MenuItem();
+            kickUser.textProperty().bind(Bindings.format("Kick %s", cell.itemProperty()));
+            kickUser.setOnAction(e -> {
+                String userName = cell.getItem();
+                ServerConnection.getInstance().kickUser(userName);
+            });
+
+            menu.getItems().add(kickUser);
+
+            cell.textProperty().bind(cell.itemProperty());
+            cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                if (isNowEmpty) {
+                    cell.setContextMenu(null);
+                } else {
+                    cell.setContextMenu(menu);
+                }
+            });
+            return cell;
+        });
     }
 
     public void updateTextArea(String message) {

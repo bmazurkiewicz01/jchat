@@ -14,8 +14,11 @@ public final class ServerConnection {
     private ObjectOutputStream output;
     private ObjectInputStream input;
     private InputThread inputThread;
+
     private static volatile ServerConnection instance;
+
     private String inputMessage;
+    private String userName;
 
     private static final String HOST = "localhost";
     private static final int PORT = 5555;
@@ -116,8 +119,22 @@ public final class ServerConnection {
         if (!inputThread.isAlive()) inputThread.start();
     }
 
+    public void kickUser(String userName) {
+        OutputTask outputTask = new OutputTask(output);
+        outputTask.setMessage("kick:\t" + userName);
+        new Thread(outputTask).start();
+    }
+
     public void setInputMessage(String inputMessage) {
         this.inputMessage = inputMessage;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public void close() {
