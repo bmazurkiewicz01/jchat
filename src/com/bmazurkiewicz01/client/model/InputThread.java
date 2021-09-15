@@ -1,8 +1,8 @@
 package com.bmazurkiewicz01.client.model;
 
-import com.bmazurkiewicz01.client.Room;
-import com.bmazurkiewicz01.client.View;
-import com.bmazurkiewicz01.client.ViewSwitcher;
+import com.bmazurkiewicz01.client.view.Room;
+import com.bmazurkiewicz01.client.view.View;
+import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.application.Platform;

@@ -1,7 +1,7 @@
 package com.bmazurkiewicz01.client.controller;
 
-import com.bmazurkiewicz01.client.View;
-import com.bmazurkiewicz01.client.ViewSwitcher;
+import com.bmazurkiewicz01.client.view.View;
+import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

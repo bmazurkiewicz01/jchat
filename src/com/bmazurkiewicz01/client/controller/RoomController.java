@@ -1,7 +1,7 @@
 package com.bmazurkiewicz01.client.controller;
 
-import com.bmazurkiewicz01.client.View;
-import com.bmazurkiewicz01.client.ViewSwitcher;
+import com.bmazurkiewicz01.client.view.View;
+import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -88,8 +88,10 @@ public class RoomController {
             });
 
             menu.getItems().add(kickUser);
-
             cell.textProperty().bind(cell.itemProperty());
+            cell.itemProperty().addListener((observableValue, s, t1) -> {
+                if (t1 != null) kickUser.setDisable(t1.equals(ServerConnection.getInstance().getUserName()));
+            });
             cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
                 if (isNowEmpty) {
                     cell.setContextMenu(null);

@@ -1,4 +1,4 @@
-package com.bmazurkiewicz01.client;
+package com.bmazurkiewicz01.client.view;
 
 import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;

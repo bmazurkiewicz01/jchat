@@ -1,4 +1,4 @@
-package com.bmazurkiewicz01.client;
+package com.bmazurkiewicz01.client.view;
 
 public enum View {
     LOGIN("/com/bmazurkiewicz01/client/view/login.fxml"),

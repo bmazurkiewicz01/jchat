@@ -1,6 +1,8 @@
 package com.bmazurkiewicz01.client;
 
 import com.bmazurkiewicz01.client.controller.MainController;
+import com.bmazurkiewicz01.client.view.View;
+import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

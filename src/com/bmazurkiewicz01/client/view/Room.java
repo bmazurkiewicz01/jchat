@@ -1,4 +1,4 @@
-package com.bmazurkiewicz01.client;
+package com.bmazurkiewicz01.client.view;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
