@@ -9,24 +9,40 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 public class RegisterController {
     @FXML
-    public TextField loginField;
-    @FXML
-    public Button registerButton;
-    @FXML
-    public Label errorLabel;
-    @FXML
-    public TextField passwordField;
-    @FXML
-    public Button cancelButton;
+    private AnchorPane root;
     @FXML
     public ImageView minimizeButton;
     @FXML
     public ImageView closeButton;
 
+    @FXML
+    public TextField loginField;
+    @FXML
+    public TextField passwordField;
+
+    @FXML
+    public Button registerButton;
+    @FXML
+    public Button cancelButton;
+    @FXML
+    public Label errorLabel;
+
+    private double x,y;
+
     public void initialize() {
+        root.setOnMousePressed(e -> {
+            x = e.getSceneX();
+            y = e.getSceneY();
+        });
+        root.setOnMouseDragged(e -> {
+            ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
+            ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
+        });
+
         closeButton.setOnMouseClicked(e -> {
             ViewSwitcher.getInstance().getStage().close();
         });

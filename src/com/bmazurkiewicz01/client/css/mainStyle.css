@@ -1,0 +1,39 @@
+.table-view {
+    -fx-background-color: linear-gradient(to bottom right, #FF7F50, #6A5ACD);
+    -fx-background-radius: 25;
+}
+.table-view:focused {
+}
+.table-view .table-cell {
+    -fx-alignment: center;
+}
+.table-row-cell {
+    -fx-cell-size: 40;
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-text-background-color: #323232;
+}
+.table-row-cell:selected {
+    -fx-cell-size: 40;
+    -fx-text-background-color: #FFFEFF;
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-background-radius: 25;
+    -fx-background-insets: 0 0 10 0;
+}
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 40;
+}
+.addRoomButton {
+    -fx-background-color: #3265ff;
+    -fx-background-radius: 25;
+}
+.logoutButton {
+    -fx-background-color: #FF3232;
+    -fx-background-radius: 25;
+}
+.helloLabel {
+    -fx-text-fill: #a9a9a9;
+}

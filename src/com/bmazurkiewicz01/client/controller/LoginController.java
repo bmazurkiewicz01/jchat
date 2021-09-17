@@ -1,38 +1,50 @@
 package com.bmazurkiewicz01.client.controller;
 
+import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 
 public class LoginController {
     @FXML
-    public TextField loginField;
-    @FXML
-    public Button loginButton;
-    @FXML
-    public Label errorLabel;
-    @FXML
-    public TextField passwordField;
-    @FXML
-    public Button registerButton;
+    public AnchorPane root;
     @FXML
     public ImageView closeButton;
     @FXML
     public ImageView minimizeButton;
 
+    @FXML
+    public TextField loginField;
+    @FXML
+    public TextField passwordField;
+
+    @FXML
+    public Button loginButton;
+    @FXML
+    public Button registerButton;
+    @FXML
+    public Label errorLabel;
+
+    private double x, y;
+
     public void initialize() {
-        closeButton.setOnMouseClicked(e -> {
-            ViewSwitcher.getInstance().getStage().close();
+        root.setOnMousePressed(e -> {
+            x = e.getSceneX();
+            y = e.getSceneY();
         });
-        minimizeButton.setOnMouseClicked(e -> {
-            ViewSwitcher.getInstance().getStage().setIconified(true);
+        root.setOnMouseDragged(e -> {
+            ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
+            ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
         });
+
+        closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
+        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
     }
 
     @FXML

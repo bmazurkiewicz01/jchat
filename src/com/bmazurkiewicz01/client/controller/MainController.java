@@ -1,16 +1,17 @@
 package com.bmazurkiewicz01.client.controller;
 
+import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.Room;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +20,11 @@ import java.util.Optional;
 
 public class MainController {
     @FXML
-    public GridPane mainPane;
+    public AnchorPane root;
+    @FXML
+    public ImageView closeButton;
+    @FXML
+    public ImageView minimizeButton;
 
     @FXML
     public Button logoutButton;
@@ -35,7 +40,21 @@ public class MainController {
     @FXML
     public TableColumn<Room, Integer> connectedColumn;
 
+    private double x,y;
+
     public void initialize() {
+        root.setOnMousePressed(e -> {
+            x = e.getSceneX();
+            y = e.getSceneY();
+        });
+        root.setOnMouseDragged(e -> {
+            ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
+            ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
+        });
+
+        closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
+        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
+
         ServerConnection.getInstance().updateRooms();
         ServerConnection.getInstance().setMainControllerInInputThread(this);
         ViewSwitcher.getInstance().setMainController(this);
@@ -51,7 +70,7 @@ public class MainController {
     @FXML
     public void handleAddRoomButton() {
         Dialog<ButtonType> addRoomDialog = new Dialog<>();
-        addRoomDialog.initOwner(mainPane.getScene().getWindow());
+        addRoomDialog.initOwner(root.getScene().getWindow());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.ADD_ROOM_DIALOG.getFileName()));
 
         try {

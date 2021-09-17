@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<GridPane id="mainPane" fx:id="mainPane" alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
-    <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="94.0" text="Logout" GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Button>
-    <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="116.0" text="Add room" GridPane.columnIndex="1" GridPane.rowIndex="0">
-        <font>
-            <Font size="18.0" />
-        </font>
-    </Button>
-    <TableView fx:id="roomTableView" onMouseClicked="#handleRowClick" prefHeight="354.0" prefWidth="439.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
-        <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="161.0" text="Name">
-                <cellValueFactory>
-                    <PropertyValueFactory property="name" />
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="ownerColumn" prefWidth="139.0" text="Owner">
-                <cellValueFactory>
-                    <PropertyValueFactory property="owner" />
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="connectedColumn" prefWidth="139.0" text="Connected">
-                <cellValueFactory>
-                    <PropertyValueFactory property="connected" />
-                </cellValueFactory>
-            </TableColumn>
-        </columns>
-    </TableView>
-</GridPane>
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+   <children>
+       <Button fx:id="logoutButton" layoutX="626.0" layoutY="188.0" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="116.0" styleClass="logoutButton" text="Logout">
+           <font>
+               <Font size="18.0" />
+           </font>
+       </Button>
+       <Button fx:id="addRoomButton" layoutX="626.0" layoutY="136.0" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="116.0" styleClass="addRoomButton" text="Add room">
+           <font>
+               <Font size="18.0" />
+           </font>
+       </Button>
+       <TableView fx:id="roomTableView" layoutX="180.0" layoutY="136.0" onMouseClicked="#handleRowClick" prefHeight="366.0" prefWidth="420.0">
+           <columns>
+               <TableColumn fx:id="nameColumn" editable="false" minWidth="0.0" prefWidth="139.0" resizable="false" styleClass="roomTableColumn" text="Name">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="name" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="ownerColumn" editable="false" minWidth="1.0" prefWidth="139.0" resizable="false" text="Owner">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="owner" />
+                   </cellValueFactory>
+               </TableColumn>
+               <TableColumn fx:id="connectedColumn" editable="false" minWidth="1.0" prefWidth="139.0" resizable="false" text="Connected">
+                   <cellValueFactory>
+                       <PropertyValueFactory property="connected" />
+                   </cellValueFactory>
+               </TableColumn>
+           </columns>
+       </TableView>
+      <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
+         <image>
+            <Image url="@../icons/minimizeIcon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="closeButton" fitHeight="32.0" fitWidth="32.0" layoutX="753.0" layoutY="12.0">
+         <image>
+            <Image url="@../icons/closeIcon.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="276.0" layoutY="56.0" prefHeight="58.0" prefWidth="227.0" styleClass="helloLabel" text="Hello, User!">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+   </children>
+   <stylesheets>
+      <URL value="@../css/appStyle.css" />
+      <URL value="@../css/mainStyle.css" />
+   </stylesheets>
+</AnchorPane>

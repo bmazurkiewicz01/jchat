@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="root" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RegisterController">
+<AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RegisterController">
    <children>
       <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0">
          <Label styleClass="headerLabel" text="Create an account">
