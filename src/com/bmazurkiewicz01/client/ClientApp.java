@@ -7,7 +7,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.Objects;
 
@@ -19,10 +21,13 @@ public class ClientApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         Scene scene = new Scene(new Pane(), 800, 600);
+        scene.setFill(Color.TRANSPARENT);
+
         ViewSwitcher.getInstance().setScene(scene);
         ViewSwitcher.getInstance().switchView(View.LOGIN);
+        ViewSwitcher.getInstance().setStage(primaryStage);
 
-        primaryStage.resizableProperty().setValue(Boolean.FALSE);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("icons/logo.png"))));
         primaryStage.setTitle("JChat");

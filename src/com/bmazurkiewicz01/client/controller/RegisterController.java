@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 public class RegisterController {
     @FXML
@@ -20,6 +21,19 @@ public class RegisterController {
     public TextField passwordField;
     @FXML
     public Button cancelButton;
+    @FXML
+    public ImageView minimizeButton;
+    @FXML
+    public ImageView closeButton;
+
+    public void initialize() {
+        closeButton.setOnMouseClicked(e -> {
+            ViewSwitcher.getInstance().getStage().close();
+        });
+        minimizeButton.setOnMouseClicked(e -> {
+            ViewSwitcher.getInstance().getStage().setIconified(true);
+        });
+    }
 
     @FXML
     public void handleRegisterButton() {

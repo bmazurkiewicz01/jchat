@@ -5,6 +5,7 @@ import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ public final class ViewSwitcher {
     private static Scene scene;
     private static Map<View, Parent> cache;
     private MainController mainController;
+    private Stage stage;
 
     private static ViewSwitcher instance;
 
@@ -84,5 +86,13 @@ public final class ViewSwitcher {
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

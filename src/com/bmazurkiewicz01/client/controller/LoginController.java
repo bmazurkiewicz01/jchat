@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 
 public class LoginController {
@@ -20,6 +21,19 @@ public class LoginController {
     public TextField passwordField;
     @FXML
     public Button registerButton;
+    @FXML
+    public ImageView closeButton;
+    @FXML
+    public ImageView minimizeButton;
+
+    public void initialize() {
+        closeButton.setOnMouseClicked(e -> {
+            ViewSwitcher.getInstance().getStage().close();
+        });
+        minimizeButton.setOnMouseClicked(e -> {
+            ViewSwitcher.getInstance().getStage().setIconified(true);
+        });
+    }
 
     @FXML
     public void handleLoginButton() {

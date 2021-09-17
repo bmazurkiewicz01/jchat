@@ -1,9 +1,16 @@
-.loginField {
+.headerLabel {
+    -fx-text-fill: #a9a9a9;
+}
+.registerField {
     -fx-background-color: #00000025;
     -fx-background-radius: 25;
     -fx-text-fill: #a9a9a9;
 }
-.loginButton {
+.registerButton {
     -fx-background-color: #3265ff;
+    -fx-background-radius: 25;
+}
+.cancelButton {
+    -fx-background-color: #FF3232;
     -fx-background-radius: 25;
 }
