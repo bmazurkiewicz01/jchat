@@ -1,38 +1,63 @@
 package com.bmazurkiewicz01.client.controller;
 
+import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
 
 public class RoomController {
     @FXML
-    public Label roomLabel;
+    public AnchorPane root;
     @FXML
-    public Label ownerLabel;
+    public ImageView closeButton;
     @FXML
-    public TextArea chatTextArea;
-    @FXML
-    public Button sendMessageButton;
+    public ImageView minimizeButton;
+
     @FXML
     public Button logoutButton;
     @FXML
     public Button backButton;
+
+    @FXML
+    public Label roomLabel;
+    @FXML
+    public Label ownerLabel;
+
+    @FXML
+    public TextArea chatTextArea;
     @FXML
     public TextField messageField;
     @FXML
-    public Label errorLabel;
+    public Button sendMessageButton;
     @FXML
     public ListView<String> usersListView;
+    @FXML
+    public Label errorLabel;
+
+    private double x,y;
 
     public void initialize() {
         ServerConnection.getInstance().updateMessage();
         ServerConnection.getInstance().setRoomControllerInInputThread(this);
+
+        root.setOnMousePressed(e -> {
+            x = e.getSceneX();
+            y = e.getSceneY();
+        });
+        root.setOnMouseDragged(e -> {
+            ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
+            ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
+        });
+
+        closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
+        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
     }
 
     @FXML

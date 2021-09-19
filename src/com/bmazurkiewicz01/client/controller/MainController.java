@@ -43,6 +43,10 @@ public class MainController {
     private double x,y;
 
     public void initialize() {
+        ServerConnection.getInstance().updateRooms();
+        ServerConnection.getInstance().setMainControllerInInputThread(this);
+        ViewSwitcher.getInstance().setMainController(this);
+
         root.setOnMousePressed(e -> {
             x = e.getSceneX();
             y = e.getSceneY();
@@ -54,10 +58,6 @@ public class MainController {
 
         closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
         minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
-
-        ServerConnection.getInstance().updateRooms();
-        ServerConnection.getInstance().setMainControllerInInputThread(this);
-        ViewSwitcher.getInstance().setMainController(this);
     }
 
     @FXML

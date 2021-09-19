@@ -4,27 +4,34 @@
 }
 .table-view:focused {
 }
-.table-view .table-cell {
+.table-cell {
     -fx-alignment: center;
 }
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10;
+}
+.increment-button:hover, .decrement-button:hover {
+    -fx-background-color: #a9a9a9;
+}
+.thumb {
+    -fx-background-color: #DC5BFF;
+}
 .table-row-cell {
-    -fx-cell-size: 40;
     -fx-background-color: transparent;
     -fx-table-cell-border-color: transparent;
     -fx-text-background-color: #323232;
 }
 .table-row-cell:selected {
-    -fx-cell-size: 40;
     -fx-text-background-color: #FFFEFF;
 }
-.table-view .column-header-background {
+.column-header-background {
     -fx-background-color: transparent;
     -fx-background-radius: 25;
     -fx-background-insets: 0 0 10 0;
 }
-.table-view .column-header, .table-view .filler {
+.column-header, .filler, .corner, .track, .track-background {
     -fx-background-color: transparent;
-    -fx-size: 40;
 }
 .addRoomButton {
     -fx-background-color: #3265ff;

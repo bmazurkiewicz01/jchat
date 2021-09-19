@@ -1,32 +1,53 @@
-#messageField {
-    -fx-font-size: 18px;
-    -fx-background-color: rgb(6,6,6);
-    -fx-text-fill: #f4f4f4;
-    -fx-border-style: solid;
-    -fx-border-width: 1;
-    -fx-border-color: yellow;
+.mainPane {
+    -fx-background-color: linear-gradient(to bottom right, #FF7F50, #6A5ACD);
+    -fx-background-radius: 25;
+}
+.usersPane {
+    -fx-background-color: black;
+    -fx-background-radius: 25 0 0 25;
+    -fx-opacity: 0.2;
+}
+.connectedUsersListView, .connectedUsersListView .list-cell {
+    -fx-background-color: transparent;
+    -fx-opacity: 1;
+    -fx-text-fill: black;
+}
+.connectedUsersLabel {
+    -fx-opacity: 1;
 }
 
-#chatTextArea {
+.messagePane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0.1;
+    -fx-border-color: black;
     -fx-text-fill: #f4f4f4;
-    -fx-opacity: 1.0;
+}
+.messageField {
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+}
+
+.chatTextArea {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
     -fx-font-size: 20px;
 }
-
-#chatTextArea .content {
-    -fx-background-color: rgb(6,6,6);
-    -fx-border-style: solid;
-    -fx-border-width: 1;
-    -fx-border-color: yellow;
+.chatTextArea .content {
+    -fx-background-color: transparent;
+    -fx-border-width: 0.1;
+    -fx-border-color: black;
+}
+.chatTextArea .scroll-pane {
+    -fx-background-color: transparent;
+}
+.chatTextArea .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+.chatTextArea .scroll-pane .content{
+    -fx-background-color: transparent;
 }
 
-#sendButton {
-    -fx-background-image: url('../icons/sendMessageIcon.png');
-    -fx-background-color: white;
-    -fx-background-size: 40px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-#sendButton:hover {
-    -fx-background-color: yellow;
+.goBackButton, .logoutButton {
+    -fx-background-color: #FF3232;
+    -fx-background-radius: 25;
 }
