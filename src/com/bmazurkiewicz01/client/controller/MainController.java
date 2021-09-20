@@ -4,18 +4,24 @@ import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.Room;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 
 public class MainController {
@@ -69,29 +75,26 @@ public class MainController {
 
     @FXML
     public void handleAddRoomButton() {
-        Dialog<ButtonType> addRoomDialog = new Dialog<>();
-        addRoomDialog.initOwner(root.getScene().getWindow());
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.ADD_ROOM_DIALOG.getFileName()));
+        final Stage addRoomDialog = new Stage();
 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.ADD_ROOM_DIALOG.getFileName()));
+        Parent root;
         try {
-            addRoomDialog.getDialogPane().setContent(fxmlLoader.load());
+            root = fxmlLoader.load();
+
+            addRoomDialog.setScene(new Scene(root));
+            addRoomDialog.getScene().setFill(Color.TRANSPARENT);
+            addRoomDialog.initModality(Modality.APPLICATION_MODAL);
+            addRoomDialog.initOwner(this.root.getScene().getWindow());
+            addRoomDialog.initStyle(StageStyle.TRANSPARENT);
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            return;
         }
 
         AddRoomDialogController controller = fxmlLoader.getController();
-        addRoomDialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-        addRoomDialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-        addRoomDialog.getDialogPane().lookupButton(ButtonType.OK).disableProperty().bind(
-                Bindings.createBooleanBinding(() -> controller.getNameField().getText().isBlank(), controller.getNameField().textProperty()));
-        addRoomDialog.setTitle("Adding new room");
         controller.setNameField(String.format("%s's Room", ServerConnection.getInstance().getUserName()));
 
-        Optional<ButtonType> result = addRoomDialog.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            controller.processResults();
-        }
+        addRoomDialog.showAndWait();
     }
 
     @FXML
@@ -107,8 +110,7 @@ public class MainController {
                     ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), "You", true);
                 }
             } else {
-                // TODO: 14/09/2021  
-                System.out.println("we fucked up");
+                System.out.println("Room connection error.");
             }
         }
     }
