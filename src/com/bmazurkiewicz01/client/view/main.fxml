@@ -47,16 +47,16 @@
             <Image url="@../icons/minimizeIcon.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="closeButton" fitHeight="32.0" fitWidth="32.0" layoutX="753.0" layoutY="12.0">
-         <image>
-            <Image url="@../icons/closeIcon.png" />
-         </image>
-      </ImageView>
       <Label alignment="CENTER" layoutX="276.0" layoutY="56.0" prefHeight="58.0" prefWidth="227.0" styleClass="helloLabel" text="Hello, User!">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
+      <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
+         <image>
+            <Image url="@../icons/closeIcon.png" />
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@../css/appStyle.css" />

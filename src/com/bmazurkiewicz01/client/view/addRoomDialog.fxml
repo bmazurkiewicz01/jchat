@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.AddRoomDialogController">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.AddRoomDialogController">
     <children>
         <Button fx:id="addRoomButton" defaultButton="true" layoutX="39.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleAddRoomButton" prefWidth="125.0" styleClass="addRoomButton" text="Add room">
             <font>
@@ -32,7 +32,7 @@
                 <Font name="System Bold" size="25.0" />
             </font>
         </Label>
-      <ImageView fx:id="closeButton" fitHeight="32.0" fitWidth="32.0" layoutX="304.0" layoutY="8.0">
+      <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="16.0">
          <image>
             <Image url="@../icons/closeIcon.png" />
          </image>

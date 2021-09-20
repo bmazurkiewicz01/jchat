@@ -70,7 +70,7 @@
             <Image url="@../icons/minimizeIcon.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="closeButton" fitHeight="32.0" fitWidth="32.0" layoutX="753.0" layoutY="12.0">
+      <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
          <image>
             <Image url="@../icons/closeIcon.png" />
          </image>

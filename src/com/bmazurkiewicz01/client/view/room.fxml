@@ -64,11 +64,6 @@
             <Image url="@../icons/minimizeIcon.png" />
         </image>
     </ImageView>
-    <ImageView fx:id="closeButton" fitHeight="32.0" fitWidth="32.0" layoutX="753.0" layoutY="12.0">
-        <image>
-            <Image url="@../icons/closeIcon.png" />
-        </image>
-    </ImageView>
 
     <Button fx:id="backButton" layoutX="444.0" layoutY="28.0" onAction="#handleBackButton" prefHeight="39.0" prefWidth="116.0" styleClass="goBackButton" text="Go back" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <font>
@@ -85,6 +80,11 @@
     </Button>
     <Label fx:id="errorLabel" managed="false" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
     <ListView fx:id="usersListView" layoutX="45.0" layoutY="100.0" prefHeight="455.0" prefWidth="160.0" styleClass="connectedUsersListView" />
+   <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
+      <image>
+         <Image url="@../icons/closeIcon.png" />
+      </image>
+   </ImageView>
     <stylesheets>
         <URL value="@../css/appStyle.css" />
         <URL value="@../css/roomStyle.css" />
