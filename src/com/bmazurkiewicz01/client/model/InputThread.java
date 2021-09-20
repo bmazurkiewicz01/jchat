@@ -36,6 +36,8 @@ public class InputThread extends Thread {
                     if (message instanceof String) {
                         if (message.equals("conn:\tkicked")) {
                             ServerConnection.getInstance().leaveRoom();
+                            ViewSwitcher.getInstance().getMainController().handleError("You have been kicked from "
+                                    + ServerConnection.getInstance().getCurrentRoom() + ".");
                             ServerConnection.getInstance().setRoomControllerInInputThread(null);
                             ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
 

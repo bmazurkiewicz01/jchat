@@ -19,6 +19,7 @@ public final class ServerConnection {
 
     private String inputMessage;
     private String userName;
+    private String currentRoom;
 
     private static final String HOST = "localhost";
     private static final int PORT = 5555;
@@ -71,6 +72,7 @@ public final class ServerConnection {
     public String connectToRoom(String name, String owner) {
         String message = String.format("connectroom:\t%s\t%s", name, owner);
         RoomConnectionTask roomConnectionTask = new RoomConnectionTask(output, message);
+        currentRoom = name;
         new Thread(roomConnectionTask).start();
         try {
             Thread.sleep(20);
@@ -135,6 +137,10 @@ public final class ServerConnection {
 
     public String getUserName() {
         return userName;
+    }
+
+    public String getCurrentRoom() {
+        return currentRoom;
     }
 
     public void close() {

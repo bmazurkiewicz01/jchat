@@ -55,7 +55,7 @@ public class AddRoomDialogController {
     }
 
     public void setNameField(String text) {
-        if (text != null) nameField.setPromptText(text);
+        if (text != null) nameField.setText(text);
     }
 
     public void closeStage(Event actionEvent) {

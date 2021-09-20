@@ -63,6 +63,22 @@ public final class ViewSwitcher {
         else System.out.println("ViewSwitcher: root was null");
     }
 
+    public void switchToMain(String helloText) {
+        FXMLLoader fxmlLoader = new FXMLLoader(ViewSwitcher.class.getResource(View.MAIN.getFileName()));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+            cache.put(View.MAIN, root);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        MainController mainController = fxmlLoader.getController();
+        mainController.setHelloLabel(helloText);
+
+        if (root != null) scene.setRoot(root);
+        else System.out.println("ViewSwitcher: root was null");
+    }
+
     public void joinRoomAndSetLabels(String room, String owner, boolean isOwner) {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewSwitcher.class.getResource(View.ROOM.getFileName()));
         Parent root = null;

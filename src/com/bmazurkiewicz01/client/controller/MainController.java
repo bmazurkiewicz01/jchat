@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
@@ -45,6 +46,11 @@ public class MainController {
     public TableColumn<Room, String> ownerColumn;
     @FXML
     public TableColumn<Room, Integer> connectedColumn;
+
+    @FXML
+    public Label helloLabel;
+    @FXML
+    public Label errorLabel;
 
     private double x,y;
 
@@ -104,15 +110,30 @@ public class MainController {
             String result = ServerConnection.getInstance().connectToRoom(room.getName(), room.getOwner());
             System.out.println(result);
             if (result != null) {
+                errorLabel.setVisible(false);
+                errorLabel.setManaged(false);
+
                 if (result.equals("conn:guestperm")) {
                     ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner(), false);
                 } else if (result.equals("conn:ownerperm")) {
                     ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), "You", true);
                 }
             } else {
-                System.out.println("Room connection error.");
+                handleError("Room connection error. Please try again.");
             }
         }
+    }
+
+    public void handleError(String message) {
+        if (message != null) {
+            errorLabel.setVisible(true);
+            errorLabel.setManaged(true);
+            errorLabel.setText(message);
+        }
+    }
+
+    public void setHelloLabel(String text) {
+        if(text != null) helloLabel.setText(text);
     }
 
     public void setRooms(List<Room> newRooms) {

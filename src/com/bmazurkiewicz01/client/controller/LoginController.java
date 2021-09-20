@@ -72,7 +72,7 @@ public class LoginController {
             }
             else {
                 ServerConnection.getInstance().setUserName(name);
-                ViewSwitcher.getInstance().switchView(View.MAIN);
+                ViewSwitcher.getInstance().switchToMain("Hello, " + name + "!");
             }
         }
     }
