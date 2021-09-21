@@ -63,12 +63,12 @@ public class RoomController {
     @FXML
     public void handleSendMessageButton() {
         String message = messageField.getText();
+        errorLabel.setVisible(false);
+        errorLabel.setManaged(false);
         if (message.isBlank()) {
             handleError("You cannot send blank message.", false);
         } else {
             if (ServerConnection.getInstance().isConnected()) {
-                errorLabel.setVisible(false);
-                errorLabel.setManaged(false);
                 ServerConnection.getInstance().sendMessage(message);
                 messageField.clear();
             } else {
@@ -142,13 +142,13 @@ public class RoomController {
     }
 
     public void handleError(String message, boolean fatal) {
+        errorLabel.setVisible(true);
+        errorLabel.setManaged(true);
+        errorLabel.setText(message);
         if (fatal) {
             messageField.setDisable(true);
             sendMessageButton.setDisable(true);
         }
-        errorLabel.setVisible(true);
-        errorLabel.setManaged(true);
-        updateTextArea(message);
     }
 
 }

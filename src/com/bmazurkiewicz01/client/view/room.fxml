@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RoomController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RoomController">
     <Pane layoutX="25.0" layoutY="75.0" prefHeight="506.0" prefWidth="684.0" styleClass="mainPane">
         <children>
             <HBox layoutX="210.0" prefHeight="27.0" prefWidth="474.0" style="-fx-background-radius: 0 25 0 0;">
@@ -48,14 +48,15 @@
             <Pane layoutX="213.0" layoutY="444.0" prefHeight="39.0" prefWidth="463.0" styleClass="messagePane">
                 <children>
                     <TextField fx:id="messageField" prefHeight="0.0" prefWidth="403.0" styleClass="messageField" />
-                    <ImageView fitHeight="32.0" fitWidth="44.0" layoutX="411.0" layoutY="4.0">
+                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="414.0" layoutY="1.0">
                         <image>
                             <Image url="@../icons/sendIcon.png" />
                         </image>
                     </ImageView>
-                    <Button fx:id="sendMessageButton" defaultButton="true" layoutX="407.0" mnemonicParsing="false" onAction="#handleSendMessageButton" opacity="0.0" prefHeight="39.0" prefWidth="52.0" styleClass="sendMessageButton" />
+                    <Button fx:id="sendMessageButton" defaultButton="true" layoutX="409.0" mnemonicParsing="false" onAction="#handleSendMessageButton" opacity="0.0" prefHeight="39.0" prefWidth="52.0" styleClass="sendMessageButton" />
                 </children>
             </Pane>
+         <Label fx:id="errorLabel" layoutX="213.0" layoutY="487.0" prefHeight="17.0" prefWidth="463.0" style="-fx-alignment: center; -fx-text-alignment: center;" text="Error Label" textAlignment="CENTER" textFill="#6c0000" visible="false" />
         </children>
     </Pane>
 
@@ -78,7 +79,6 @@
             <Font size="18.0" />
         </font>
     </Button>
-    <Label fx:id="errorLabel" managed="false" textFill="red" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
     <ListView fx:id="usersListView" layoutX="45.0" layoutY="100.0" prefHeight="455.0" prefWidth="160.0" styleClass="connectedUsersListView" />
    <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
       <image>

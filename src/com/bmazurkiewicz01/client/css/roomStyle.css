@@ -15,12 +15,24 @@
 .connectedUsersLabel {
     -fx-opacity: 1;
 }
-
 .messagePane {
     -fx-background-color: transparent;
     -fx-border-width: 0.1;
     -fx-border-color: black;
     -fx-text-fill: #f4f4f4;
+}
+.scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10;
+}
+.increment-button:hover, .decrement-button:hover {
+    -fx-background-color: #a9a9a9;
+}
+.thumb {
+    -fx-background-color: #DC5BFF;
+}
+.corner {
+    -fx-background-color: transparent;
 }
 .messageField {
     -fx-font-size: 18px;
@@ -48,6 +60,6 @@
 }
 
 .goBackButton, .logoutButton {
-    -fx-background-color: #FF3232;
+    -fx-background-color: #ff5f50;
     -fx-background-radius: 25;
 }
