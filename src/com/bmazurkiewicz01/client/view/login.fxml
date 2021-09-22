@@ -19,7 +19,7 @@
          <children>
               <ImageView fitHeight="290.0" fitWidth="338.0">
                   <image>
-                      <Image url="@../icons/logo.png" />
+                      <Image url="@../resources/logo.png" />
                   </image>
               </ImageView>
               <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" prefHeight="39.0" prefWidth="190.0" promptText="Name" styleClass="loginField">
@@ -63,12 +63,12 @@
       </VBox>
         <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
             <image>
-                <Image url="@../icons/closeIcon.png" />
+                <Image url="@../resources/closeIcon.png" />
             </image>
         </ImageView>
       <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
          <image>
-            <Image url="@../icons/minimizeIcon.png" />
+            <Image url="@../resources/minimizeIcon.png" />
          </image>
       </ImageView>
     </children>

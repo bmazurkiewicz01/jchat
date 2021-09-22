@@ -3,14 +3,14 @@
     -fx-background-radius: 25;
 }
 .closeButton {
-    -fx-image: url("../icons/closeIcon.png");
+    -fx-image: url("../resources/closeIcon.png");
 }
 .closeButton:hover {
-    -fx-image: url("../icons/closeIconHover.png");
+    -fx-image: url("../resources/closeIconHover.png");
 }
 .minimizeButton {
-    -fx-image: url("../icons/minimizeIcon.png");
+    -fx-image: url("../resources/minimizeIcon.png");
 }
 .minimizeButton:hover {
-    -fx-image: url("../icons/minimizeIconHover.png");
+    -fx-image: url("../resources/minimizeIconHover.png");
 }

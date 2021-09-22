@@ -34,7 +34,7 @@
         </Label>
       <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="16.0">
          <image>
-            <Image url="@../icons/closeIcon.png" />
+            <Image url="@../resources/closeIcon.png" />
          </image>
       </ImageView>
     </children>

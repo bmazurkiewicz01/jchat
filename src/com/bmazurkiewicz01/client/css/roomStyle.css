@@ -67,8 +67,8 @@
     -fx-background-color: #ff6b5c;
 }
 .sendMessageImage {
-    -fx-image: url("../icons/sendIcon.png");
+    -fx-image: url("../resources/sendIcon.png");
 }
 .sendMessageImage:hover {
-    -fx-image: url("../icons/sendIconHover.png");
+    -fx-image: url("../resources/sendIconHover.png");
 }
