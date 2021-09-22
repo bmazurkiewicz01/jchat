@@ -45,7 +45,7 @@
             </TableColumn>
         </columns>
     </TableView>
-    <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
+    <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
         <Image url="@../icons/minimizeIcon.png" />
     </ImageView>
     <Label fx:id="helloLabel" alignment="CENTER" layoutX="276.0" layoutY="56.0" prefHeight="58.0" prefWidth="227.0" styleClass="helloLabel" text="Hello, User!">
@@ -53,7 +53,7 @@
           <Font size="28.0" />
         </font>
     </Label>
-    <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
+    <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
         <Image url="@../icons/closeIcon.png" />
     </ImageView>
     <Label fx:id="errorLabel" layoutX="180.0" layoutY="541.0" prefHeight="27.0" prefWidth="420.0" style="-fx-text-alignment: center; -fx-alignment: center;" text="Label" textFill="RED" visible="false">

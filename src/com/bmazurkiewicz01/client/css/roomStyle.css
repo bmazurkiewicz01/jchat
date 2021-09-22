@@ -63,3 +63,12 @@
     -fx-background-color: #ff5f50;
     -fx-background-radius: 25;
 }
+.goBackButton:hover, .logoutButton:hover {
+    -fx-background-color: #ff6b5c;
+}
+.sendMessageImage {
+    -fx-image: url("../icons/sendIcon.png");
+}
+.sendMessageImage:hover {
+    -fx-image: url("../icons/sendIconHover.png");
+}

@@ -37,9 +37,15 @@
     -fx-background-color: #3265ff;
     -fx-background-radius: 25;
 }
+.addRoomButton:hover {
+    -fx-background-color: #4173e0;
+}
 .logoutButton {
     -fx-background-color: #FF3232;
     -fx-background-radius: 25;
+}
+.logoutButton:hover {
+    -fx-background-color: #ff4444;
 }
 .helloLabel {
     -fx-text-fill: #a9a9a9;

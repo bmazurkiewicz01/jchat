@@ -7,3 +7,6 @@
     -fx-background-color: #3265ff;
     -fx-background-radius: 25;
 }
+.loginButton:hover {
+    -fx-background-color: #4173e0;
+}

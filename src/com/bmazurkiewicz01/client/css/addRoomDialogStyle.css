@@ -8,9 +8,15 @@
     -fx-background-color: #3265ff;
     -fx-background-radius: 25;
 }
+.addRoomButton:hover {
+    -fx-background-color: #4173e0;
+}
 .cancelButton {
     -fx-background-color: #FF3232;
     -fx-background-radius: 25;
+}
+.cancelButton:hover {
+    -fx-background-color: #ff4444;
 }
 .nameField {
     -fx-background-color: #00000025;

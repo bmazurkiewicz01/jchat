@@ -48,7 +48,7 @@
             <Pane layoutX="213.0" layoutY="444.0" prefHeight="39.0" prefWidth="463.0" styleClass="messagePane">
                 <children>
                     <TextField fx:id="messageField" prefHeight="0.0" prefWidth="403.0" styleClass="messageField" />
-                    <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="414.0" layoutY="1.0">
+                    <ImageView styleClass="sendMessageImage" fitHeight="40.0" fitWidth="40.0" layoutX="414.0" layoutY="1.0">
                         <image>
                             <Image url="@../icons/sendIcon.png" />
                         </image>
@@ -60,7 +60,7 @@
         </children>
     </Pane>
 
-    <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
+    <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
         <image>
             <Image url="@../icons/minimizeIcon.png" />
         </image>
@@ -80,7 +80,7 @@
         </font>
     </Button>
     <ListView fx:id="usersListView" layoutX="45.0" layoutY="100.0" prefHeight="455.0" prefWidth="160.0" styleClass="connectedUsersListView" />
-   <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
+   <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
       <image>
          <Image url="@../icons/closeIcon.png" />
       </image>

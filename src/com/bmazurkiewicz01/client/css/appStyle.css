@@ -2,3 +2,15 @@
     -fx-background-color: #222222;
     -fx-background-radius: 25;
 }
+.closeButton {
+    -fx-image: url("../icons/closeIcon.png");
+}
+.closeButton:hover {
+    -fx-image: url("../icons/closeIconHover.png");
+}
+.minimizeButton {
+    -fx-image: url("../icons/minimizeIcon.png");
+}
+.minimizeButton:hover {
+    -fx-image: url("../icons/minimizeIconHover.png");
+}
