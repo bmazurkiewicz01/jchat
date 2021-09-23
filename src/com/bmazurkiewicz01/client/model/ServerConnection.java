@@ -127,6 +127,12 @@ public final class ServerConnection {
         new Thread(outputTask).start();
     }
 
+    public void banUser(String userName) {
+        OutputTask outputTask = new OutputTask(output);
+        outputTask.setMessage("ban:\t" + userName);
+        new Thread(outputTask).start();
+    }
+
     public void setInputMessage(String inputMessage) {
         this.inputMessage = inputMessage;
     }
@@ -141,6 +147,10 @@ public final class ServerConnection {
 
     public String getCurrentRoom() {
         return currentRoom;
+    }
+
+    public void setCurrentRoom(String currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public void close() {

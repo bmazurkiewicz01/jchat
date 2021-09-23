@@ -112,11 +112,17 @@ public class MainController {
             if (result != null) {
                 errorLabel.setVisible(false);
                 errorLabel.setManaged(false);
-
-                if (result.equals("conn:guestperm")) {
-                    ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner(), false);
-                } else if (result.equals("conn:ownerperm")) {
-                    ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), "You", true);
+                switch (result) {
+                    case "conn:banned":
+                        handleError("You are banned from " + room.getName() + ".");
+                        ServerConnection.getInstance().setCurrentRoom(null);
+                        break;
+                    case "conn:guestperm":
+                        ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), room.getOwner(), false);
+                        break;
+                    case "conn:ownerperm":
+                        ViewSwitcher.getInstance().joinRoomAndSetLabels(room.getName(), "You", true);
+                        break;
                 }
             } else {
                 handleError("Room connection error. Please try again.");

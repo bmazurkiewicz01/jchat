@@ -105,6 +105,7 @@ public class RoomController {
         usersListView.setCellFactory(stringListView -> {
             ListCell<String> cell = new ListCell<>();
             ContextMenu menu = new ContextMenu();
+
             MenuItem kickUser = new MenuItem();
             kickUser.textProperty().bind(Bindings.format("Kick %s", cell.itemProperty()));
             kickUser.setOnAction(e -> {
@@ -112,10 +113,21 @@ public class RoomController {
                 ServerConnection.getInstance().kickUser(userName);
             });
 
-            menu.getItems().add(kickUser);
+            MenuItem banUser = new MenuItem();
+            banUser.textProperty().bind(Bindings.format("Ban %s", cell.itemProperty()));
+            banUser.setOnAction(e -> {
+                String userName = cell.getItem();
+                ServerConnection.getInstance().banUser(userName);
+            });
+
+            menu.getItems().addAll(kickUser, banUser);
             cell.textProperty().bind(cell.itemProperty());
             cell.itemProperty().addListener((observableValue, s, t1) -> {
-                if (t1 != null) kickUser.setDisable(t1.equals(ServerConnection.getInstance().getUserName()));
+                if (t1 != null) {
+                    String userName = ServerConnection.getInstance().getUserName();
+                    kickUser.setDisable(t1.equals(userName));
+                    banUser.setDisable(t1.equals(userName));
+                }
             });
             cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
                 if (isNowEmpty) {

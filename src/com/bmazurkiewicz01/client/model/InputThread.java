@@ -42,6 +42,14 @@ public class InputThread extends Thread {
                             ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
 
                             ViewSwitcher.getInstance().switchView(View.MAIN, true);
+                        } else if (message.equals("conn:\tbanned")) {
+                            ServerConnection.getInstance().leaveRoom();
+                            ViewSwitcher.getInstance().getMainController().handleError("You have been banned from "
+                                    + ServerConnection.getInstance().getCurrentRoom() + ".");
+                            ServerConnection.getInstance().setRoomControllerInInputThread(null);
+                            ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+
+                            ViewSwitcher.getInstance().switchView(View.MAIN, true);
                         } else {
                             roomController.updateTextArea(message + "\n");
                         }

@@ -91,6 +91,17 @@ public final class JchatServer {
         }
     }
 
+    public void banClientFromRoom(String clientName, ServerRoom room) throws IOException {
+        for (ClientThread client : room.getClientList()) {
+            if (client.getClientName().equals(clientName)) {
+                room.addBannedClient(client);
+                client.getOutput().writeObject("conn:\tbanned");
+                client.getOutput().flush();
+                break;
+            }
+        }
+    }
+
     private boolean kickClient(String clientName) {
         if (clients == null || clients.isEmpty()) return false;
 

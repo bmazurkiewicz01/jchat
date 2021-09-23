@@ -7,12 +7,14 @@ import java.util.Objects;
 public class ServerRoom {
     private String name;
     private String owner;
-    private List<ClientThread> clientList;
+    private final List<ClientThread> clientList;
+    private final List<ClientThread> bannedClientList;
 
     public ServerRoom(String name, String owner) {
         this.name = name;
         this.owner = owner;
         clientList = new ArrayList<>();
+        bannedClientList = new ArrayList<>();
     }
 
     public String getName() {
@@ -35,12 +37,35 @@ public class ServerRoom {
         return clientList;
     }
 
+    public List<ClientThread> getBannedClientList() {
+        return bannedClientList;
+    }
+
     public void addClient(ClientThread client) {
         if (client != null) clientList.add(client);
     }
 
     public void removeClient(ClientThread client) {
         if (client != null) clientList.remove(client);
+    }
+
+    public void addBannedClient(ClientThread client) {
+        if (client != null) bannedClientList.add(client);
+    }
+
+    public void removeBannedClient(ClientThread client) {
+        if (client != null) bannedClientList.remove(client);
+    }
+
+    public boolean isClientBanned(ClientThread client) {
+        if (client != null) {
+            for (ClientThread clientThread : bannedClientList) {
+                if (clientThread.getClientName().equals(client.getClientName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public int getConnected() {

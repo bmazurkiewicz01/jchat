@@ -31,21 +31,28 @@ public class ClientThread extends Thread {
                         JchatServer.getInstance().addRoom(new ServerRoom(data[1], clientName));
                         JchatServer.getInstance().sendRooms();
                     } else if (message.startsWith("connectroom:\t")) {
-                        currentRoom = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
-                        if (currentRoom != null) {
+                        ServerRoom room = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
+
+                        if (room == null) {
+                            output.writeObject("conn:roomfailed");
+                        }
+                        else if (room.isClientBanned(this)) {
+                            output.writeObject("conn:banned");
+                        }
+                        else {
+                            currentRoom = room;
                             boolean isOwner = JchatServer.getInstance().addClientToRoom(this, currentRoom);
                             String result = isOwner ? "conn:ownerperm" : "conn:guestperm";
                             output.writeObject(result);
                             JchatServer.getInstance().sendRooms();
+                            try {
+                                Thread.sleep(100);
+                                JchatServer.getInstance().sendConnectedUsers(currentRoom);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        else output.writeObject("conn:roomfailed");
                         output.flush();
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        JchatServer.getInstance().sendConnectedUsers(currentRoom);
                     }
                 } else {
                     if (message.startsWith("conn:roomleft")) {
@@ -57,8 +64,15 @@ public class ClientThread extends Thread {
                     else if (message.startsWith("kick:\t")) {
                         if (currentRoom.getOwner().equals(clientName)) {
                             String userName = message.split("\t")[1];
-                            System.out.println(userName + " has to be kicked");
+                            System.out.println(userName + " has been kicked from " + currentRoom + ".");
                             JchatServer.getInstance().kickClientFromRoom(userName, currentRoom);
+                        }
+                    }
+                    else if (message.startsWith("ban:\t")) {
+                        if (currentRoom.getOwner().equals(clientName)) {
+                            String userName = message.split("\t")[1];
+                            System.out.println(userName + " has been banned from " + currentRoom + ".");
+                            JchatServer.getInstance().banClientFromRoom(userName, currentRoom);
                         }
                     }
                     else if (!message.isBlank()) {
