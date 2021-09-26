@@ -4,6 +4,7 @@ import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.Room;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +35,9 @@ public class MainController {
     @FXML
     public ImageView minimizeButton;
 
+
+    @FXML
+    public Button hamburgerButton;
     @FXML
     public Button logoutButton;
     @FXML
@@ -51,10 +56,13 @@ public class MainController {
     public Label helloLabel;
     @FXML
     public Label errorLabel;
+    @FXML
+    public AnchorPane leftPane;
 
-    private double x,y;
+    private double x, y;
 
     public void initialize() {
+        setUpLeftPaneAnimation();
         ServerConnection.getInstance().updateRooms();
         ServerConnection.getInstance().setMainControllerInInputThread(this);
         ViewSwitcher.getInstance().setMainController(this);
@@ -139,12 +147,27 @@ public class MainController {
     }
 
     public void setHelloLabel(String text) {
-        if(text != null) helloLabel.setText(text);
+        if (text != null) helloLabel.setText(text);
     }
 
     public void setRooms(List<Room> newRooms) {
         newRooms.forEach(System.out::println);
         roomTableView.setItems(FXCollections.observableList(newRooms));
+    }
+
+    private void setUpLeftPaneAnimation() {
+        TranslateTransition openPane = new TranslateTransition(new Duration(550), leftPane);
+        TranslateTransition closePane = new TranslateTransition(new Duration(550), leftPane);
+        openPane.setToX(0);
+
+        hamburgerButton.setOnAction( e -> {
+            if (leftPane.getTranslateX() != 0) {
+                openPane.play();
+            } else {
+                closePane.setToX(-(leftPane.getWidth()));
+                closePane.play();
+            }
+        });
     }
 
     public void closeConnection() {
