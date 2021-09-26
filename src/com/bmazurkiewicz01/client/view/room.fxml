@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RoomController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RoomController">
     <Pane layoutX="25.0" layoutY="75.0" prefHeight="506.0" prefWidth="684.0" styleClass="mainPane">
         <children>
             <HBox layoutX="210.0" prefHeight="27.0" prefWidth="474.0" style="-fx-background-radius: 0 25 0 0;">

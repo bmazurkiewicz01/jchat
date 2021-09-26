@@ -1,15 +1,23 @@
 package com.bmazurkiewicz01.client.controller;
 
+import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import com.bmazurkiewicz01.client.model.ServerConnection;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.IOException;
 
 public class RegisterController {
     @FXML
@@ -70,17 +78,34 @@ public class RegisterController {
             } else if (result.equals("conn:taken")) {
                 changeErrorLabel("Name is taken. Try another one.");
             } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, name + " has been registered successfully.");
-                alert.setTitle("Register success");
+                final Stage alert = new Stage();
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.ADD_USER_ALERT.getFileName()));
+                Parent root;
+                try {
+                    root = fxmlLoader.load();
+
+                    alert.setScene(new Scene(root));
+                    alert.getScene().setFill(Color.TRANSPARENT);
+                    alert.initModality(Modality.APPLICATION_MODAL);
+                    alert.initOwner(this.root.getScene().getWindow());
+                    alert.initStyle(StageStyle.TRANSPARENT);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                AddUserAlertController controller = fxmlLoader.getController();
+                controller.setMainLabel(name + " has been registered successfully.");
+
                 alert.showAndWait();
-                ViewSwitcher.getInstance().switchView(View.LOGIN);
+                ViewSwitcher.getInstance().switchView(View.LOGIN, true);
             }
         }
     }
 
     @FXML
     public void handleCancelButton() {
-        ViewSwitcher.getInstance().switchView(View.LOGIN);
+        ViewSwitcher.getInstance().switchView(View.LOGIN, true);
     }
 
     public void changeErrorLabel(String message) {

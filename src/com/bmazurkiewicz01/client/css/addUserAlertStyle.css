@@ -5,11 +5,11 @@
     -fx-border-radius: 25;
 }
 .confirmButton {
-    -fx-background-color: #3265ff;
+    -fx-background-color: #4a90e2;
     -fx-background-radius: 25;
 }
-.confirmButton {
-    -fx-background-color: #4173e0;
+.confirmButton:hover {
+    -fx-background-color: #5b9ce1;
 }
 .headerLabel {
     -fx-text-fill: #6C62FF;
