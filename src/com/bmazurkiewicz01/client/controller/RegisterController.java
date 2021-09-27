@@ -39,7 +39,7 @@ public class RegisterController {
     @FXML
     public Label errorLabel;
 
-    private double x,y;
+    private double x, y;
 
     public void initialize() {
         root.setOnMousePressed(e -> {
@@ -67,10 +67,22 @@ public class RegisterController {
         String password = passwordField.getText();
         if (name.isBlank() && password.isBlank()) {
             changeErrorLabel("Name and Password cannot be empty.");
-        } else if (name.isBlank()) {
-            changeErrorLabel("Name cannot be empty.");
-        } else if (password.isBlank()) {
-            changeErrorLabel("Password cannot be empty");
+        } else if (name.length() < 5) {
+            changeErrorLabel("Name must have at least 5 characters.");
+        } else if (name.length() > 15) {
+            changeErrorLabel("Name cannot have more than 15 characters.");
+        } else if (password.length() < 8) {
+            changeErrorLabel("Password must have at least 8 characters.");
+        } else if (password.length() > 20) {
+            changeErrorLabel("Password cannot have more than 20 characters.");
+        } else if (!password.matches("(.*[a-z].*)")) {
+            changeErrorLabel("Password must have lower case character.");
+        } else if (!password.matches("(.*[A-Z].*)")) {
+            changeErrorLabel("Password must have upper case character.");
+        } else if (!password.matches("(.*[0-9].*)")) {
+            changeErrorLabel("Password must have at least one number.");
+        } else if (!password.matches("(.*[@,#,$,%,^,&,*,(,)].*)")) {
+            changeErrorLabel("Password must have at least one special character.");
         } else {
             String result = ServerConnection.getInstance().register(name, password);
             if (result == null || result.equals("conn:failed")) {
