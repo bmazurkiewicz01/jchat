@@ -1,5 +1,7 @@
 package com.bmazurkiewicz01.server;
 
+import com.bmazurkiewicz01.server.database.User;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -57,6 +59,14 @@ public class ClientThread extends Thread {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                        }
+                        output.flush();
+                    } else if (message.startsWith("validate:\t")) {
+                        String password = data[1];
+                        if (JchatServer.getInstance().validateUser(new User(clientName, password))) {
+                            output.writeObject("validate:success");
+                        } else {
+                            output.writeObject("validate:failed");
                         }
                         output.flush();
                     }

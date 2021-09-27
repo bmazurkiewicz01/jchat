@@ -1,5 +1,8 @@
 package com.bmazurkiewicz01.server;
 
+import com.bmazurkiewicz01.server.database.User;
+import com.bmazurkiewicz01.server.database.UserDatasource;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +10,7 @@ import java.util.List;
 public final class JchatServer {
     private static List<ClientThread> clients;
     private static List<ServerRoom> rooms;
+    private static UserDatasource userDatasource;
     private static volatile JchatServer instance;
 
     private static final int PORT = 5555;
@@ -14,6 +18,7 @@ public final class JchatServer {
     private JchatServer() {
         if (instance != null) throw new IllegalStateException("Can't create new instance.");
         clients = new ArrayList<>();
+        userDatasource = new UserDatasource();
     }
 
     public static JchatServer getInstance() {
@@ -78,6 +83,11 @@ public final class JchatServer {
         for(ClientThread client : clients) {
             if (client.getClientName().equals(clientName)) return true;
         }
+        return false;
+    }
+
+    public boolean validateUser(User user) {
+        if (user != null) return userDatasource.searchUser(user);
         return false;
     }
 

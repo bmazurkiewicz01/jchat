@@ -6,6 +6,7 @@ import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,6 +43,8 @@ public class MainController {
     public Button logoutButton;
     @FXML
     public Button addRoomButton;
+    @FXML
+    public Button userPropertiesButton;
 
     @FXML
     public TableView<Room> roomTableView;
@@ -137,6 +140,27 @@ public class MainController {
         }
     }
 
+    @FXML
+    public void handleUserPropertiesButton(ActionEvent actionEvent) {
+        final Stage userPropertiesDialog = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.USER_PROPERTIES_VALIDATION.getFileName()));
+        Parent root;
+        try {
+            root = fxmlLoader.load();
+
+            userPropertiesDialog.setScene(new Scene(root));
+            userPropertiesDialog.getScene().setFill(Color.TRANSPARENT);
+            userPropertiesDialog.initModality(Modality.APPLICATION_MODAL);
+            userPropertiesDialog.initOwner(this.root.getScene().getWindow());
+            userPropertiesDialog.initStyle(StageStyle.TRANSPARENT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        userPropertiesDialog.showAndWait();
+    }
+
     public void handleError(String message) {
         if (message != null) {
             errorLabel.setVisible(true);
@@ -171,5 +195,4 @@ public class MainController {
     public void closeConnection() {
         ServerConnection.getInstance().close();
     }
-
 }

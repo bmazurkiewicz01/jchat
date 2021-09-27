@@ -125,6 +125,16 @@ public final class ServerConnection {
         createOutputTask("ban:\t" + userName);
     }
 
+    public boolean validatePassword(String password) {
+        createOutputTask("validate:\t" + password);
+        try {
+            Thread.sleep(30);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        return inputMessage.equals("validate:success");
+    }
+
     private void createOutputTask(String message) {
         OutputTask outputTask = new OutputTask(output);
         outputTask.setMessage(message);

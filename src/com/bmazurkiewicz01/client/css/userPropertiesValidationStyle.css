@@ -1,0 +1,22 @@
+.infoLabel {
+    -fx-text-fill: #6C62FF;
+}
+.confirmButton {
+    -fx-background-color: #4a90e2;
+    -fx-background-radius: 25;
+}
+.confirmButton:hover {
+    -fx-background-color: #5b9ce1;
+}
+.cancelButton {
+    -fx-background-color: #FF3232;
+    -fx-background-radius: 25;
+}
+.cancelButton:hover {
+    -fx-background-color: #ff4444;
+}
+.passwordField {
+    -fx-background-color: #00000025;
+    -fx-background-radius: 25;
+    -fx-text-fill: #a9a9a9;
+}
