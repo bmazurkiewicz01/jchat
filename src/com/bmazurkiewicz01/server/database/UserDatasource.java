@@ -15,19 +15,28 @@ public class UserDatasource {
     private static final String COLUMN_PASSWORD = "password";
 
     private static final String QUERY_USERS = "SELECT * FROM " + TABLE_NAME;
+    private static final String GET_USER_ID = "SELECT " + COLUMN_ID + " FROM " + TABLE_NAME + " WHERE " + COLUMN_NAME + " = ?";
     private static final String INSERT_USER = String.format("INSERT INTO %s (%s,%s) VALUES(?,?)", TABLE_NAME, COLUMN_NAME, COLUMN_PASSWORD);
+    private static final String UPDATE_USER_NAME = "UPDATE " + TABLE_NAME + " SET " + COLUMN_NAME + " = ?" + " WHERE " + COLUMN_ID + " = ?";
+    private static final String UPDATE_USERS_PASSWORD = "UPDATE " + TABLE_NAME + " SET " + COLUMN_PASSWORD + " = ?" + " WHERE " + COLUMN_ID + " = ?";
 
     private Connection connection;
     private Codec codec;
     private PreparedStatement queryUsers;
+    private PreparedStatement getUserId;
     private PreparedStatement insertUser;
+    private PreparedStatement updateUserName;
+    private PreparedStatement updateUsersPassword;
 
     public UserDatasource() {
         try {
             connection = DriverManager.getConnection(CONNECTION_STRING);
             codec = new Codec(ITERATIONS);
             queryUsers = connection.prepareStatement(QUERY_USERS);
+            getUserId = connection.prepareStatement(GET_USER_ID);
             insertUser = connection.prepareStatement(INSERT_USER);
+            updateUserName = connection.prepareStatement(UPDATE_USER_NAME);
+            updateUsersPassword = connection.prepareStatement(UPDATE_USERS_PASSWORD);
         } catch (SQLException e) {
             System.out.println("Couldn't connect to database: " + e.getMessage());
         }
@@ -63,6 +72,37 @@ public class UserDatasource {
         }
     }
 
+    public boolean updateUserName(String oldName, String newName) {
+        try {
+            int id = getUserId(oldName);
+
+            updateUserName.setString(1, newName);
+            updateUserName.setInt(2, id);
+            int affectedRows = updateUserName.executeUpdate();
+
+            return affectedRows == 1;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updatePassword(String name, String newPassword) {
+        try {
+            int id = getUserId(name);
+
+            updateUsersPassword.setString(1, codec.generateHashedPassword(newPassword));
+            updateUsersPassword.setInt(2, id);
+            int affectedRows = updateUsersPassword.executeUpdate();
+
+            return affectedRows == 1;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
     public boolean searchUserByName(String name) {
         List<User> users = queryUsers();
         if (users == null || users.isEmpty()) return false;
@@ -81,6 +121,17 @@ public class UserDatasource {
             return codec.validatePassword(user.getPassword(), users.get(userId).getPassword());
         }
         return false;
+    }
+
+    private int getUserId(String name) {
+        try {
+            getUserId.setString(1, name);
+            ResultSet results = getUserId.executeQuery();
+            return results.getInt(1);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
     }
 
     private int getUserId(String name, List<User> users) {
