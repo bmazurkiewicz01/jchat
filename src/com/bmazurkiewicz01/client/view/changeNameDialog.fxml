@@ -14,26 +14,26 @@
             fx:controller="com.bmazurkiewicz01.client.controller.ChangeNameController">
     <children>
         <Button fx:id="changeButton" defaultButton="true" layoutX="39.0" layoutY="165.0" mnemonicParsing="false"
-                onAction="#handleChangeNameButton" prefWidth="125.0" styleClass="addRoomButton" text="Add room">
+                onAction="#handleChangeNameButton" prefWidth="125.0" styleClass="changeButton" text="Confirm">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
-        <TextField fx:id="textField" alignment="CENTER" focusTraversable="false" layoutX="63.0" layoutY="95.0"
-                   promptText="Room name" styleClass="nameField">
+        <TextField fx:id="changeField" alignment="CENTER" focusTraversable="false" layoutX="63.0" layoutY="95.0"
+                   promptText="New name" styleClass="changeField">
             <font>
                 <Font size="18.0"/>
             </font>
         </TextField>
-        <Button fx:id="cancelButton" layoutX="199.0" layoutY="165.0" mnemonicParsing="false"
-                prefWidth="125.0" styleClass="cancelButton" text="Cancel">
+        <Button fx:id="cancelButton" layoutX="199.0" layoutY="165.0" mnemonicParsing="false" prefWidth="125.0"
+                styleClass="cancelButton" text="Cancel">
             <font>
                 <Font size="18.0"/>
             </font>
         </Button>
         <Label fx:id="errorLabel" alignment="CENTER" layoutX="42.0" layoutY="142.0" minWidth="-Infinity"
                prefHeight="18.0" prefWidth="276.0" text="Label" textFill="RED" visible="false"/>
-        <Label layoutX="88.0" layoutY="46.0" text="Add new room" textFill="#6c62ff">
+        <Label layoutX="99.0" layoutY="47.0" text="Change name" textFill="#6c62ff">
             <font>
                 <Font name="System Bold" size="25.0"/>
             </font>

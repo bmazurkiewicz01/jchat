@@ -23,21 +23,21 @@ public class ChangeNameController {
     @FXML
     public Button cancelButton;
     @FXML
-    public TextField textField;
+    public TextField changeField;
     @FXML
     public Label errorLabel;
 
     private UserPropertiesController userPropertiesController;
 
     public void initialize() {
-        textField.setText(ServerConnection.getInstance().getUserName());
+        changeField.setText(ServerConnection.getInstance().getUserName());
         closeButton.setOnMouseClicked(this::closeStage);
         cancelButton.setOnMouseClicked(this::closeStage);
     }
 
     @FXML
     public void handleChangeNameButton(ActionEvent actionEvent) {
-        String newName = textField.getText();
+        String newName = changeField.getText();
 
         errorLabel.setVisible(false);
         errorLabel.setManaged(false);
