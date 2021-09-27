@@ -1,16 +1,15 @@
 package com.bmazurkiewicz01.client.model;
 
+import com.bmazurkiewicz01.client.controller.MainController;
+import com.bmazurkiewicz01.client.controller.RoomController;
 import com.bmazurkiewicz01.client.view.Room;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import com.bmazurkiewicz01.client.controller.MainController;
-import com.bmazurkiewicz01.client.controller.RoomController;
 import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class InputThread extends Thread {
@@ -69,7 +68,6 @@ public class InputThread extends Thread {
                             List<Room> newRooms = new ArrayList<>();
                             for (String room : rooms) {
                                 String[] data = room.split("\t");
-                                Arrays.stream(data).forEach(System.out::println);
                                 newRooms.add(new Room(data[0], data[1], Integer.parseInt(data[2])));
                             }
                             Platform.runLater(() -> mainController.setRooms(newRooms));

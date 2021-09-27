@@ -14,12 +14,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
     <stylesheets>
         <URL value="@../css/appStyle.css" />
         <URL value="@../css/mainStyle.css" />
     </stylesheets>
-    <TableView fx:id="roomTableView" layoutX="100.0" layoutY="77.0" onMouseClicked="#handleRowClick" prefHeight="490.0" prefWidth="600.0">
+    <TableView fx:id="roomTableView" layoutX="100.0" layoutY="77.0" onMouseClicked="#handleRowClick" prefHeight="467.0" prefWidth="600.0">
         <columns>
             <TableColumn fx:id="nameColumn" editable="false" minWidth="0.0" prefWidth="199.0" resizable="false" text="Name">
                 <cellValueFactory>
@@ -49,7 +49,7 @@
     <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0" styleClass="closeButton">
         <Image url="@../resources/closeIcon.png" />
     </ImageView>
-    <Label fx:id="errorLabel" layoutX="180.0" layoutY="541.0" prefHeight="27.0" prefWidth="420.0" style="-fx-text-alignment: center; -fx-alignment: center;" text="Label" textFill="RED" visible="false">
+    <Label fx:id="errorLabel" layoutX="190.0" layoutY="558.0" prefHeight="27.0" prefWidth="420.0" style="-fx-text-alignment: center; -fx-alignment: center;" text="Label" textFill="RED" visible="false">
         <font>
             <Font size="18.0" />
         </font>

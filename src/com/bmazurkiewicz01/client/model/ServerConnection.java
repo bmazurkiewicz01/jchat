@@ -83,13 +83,11 @@ public final class ServerConnection {
     }
 
     public void sendMessage(String message) {
-        OutputTask outputTask = new OutputTask(output);
-        outputTask.setMessage(message);
-        new Thread(outputTask).start();
+        createOutputTask(message);
     }
 
-    public void updateMessage() {
-        if (inputThread == null) inputThread = new InputThread(input);
+    public void createInputThread() {
+        inputThread = new InputThread(input);
         if (!inputThread.isAlive()) inputThread.start();
 
     }
@@ -104,32 +102,25 @@ public final class ServerConnection {
 
     public void addRoom(String roomName) {
         if (!roomName.isBlank()) {
-            OutputTask outputTask = new OutputTask(output);
-            outputTask.setMessage(String.format("addroom:\t%s", roomName));
-            new Thread(outputTask).start();
+            createOutputTask(String.format("addroom:\t%s", roomName));
         }
     }
 
     public void leaveRoom() {
-        OutputTask outputTask = new OutputTask(output);
-        outputTask.setMessage("conn:roomleft");
-        new Thread(outputTask).start();
-    }
-
-    public void updateRooms() {
-        inputThread = new InputThread(input);
-        if (!inputThread.isAlive()) inputThread.start();
+        createOutputTask("conn:roomleft");
     }
 
     public void kickUser(String userName) {
-        OutputTask outputTask = new OutputTask(output);
-        outputTask.setMessage("kick:\t" + userName);
-        new Thread(outputTask).start();
+        createOutputTask("kick:\t" + userName);
     }
 
     public void banUser(String userName) {
+        createOutputTask("ban:\t" + userName);
+    }
+
+    private void createOutputTask(String message) {
         OutputTask outputTask = new OutputTask(output);
-        outputTask.setMessage("ban:\t" + userName);
+        outputTask.setMessage(message);
         new Thread(outputTask).start();
     }
 

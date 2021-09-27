@@ -44,7 +44,6 @@ public class RoomController {
     private double x,y;
 
     public void initialize() {
-        ServerConnection.getInstance().updateMessage();
         ServerConnection.getInstance().setRoomControllerInInputThread(this);
 
         root.setOnMousePressed(e -> {

@@ -63,7 +63,7 @@ public class MainController {
 
     public void initialize() {
         setUpLeftPaneAnimation();
-        ServerConnection.getInstance().updateRooms();
+        ServerConnection.getInstance().createInputThread();
         ServerConnection.getInstance().setMainControllerInInputThread(this);
         ViewSwitcher.getInstance().setMainController(this);
 
@@ -116,7 +116,6 @@ public class MainController {
         Room room = roomTableView.getSelectionModel().getSelectedItem();
         if (room != null && mouseEvent.getClickCount() == 2) {
             String result = ServerConnection.getInstance().connectToRoom(room.getName(), room.getOwner());
-            System.out.println(result);
             if (result != null) {
                 errorLabel.setVisible(false);
                 errorLabel.setManaged(false);
@@ -151,7 +150,6 @@ public class MainController {
     }
 
     public void setRooms(List<Room> newRooms) {
-        newRooms.forEach(System.out::println);
         roomTableView.setItems(FXCollections.observableList(newRooms));
     }
 

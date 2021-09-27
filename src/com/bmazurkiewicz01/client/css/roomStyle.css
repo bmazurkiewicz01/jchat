@@ -81,9 +81,13 @@
 .goBackButton:hover, .logoutButton:hover {
     -fx-background-color: #ff6b5c;
 }
-.sendMessageImage {
-    -fx-image: url("../resources/sendIcon.png");
+.sendMessageButton {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../resources/sendIcon.png");
+    -fx-background-size: 40px 40px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
-.sendMessageImage:hover {
-    -fx-image: url("../resources/sendIconHover.png");
+.sendMessageButton:hover {
+    -fx-background-image: url("../resources/sendIconHover.png");
 }
