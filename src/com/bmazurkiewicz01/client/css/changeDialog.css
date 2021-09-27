@@ -4,15 +4,12 @@
     -fx-border-color: black;
     -fx-border-radius: 25;
 }
-.infoLabel {
-    -fx-text-fill: #6C62FF;
-}
-.confirmButton {
-    -fx-background-color: #4a90e2;
+.changeButton {
+    -fx-background-color: #3265ff;
     -fx-background-radius: 25;
 }
-.confirmButton:hover {
-    -fx-background-color: #5b9ce1;
+.changeButton:hover {
+    -fx-background-color: #4173e0;
 }
 .cancelButton {
     -fx-background-color: #FF3232;
@@ -21,7 +18,7 @@
 .cancelButton:hover {
     -fx-background-color: #ff4444;
 }
-.passwordField {
+.textField {
     -fx-background-color: #00000025;
     -fx-background-radius: 25;
     -fx-text-fill: #a9a9a9;

@@ -1,0 +1,24 @@
+.root {
+    -fx-border-style: solid;
+    -fx-border-width: 0.6;
+    -fx-border-color: black;
+    -fx-border-radius: 25;
+}
+.mainLabel {
+    -fx-text-fill: #6C62FF;
+}
+.fieldLabel {
+    -fx-text-fill: #a8a8a8;
+}
+.passField {
+    -fx-background-color: #00000025;
+    -fx-background-radius: 25;
+    -fx-text-fill: #a9a9a9;
+}
+.changeButton {
+    -fx-background-color: #ff5f50;
+    -fx-background-radius: 25;
+}
+.changeButton:hover {
+    -fx-background-color: #ff6b5c;
+}

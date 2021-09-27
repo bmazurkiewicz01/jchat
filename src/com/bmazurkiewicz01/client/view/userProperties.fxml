@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" styleClass="root" xmlns="http://javafx.com/javafx/11"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bmazurkiewicz01.client.controller.UserPropertiesController">
+    <stylesheets>
+        <URL value="@../css/appStyle.css"/>
+        <URL value="@../css/userPropertiesStyle.css"/>
+    </stylesheets>
+    <children>
+        <Label layoutX="219.0" layoutY="52.0" styleClass="mainLabel" text="User Properties">
+            <font>
+                <Font size="28.0"/>
+            </font>
+        </Label>
+        <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="518.0" layoutY="16.0"
+                   styleClass="minimizeButton">
+            <image>
+                <Image url="@../resources/minimizeIcon.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="16.0"
+                   styleClass="closeButton">
+            <image>
+                <Image url="@../resources/closeIcon.png"/>
+            </image>
+        </ImageView>
+        <Label layoutX="41.0" layoutY="116.0" styleClass="fieldLabel" text="Your name">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Label layoutX="41.0" layoutY="178.0" styleClass="fieldLabel" text="Your password">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <TextField fx:id="nameField" editable="false" layoutX="175.0" layoutY="110.0" styleClass="passField">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </TextField>
+        <PasswordField editable="false" layoutX="175.0" layoutY="172.0" styleClass="passField"
+                       text="dadadadadadadadadad">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </PasswordField>
+        <Button fx:id="changeNameButton" alignment="CENTER" layoutX="424.0" layoutY="110.0" mnemonicParsing="false"
+                onAction="#handleChangeNameButton" prefHeight="38.0" prefWidth="150.0" styleClass="changeButton"
+                text="Change name">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+        <Button fx:id="changePasswordButton" alignment="CENTER" layoutX="424.0" layoutY="172.0" mnemonicParsing="false"
+                onAction="#handleChangePasswordButton" prefHeight="38.0" prefWidth="150.0" styleClass="changeButton"
+                text="Change password">
+            <font>
+                <Font size="16.0"/>
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

@@ -135,6 +135,26 @@ public final class ServerConnection {
         return inputMessage.equals("validate:success");
     }
 
+    public boolean changeUserName(String newName) {
+        createOutputTask("changename:\t" + userName + "\t" + newName);
+        try {
+            Thread.sleep(30);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        return inputMessage.equals("changename:success");
+    }
+
+    public boolean changeUserPassword(String newPassword) {
+        createOutputTask("changepassword:\t" + userName + "\t" + newPassword);
+        try {
+            Thread.sleep(30);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+        return inputMessage.equals("changepassword:success");
+    }
+
     private void createOutputTask(String message) {
         OutputTask outputTask = new OutputTask(output);
         outputTask.setMessage(message);

@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class ClientThread extends Thread {
     private final Socket socket;
-    private final String clientName;
+    private String clientName;
     private final ObjectOutputStream output;
     private final ObjectInputStream input;
     private ServerRoom currentRoom;
@@ -67,6 +67,28 @@ public class ClientThread extends Thread {
                             output.writeObject("validate:success");
                         } else {
                             output.writeObject("validate:failed");
+                        }
+                        output.flush();
+                    } else if (message.startsWith("changename:\t")) {
+                        String name = data[1];
+                        String newName = data[2];
+
+                        if (JchatServer.getInstance().changeUserName(name, newName)) {
+                            output.writeObject("changename:success");
+                            clientName = newName;
+                            JchatServer.getInstance().changeOwnersInRooms(name, newName);
+                        } else {
+                            output.writeObject("changename:failed");
+                        }
+                        output.flush();
+                    } else if (message.startsWith("changepassword:\t")) {
+                        String name = data[1];
+                        String newPassword = data[2];
+
+                        if (JchatServer.getInstance().changeUserPassword(name, newPassword)) {
+                            output.writeObject("changepassword:success");
+                        } else {
+                            output.writeObject("changepassword:failed");
                         }
                         output.flush();
                     }

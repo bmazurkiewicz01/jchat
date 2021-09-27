@@ -91,6 +91,23 @@ public final class JchatServer {
         return false;
     }
 
+    public boolean changeUserName(String name, String newName) {
+        return userDatasource.updateUserName(name, newName);
+    }
+
+    public void changeOwnersInRooms(String owner, String newOwner) throws IOException {
+        for (ServerRoom serverRoom : rooms) {
+            if (serverRoom.getOwner().equals(owner)) {
+                serverRoom.setOwner(newOwner);
+            }
+        }
+        sendRooms();
+    }
+
+    public boolean changeUserPassword(String name, String newPassword) {
+        return userDatasource.updatePassword(name, newPassword);
+    }
+
     public void kickClientFromRoom(String clientName, ServerRoom room) throws IOException {
         for (ClientThread client : room.getClientList()) {
             if (client.getClientName().equals(clientName)) {
