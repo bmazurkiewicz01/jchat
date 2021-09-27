@@ -9,37 +9,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.AddRoomDialogController">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0"
+            styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bmazurkiewicz01.client.controller.AddRoomDialogController">
     <children>
-        <Button fx:id="addRoomButton" defaultButton="true" layoutX="39.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleAddRoomButton" prefWidth="125.0" styleClass="addRoomButton" text="Add room">
+        <Button fx:id="addRoomButton" defaultButton="true" layoutX="39.0" layoutY="165.0" mnemonicParsing="false"
+                onAction="#handleAddRoomButton" prefWidth="125.0" styleClass="addRoomButton" text="Add room">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Button>
-        <TextField fx:id="nameField" alignment="CENTER" focusTraversable="false" layoutX="63.0" layoutY="95.0" promptText="Room name" styleClass="nameField">
+        <TextField fx:id="nameField" alignment="CENTER" focusTraversable="false" layoutX="63.0" layoutY="95.0"
+                   promptText="Room name" styleClass="nameField">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </TextField>
-        <Button fx:id="cancelButton" layoutX="199.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleCancelButton" prefWidth="125.0" styleClass="cancelButton" text="Cancel">
+        <Button fx:id="cancelButton" layoutX="199.0" layoutY="165.0" mnemonicParsing="false"
+                onAction="#handleCancelButton" prefWidth="125.0" styleClass="cancelButton" text="Cancel">
             <font>
-                <Font size="18.0" />
+                <Font size="18.0"/>
             </font>
         </Button>
-        <Label fx:id="errorLabel" alignment="CENTER" layoutX="99.0" layoutY="142.0" minWidth="-Infinity" prefHeight="18.0" prefWidth="157.0" text="Label" textFill="RED" visible="false" />
+        <Label fx:id="errorLabel" alignment="CENTER" layoutX="42.0" layoutY="142.0" minWidth="-Infinity"
+               prefHeight="18.0" prefWidth="276.0" text="Label" textFill="RED" visible="false"/>
         <Label layoutX="88.0" layoutY="46.0" text="Add new room" textFill="#6c62ff">
             <font>
-                <Font name="System Bold" size="25.0" />
+                <Font name="System Bold" size="25.0"/>
             </font>
         </Label>
-      <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="16.0">
-         <image>
-            <Image url="@../resources/closeIcon.png" />
-         </image>
-      </ImageView>
+        <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="16.0"
+                   styleClass="closeButton">
+            <image>
+                <Image url="@../resources/closeIcon.png"/>
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
-        <URL value="@../css/addRoomDialogStyle.css" />
-        <URL value="@../css/appStyle.css" />
+        <URL value="@../css/addRoomDialogStyle.css"/>
+        <URL value="@../css/appStyle.css"/>
     </stylesheets>
 </AnchorPane>

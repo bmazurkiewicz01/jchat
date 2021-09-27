@@ -100,10 +100,17 @@ public final class ServerConnection {
         inputThread.setRoomController(roomController);
     }
 
-    public void addRoom(String roomName) {
+    public String addRoom(String roomName) {
         if (!roomName.isBlank()) {
             createOutputTask(String.format("addroom:\t%s", roomName));
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            return inputMessage;
         }
+        return null;
     }
 
     public void leaveRoom() {

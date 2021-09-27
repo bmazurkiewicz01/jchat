@@ -148,8 +148,13 @@ public final class JchatServer {
         return users;
     }
 
-    public void addRoom(ServerRoom room) {
-        if (room != null) rooms.add(room);
+    public boolean addRoom(ServerRoom room) {
+        if (room != null && getSingleRoom(room.getName(), room.getOwner()) == null) {
+            rooms.add(room);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void removeRoom(ServerRoom room) {

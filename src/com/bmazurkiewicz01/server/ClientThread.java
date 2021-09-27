@@ -28,8 +28,14 @@ public class ClientThread extends Thread {
                 if (currentRoom == null) {
                     String[] data = message.split("\t");
                     if (message.startsWith("addroom:\t")) {
-                        JchatServer.getInstance().addRoom(new ServerRoom(data[1], clientName));
-                        JchatServer.getInstance().sendRooms();
+                        boolean isRoomAdded = JchatServer.getInstance().addRoom(new ServerRoom(data[1], clientName));
+                        if (isRoomAdded) {
+                            JchatServer.getInstance().sendRooms();
+                            output.writeObject("conn:roomadded");
+                        } else {
+                            output.writeObject("conn:roomerror");
+                        }
+                        output.flush();
                     } else if (message.startsWith("connectroom:\t")) {
                         ServerRoom room = JchatServer.getInstance().getSingleRoom(data[1], data[2]);
 

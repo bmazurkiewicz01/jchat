@@ -31,12 +31,19 @@ public class AddRoomDialogController {
 
     @FXML
     public void handleAddRoomButton(Event actionEvent) {
-        if (nameField.getText().isBlank()) {
+        String roomName = nameField.getText();
+        if (roomName.isBlank()) {
             handleError("Name cannot be blank", false);
         }
         else {
-            ServerConnection.getInstance().addRoom(nameField.getText());
-            closeStage(actionEvent);
+            String result = ServerConnection.getInstance().addRoom(roomName);
+            if (result == null) {
+                handleError("Add room error. Please try again.", false);
+            } else if (result.equals("conn:roomadded")) {
+                closeStage(actionEvent);
+            } else if (result.equals("conn:roomerror")) {
+                handleError(roomName + " is taken. Try another name.", false);
+            }
         }
     }
 
