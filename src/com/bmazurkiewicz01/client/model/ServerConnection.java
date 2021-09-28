@@ -148,7 +148,7 @@ public final class ServerConnection {
     public boolean changeUserPassword(String newPassword) {
         createOutputTask("changepassword:\t" + userName + "\t" + newPassword);
         try {
-            Thread.sleep(30);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }

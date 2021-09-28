@@ -67,6 +67,24 @@ public class UserPropertiesController {
 
     @FXML
     public void handleChangePasswordButton(ActionEvent actionEvent) {
+        final Stage changePasswordDialog = new Stage();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(View.CHANGE_PASSWORD_DIALOG.getFileName()));
+        Parent root;
+        try {
+            root = fxmlLoader.load();
+
+            changePasswordDialog.setScene(new Scene(root));
+            changePasswordDialog.getScene().setFill(Color.TRANSPARENT);
+            changePasswordDialog.initModality(Modality.APPLICATION_MODAL);
+            changePasswordDialog.initOwner(this.root.getScene().getWindow());
+            changePasswordDialog.initStyle(StageStyle.TRANSPARENT);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        changePasswordDialog.showAndWait();
     }
 
     public void setNameField(String text) {
