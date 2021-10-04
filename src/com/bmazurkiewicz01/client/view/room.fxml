@@ -13,11 +13,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RoomController">
-    <Pane layoutX="25.0" layoutY="75.0" prefHeight="506.0" prefWidth="684.0" styleClass="mainPane">
+    <Pane layoutX="25.0" layoutY="75.0" prefHeight="506.0" prefWidth="751.0" styleClass="mainPane">
         <children>
             <HBox layoutX="210.0" prefHeight="27.0" prefWidth="474.0" style="-fx-background-radius: 0 25 0 0;">
                 <children>
@@ -45,13 +46,13 @@
             <Pane prefHeight="506.0" prefWidth="203.0" styleClass="usersPane"/>
 
             <TextArea fx:id="chatTextArea" editable="false" layoutX="212.0" layoutY="28.0" prefHeight="406.0"
-                      prefWidth="465.0" styleClass="chatTextArea"/>
-            <Pane layoutX="213.0" layoutY="444.0" prefHeight="39.0" prefWidth="463.0" styleClass="messagePane">
+                      prefWidth="529.0" styleClass="chatTextArea"/>
+            <Pane layoutX="213.0" layoutY="444.0" prefHeight="39.0" prefWidth="529.0" styleClass="messagePane">
                 <children>
                     <TextField fx:id="messageField" prefHeight="0.0" prefWidth="403.0" styleClass="messageField"/>
-                    <Button fx:id="sendMessageButton" defaultButton="true" layoutX="409.0" mnemonicParsing="false"
-                            onAction="#handleSendMessageButton" prefHeight="40.0" prefWidth="40.0"
-                            styleClass="sendMessageButton"/>
+                    <Button fx:id="sendMessageButton" defaultButton="true" layoutX="475.0" layoutY="1.0"
+                            mnemonicParsing="false" onAction="#handleSendMessageButton" prefHeight="40.0"
+                            prefWidth="40.0" styleClass="sendMessageButton"/>
                 </children>
             </Pane>
             <Label fx:id="errorLabel" layoutX="213.0" layoutY="487.0" prefHeight="17.0" prefWidth="463.0"
@@ -66,19 +67,6 @@
             <Image url="@../resources/minimizeIcon.png"/>
         </image>
     </ImageView>
-
-    <Button fx:id="backButton" layoutX="444.0" layoutY="28.0" onAction="#handleBackButton" prefHeight="39.0"
-            prefWidth="116.0" styleClass="goBackButton" text="Go back" GridPane.columnIndex="0" GridPane.rowIndex="0">
-        <font>
-            <Font size="18.0"/>
-        </font>
-    </Button>
-    <Button fx:id="logoutButton" layoutX="573.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleLogoutButton"
-            prefHeight="39.0" prefWidth="116.0" styleClass="logoutButton" text="Logout" GridPane.columnIndex="1">
-        <font>
-            <Font size="18.0"/>
-        </font>
-    </Button>
     <ListView fx:id="usersListView" layoutX="45.0" layoutY="100.0" prefHeight="455.0" prefWidth="160.0"
               styleClass="connectedUsersListView"/>
     <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0"
@@ -87,6 +75,35 @@
             <Image url="@../resources/closeIcon.png"/>
         </image>
     </ImageView>
+
+    <Button fx:id="hamburgerButton" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0"
+            prefWidth="32.0" styleClass="hamburgerButton"/>
+    <AnchorPane fx:id="leftPane" prefWidth="160.0" styleClass="leftPane" translateX="-160"
+                AnchorPane.bottomAnchor="56.0" AnchorPane.topAnchor="56.0">
+        <VBox alignment="CENTER">
+            <Button fx:id="backButton" layoutX="444.0" layoutY="28.0" onAction="#handleBackButton" prefHeight="39.0"
+                    prefWidth="116.0" styleClass="goBackButton" text="    Go back" GridPane.columnIndex="0"
+                    GridPane.rowIndex="0">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                </VBox.margin>
+            </Button>
+            <Button fx:id="logoutButton" layoutX="573.0" layoutY="28.0" mnemonicParsing="false"
+                    onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="116.0" styleClass="logoutButton"
+                    text="  Logout" GridPane.columnIndex="1">
+                <font>
+                    <Font size="14.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                </VBox.margin>
+            </Button>
+        </VBox>
+    </AnchorPane>
+
     <stylesheets>
         <URL value="@../css/appStyle.css"/>
         <URL value="@../css/roomStyle.css"/>

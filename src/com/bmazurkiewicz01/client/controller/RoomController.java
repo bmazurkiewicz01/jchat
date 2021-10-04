@@ -3,12 +3,14 @@ package com.bmazurkiewicz01.client.controller;
 import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
+import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -16,10 +18,14 @@ public class RoomController {
     @FXML
     public AnchorPane root;
     @FXML
+    public AnchorPane leftPane;
+    @FXML
     public ImageView closeButton;
     @FXML
     public ImageView minimizeButton;
 
+    @FXML
+    public Button hamburgerButton;
     @FXML
     public Button logoutButton;
     @FXML
@@ -44,6 +50,7 @@ public class RoomController {
     private double x,y;
 
     public void initialize() {
+        setUpLeftPaneAnimation();
         ServerConnection.getInstance().setRoomControllerInInputThread(this);
 
         root.setOnMousePressed(e -> {
@@ -160,6 +167,21 @@ public class RoomController {
             messageField.setDisable(true);
             sendMessageButton.setDisable(true);
         }
+    }
+
+    private void setUpLeftPaneAnimation() {
+        TranslateTransition openPane = new TranslateTransition(new Duration(550), leftPane);
+        TranslateTransition closePane = new TranslateTransition(new Duration(550), leftPane);
+        openPane.setToX(0);
+
+        hamburgerButton.setOnAction( e -> {
+            if (leftPane.getTranslateX() != 0) {
+                openPane.play();
+            } else {
+                closePane.setToX(-(leftPane.getWidth()));
+                closePane.play();
+            }
+        });
     }
 
 }

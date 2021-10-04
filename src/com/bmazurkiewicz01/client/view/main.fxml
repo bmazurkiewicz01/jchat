@@ -10,75 +10,88 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.MainController">
     <stylesheets>
-        <URL value="@../css/appStyle.css" />
-        <URL value="@../css/mainStyle.css" />
+        <URL value="@../css/appStyle.css"/>
+        <URL value="@../css/mainStyle.css"/>
     </stylesheets>
-    <TableView fx:id="roomTableView" layoutX="100.0" layoutY="77.0" onMouseClicked="#handleRowClick" prefHeight="467.0" prefWidth="600.0">
+    <TableView fx:id="roomTableView" layoutX="25.0" layoutY="75.0" onMouseClicked="#handleRowClick" prefHeight="506.0"
+               prefWidth="751.0">
         <columns>
-            <TableColumn fx:id="nameColumn" editable="false" minWidth="0.0" prefWidth="199.0" resizable="false" text="Name">
+            <TableColumn fx:id="nameColumn" editable="false" minWidth="0.0" prefWidth="249.0" resizable="false"
+                         text="Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="name" />
+                    <PropertyValueFactory property="name"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="ownerColumn" editable="false" minWidth="1.0" prefWidth="199.0" resizable="false" text="Owner">
+            <TableColumn fx:id="ownerColumn" editable="false" minWidth="1.0" prefWidth="249.0" resizable="false"
+                         text="Owner">
                 <cellValueFactory>
-                    <PropertyValueFactory property="owner" />
+                    <PropertyValueFactory property="owner"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="connectedColumn" editable="false" minWidth="1.0" prefWidth="199.0" resizable="false" text="Connected">
+            <TableColumn fx:id="connectedColumn" editable="false" minWidth="1.0" prefWidth="249.0" resizable="false"
+                         text="Connected">
                 <cellValueFactory>
-                    <PropertyValueFactory property="connected" />
+                    <PropertyValueFactory property="connected"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>
     </TableView>
-    <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0" styleClass="minimizeButton">
-        <Image url="@../resources/minimizeIcon.png" />
+    <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0"
+               styleClass="minimizeButton">
+        <Image url="@../resources/minimizeIcon.png"/>
     </ImageView>
-    <Label fx:id="helloLabel" alignment="CENTER" layoutX="276.0" layoutY="11.0" prefHeight="58.0" prefWidth="227.0" styleClass="helloLabel" text="Hello, User!">
+    <Label fx:id="helloLabel" alignment="CENTER" layoutX="276.0" layoutY="11.0" prefHeight="58.0" prefWidth="227.0"
+           styleClass="helloLabel" text="Hello, User!">
         <font>
-            <Font size="28.0" />
+            <Font size="28.0"/>
         </font>
     </Label>
-    <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0" styleClass="closeButton">
-        <Image url="@../resources/closeIcon.png" />
+    <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0"
+               styleClass="closeButton">
+        <Image url="@../resources/closeIcon.png"/>
     </ImageView>
-    <Label fx:id="errorLabel" layoutX="190.0" layoutY="558.0" prefHeight="27.0" prefWidth="420.0" style="-fx-text-alignment: center; -fx-alignment: center;" text="Label" textFill="RED" visible="false">
+    <Label fx:id="errorLabel" layoutX="190.0" layoutY="558.0" prefHeight="27.0" prefWidth="420.0"
+           style="-fx-text-alignment: center; -fx-alignment: center;" text="Label" textFill="RED" visible="false">
         <font>
-            <Font size="18.0" />
+            <Font size="18.0"/>
         </font>
     </Label>
-    <Button fx:id="hamburgerButton" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="hamburgerButton" />
-    <AnchorPane fx:id="leftPane" prefWidth="160.0" styleClass="leftPane" translateX="-160" AnchorPane.bottomAnchor="56.0" AnchorPane.topAnchor="56.0">
+    <Button fx:id="hamburgerButton" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="32.0"
+            prefWidth="32.0" styleClass="hamburgerButton"/>
+    <AnchorPane fx:id="leftPane" prefWidth="160.0" styleClass="leftPane" translateX="-160"
+                AnchorPane.bottomAnchor="56.0" AnchorPane.topAnchor="56.0">
         <VBox alignment="CENTER">
-            <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="130.0" styleClass="addRoomButton" text="       Add room">
+            <Button fx:id="addRoomButton" onAction="#handleAddRoomButton" prefHeight="39.0" prefWidth="130.0"
+                    styleClass="addRoomButton" text="       Add room">
                 <font>
-                    <Font size="14.0" />
+                    <Font size="14.0"/>
                 </font>
                 <VBox.margin>
-                    <Insets bottom="10" left="10" right="10" top="10" />
+                    <Insets bottom="10" left="10" right="10" top="10"/>
                 </VBox.margin>
             </Button>
-            <Button fx:id="userPropertiesButton" onAction="#handleUserPropertiesButton" prefHeight="39.0" prefWidth="130.0" styleClass="userPropertiesButton" text="       User Properties">
+            <Button fx:id="userPropertiesButton" onAction="#handleUserPropertiesButton" prefHeight="39.0"
+                    prefWidth="130.0" styleClass="userPropertiesButton" text="       User Properties">
                 <font>
-                    <Font size="12.0" />
+                    <Font size="12.0"/>
                 </font>
                 <VBox.margin>
-                    <Insets bottom="10" left="10" right="10" top="10" />
+                    <Insets bottom="10" left="10" right="10" top="10"/>
                 </VBox.margin>
             </Button>
-            <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="130.0" styleClass="logoutButton" text="    Logout">
+            <Button fx:id="logoutButton" onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="130.0"
+                    styleClass="logoutButton" text="    Logout">
                 <font>
-                    <Font size="14.0" />
+                    <Font size="14.0"/>
                 </font>
                 <VBox.margin>
-                    <Insets bottom="10" left="10" right="10" top="10" />
+                    <Insets bottom="10" left="10" right="10" top="10"/>
                 </VBox.margin>
             </Button>
         </VBox>

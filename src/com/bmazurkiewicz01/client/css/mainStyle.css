@@ -31,20 +31,6 @@
 .column-header, .filler, .corner, .track, .track-background {
     -fx-background-color: transparent;
 }
-.hamburgerButton {
-    -fx-background-color: transparent;
-    -fx-background-image: url("../resources/hamburgerIcon.png");
-    -fx-background-size: 32px 32px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-.hamburgerButton:hover {
-    -fx-background-image: url("../resources/hamburgerIconHover.png");
-}
-.leftPane {
-    -fx-background-color: rgba(51, 51, 51, 0.6);
-    -fx-background-radius: 0 25 25 0;
-}
 .addRoomButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
     -fx-background-image: url("../resources/addIcon.png");
