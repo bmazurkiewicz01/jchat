@@ -2,10 +2,15 @@ package com.bmazurkiewicz01.client.view;
 
 import com.bmazurkiewicz01.client.controller.MainController;
 import com.bmazurkiewicz01.client.controller.RoomController;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -95,6 +100,40 @@ public final class ViewSwitcher {
         if (root != null) scene.setRoot(root);
         else System.out.println("ViewSwitcher: root was null");
     }
+
+    public void setUpLeftPaneAnimation(Pane root, Pane leftPane, Button hamburgerButton) {
+        TranslateTransition openPane = new TranslateTransition(new Duration(550), leftPane);
+        TranslateTransition closePane = new TranslateTransition(new Duration(550), leftPane);
+        openPane.setToX(0);
+
+        hamburgerButton.setOnAction( e -> {
+            if (leftPane.getTranslateX() != 0) {
+                openPane.play();
+            } else {
+                closePane.setToX(-(leftPane.getWidth()));
+                closePane.play();
+            }
+        });
+
+        leftPane.setOnMouseExited(e -> {
+            closePane.setToX(-(leftPane.getWidth()));
+            closePane.play();
+        });
+        root.setOnMouseMoved(e -> {
+            if (leftPane.getWidth() < e.getX()) {
+                if (leftPane.getTranslateX() == 0) {
+                    closePane.setToX(-(leftPane.getWidth()));
+                    closePane.play();
+                }
+            }
+        });
+    }
+
+    public void setUpTitleBarButtons(ImageView closeButton, ImageView minimizeButton) {
+        closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
+        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
+    }
+
 
     public MainController getMainController() {
         return mainController;

@@ -13,71 +13,78 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.RegisterController">
-   <children>
-      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0">
-         <Label styleClass="headerLabel" text="Create an account">
-            <font>
-               <Font name="System Bold" size="26.0" />
-            </font>
-         </Label>
-         <Label styleClass="headerLabel" text="It's quick and easy.">
-            <font>
-               <Font size="18.0" />
-            </font>
-            <padding>
-               <Insets bottom="20.0" />
-            </padding>
-         </Label>
-          <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Name" styleClass="registerField">
-              <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-              </VBox.margin>
-            <font>
-               <Font size="18.0" />
-            </font>
-          </TextField>
-          <PasswordField fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Password" styleClass="registerField">
-              <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-              </VBox.margin>
-            <font>
-               <Font size="18.0" />
-            </font>
-          </PasswordField>
-          <Label fx:id="errorLabel" managed="false" text="Label" textFill="red" visible="false" />
-          <HBox alignment="CENTER">
-              <Button fx:id="registerButton" alignment="CENTER" defaultButton="true" onAction="#handleRegisterButton" prefWidth="125.0" styleClass="registerButton" text="Register">
-                  <HBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </HBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-              </Button>
-              <Button fx:id="cancelButton" alignment="CENTER" onAction="#handleCancelButton" prefWidth="125.0" styleClass="cancelButton" text="Cancel">
-                  <HBox.margin>
-                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </HBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-              </Button>
-          </HBox>
-      </VBox>
-      <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
-         <image>
-            <Image url="@../resources/minimizeIcon.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
-         <image>
-            <Image url="@../resources/closeIcon.png" />
-         </image>
-      </ImageView>
-   </children>
-   <stylesheets>
-      <URL value="@../css/appStyle.css" />
-      <URL value="@../css/registerStyle.css" />
-   </stylesheets>
+<AnchorPane fx:id="root" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bmazurkiewicz01.client.controller.RegisterController">
+    <children>
+        <VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0">
+            <Label styleClass="headerLabel" text="Create an account">
+                <font>
+                    <Font name="System Bold" size="26.0"/>
+                </font>
+            </Label>
+            <Label styleClass="headerLabel" text="It's quick and easy.">
+                <font>
+                    <Font size="18.0"/>
+                </font>
+                <padding>
+                    <Insets bottom="20.0"/>
+                </padding>
+            </Label>
+            <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" promptText="Name"
+                       styleClass="registerField">
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </VBox.margin>
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </TextField>
+            <PasswordField fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200"
+                           promptText="Password" styleClass="registerField">
+                <VBox.margin>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </VBox.margin>
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </PasswordField>
+            <Label fx:id="errorLabel" managed="false" text="Label" textFill="red" visible="false"/>
+            <HBox alignment="CENTER">
+                <Button fx:id="registerButton" alignment="CENTER" defaultButton="true" onAction="#handleRegisterButton"
+                        prefWidth="125.0" styleClass="registerButton" text="Register">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </HBox.margin>
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="cancelButton" alignment="CENTER" onAction="#handleCancelButton" prefWidth="125.0"
+                        styleClass="cancelButton" text="Cancel">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </HBox.margin>
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+        <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0"
+                   layoutY="16.0">
+            <image>
+                <Image url="@../../../../resources/minimize_icon.png"/>
+            </image>
+        </ImageView>
+        <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0"
+                   layoutY="16.0">
+            <image>
+                <Image url="@../../../../resources/close_icon.png"/>
+            </image>
+        </ImageView>
+    </children>
+    <stylesheets>
+        <URL value="@../css/appStyle.css"/>
+        <URL value="@../css/registerStyle.css"/>
+    </stylesheets>
 </AnchorPane>

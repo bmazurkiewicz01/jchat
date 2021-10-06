@@ -36,9 +36,9 @@ public class UserPropertiesController {
     public Button changePasswordButton;
 
     public void initialize() {
+        ViewSwitcher.getInstance().setUpTitleBarButtons(closeButton, minimizeButton);
+
         nameField.setText(ServerConnection.getInstance().getUserName());
-        closeButton.setOnMouseClicked(this::closeStage);
-        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
     }
 
     @FXML

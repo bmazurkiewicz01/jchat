@@ -33,7 +33,7 @@
 }
 .addRoomButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
-    -fx-background-image: url("../resources/addIcon.png");
+    -fx-background-image: url("../../../../resources/add_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
@@ -44,7 +44,7 @@
 }
 .logoutButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
-    -fx-background-image: url("../resources/logoutIcon.png");
+    -fx-background-image: url("../../../../resources/logout_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
@@ -55,7 +55,7 @@
 }
 .userPropertiesButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
-    -fx-background-image: url("../resources/changeUserIcon.png");
+    -fx-background-image: url("../../../../resources/change_user_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;

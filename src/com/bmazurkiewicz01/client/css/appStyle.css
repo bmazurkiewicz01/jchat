@@ -3,26 +3,26 @@
     -fx-background-radius: 25;
 }
 .closeButton {
-    -fx-image: url("../resources/closeIcon.png");
+    -fx-image: url("../../../../resources/close_icon.png");
 }
 .closeButton:hover {
-    -fx-image: url("../resources/closeIconHover.png");
+    -fx-image: url("../../../../resources/close_icon_hover.png");
 }
 .minimizeButton {
-    -fx-image: url("../resources/minimizeIcon.png");
+    -fx-image: url("../../../../resources/minimize_icon.png");
 }
 .minimizeButton:hover {
-    -fx-image: url("../resources/minimizeIconHover.png");
+    -fx-image: url("../../../../resources/minimize_icon_hover.png");
 }
 .hamburgerButton {
     -fx-background-color: transparent;
-    -fx-background-image: url("../resources/hamburgerIcon.png");
+    -fx-background-image: url("../../../../resources/hamburger_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 .hamburgerButton:hover {
-    -fx-background-image: url("../resources/hamburgerIconHover.png");
+    -fx-background-image: url("../../../../resources/hamburger_icon_hover.png");
 }
 .leftPane {
     -fx-background-color: rgba(51, 51, 51, 0.6);

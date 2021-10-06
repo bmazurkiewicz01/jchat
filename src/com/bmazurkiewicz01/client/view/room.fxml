@@ -64,7 +64,7 @@
     <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0"
                styleClass="minimizeButton">
         <image>
-            <Image url="@../resources/minimizeIcon.png"/>
+            <Image url="@../../../../resources/minimize_icon.png"/>
         </image>
     </ImageView>
     <ListView fx:id="usersListView" layoutX="45.0" layoutY="100.0" prefHeight="455.0" prefWidth="160.0"
@@ -72,7 +72,7 @@
     <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0"
                styleClass="closeButton">
         <image>
-            <Image url="@../resources/closeIcon.png"/>
+            <Image url="@../../../../resources/close_icon.png"/>
         </image>
     </ImageView>
 

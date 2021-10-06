@@ -9,39 +9,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="350.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.AddUserAlertController">
+<AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="350.0"
+            styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.bmazurkiewicz01.client.controller.AddUserAlertController">
 
 
     <stylesheets>
-        <URL value="@../css/addUserAlertStyle.css" />
-        <URL value="@../css/appStyle.css" />
+        <URL value="@../css/addUserAlertStyle.css"/>
+        <URL value="@../css/appStyle.css"/>
     </stylesheets>
-   <children>
-      <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="13.0" styleClass="closeButton">
-         <image>
-            <Image url="@../resources/closeIcon.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="15.0" layoutY="69.0" styleClass="headerLabel" text="Register success!">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Label>
-      <Separator layoutX="15.0" layoutY="118.0" prefWidth="320.0" />
-      <Label fx:id="mainLabel" layoutX="14.0" layoutY="134.0" styleClass="mainLabel" text="Default text" wrapText="true">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="279.0" layoutY="61.0">
-         <image>
-            <Image url="@../resources/infoIcon.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="confirmButton" layoutX="112.0" layoutY="176.0" mnemonicParsing="false" prefWidth="125.0" styleClass="confirmButton" text="OK">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-   </children>
+    <children>
+        <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="13.0"
+                   styleClass="closeButton">
+            <image>
+                <Image url="@../../../../resources/close_icon.png"/>
+            </image>
+        </ImageView>
+        <Label layoutX="15.0" layoutY="69.0" styleClass="headerLabel" text="Register success!">
+            <font>
+                <Font size="22.0"/>
+            </font>
+        </Label>
+        <Separator layoutX="15.0" layoutY="118.0" prefWidth="320.0"/>
+        <Label fx:id="mainLabel" layoutX="14.0" layoutY="134.0" styleClass="mainLabel" text="Default text"
+               wrapText="true">
+            <font>
+                <Font size="15.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="279.0" layoutY="61.0">
+            <image>
+                <Image url="@../../../../resources/info_icon.png"/>
+            </image>
+        </ImageView>
+        <Button fx:id="confirmButton" layoutX="112.0" layoutY="176.0" mnemonicParsing="false" prefWidth="125.0"
+                styleClass="confirmButton" text="OK">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Button>
+    </children>
 </AnchorPane>

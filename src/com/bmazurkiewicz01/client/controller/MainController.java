@@ -4,7 +4,6 @@ import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.Room;
 import com.bmazurkiewicz01.client.view.View;
 import com.bmazurkiewicz01.client.view.ViewSwitcher;
-import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +21,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.List;
@@ -65,10 +63,12 @@ public class MainController {
     private double x, y;
 
     public void initialize() {
-        setUpLeftPaneAnimation();
+        ViewSwitcher.getInstance().setUpLeftPaneAnimation(root, leftPane, hamburgerButton);
+        ViewSwitcher.getInstance().setUpTitleBarButtons(closeButton, minimizeButton);
+        ViewSwitcher.getInstance().setMainController(this);
+
         ServerConnection.getInstance().createInputThread();
         ServerConnection.getInstance().setMainControllerInInputThread(this);
-        ViewSwitcher.getInstance().setMainController(this);
 
         root.setOnMousePressed(e -> {
             x = e.getSceneX();
@@ -78,9 +78,6 @@ public class MainController {
             ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
             ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
         });
-
-        closeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().close());
-        minimizeButton.setOnMouseClicked(e -> ViewSwitcher.getInstance().getStage().setIconified(true));
     }
 
     @FXML
@@ -175,21 +172,6 @@ public class MainController {
 
     public void setRooms(List<Room> newRooms) {
         roomTableView.setItems(FXCollections.observableList(newRooms));
-    }
-
-    private void setUpLeftPaneAnimation() {
-        TranslateTransition openPane = new TranslateTransition(new Duration(550), leftPane);
-        TranslateTransition closePane = new TranslateTransition(new Duration(550), leftPane);
-        openPane.setToX(0);
-
-        hamburgerButton.setOnAction( e -> {
-            if (leftPane.getTranslateX() != 0) {
-                openPane.play();
-            } else {
-                closePane.setToX(-(leftPane.getWidth()));
-                closePane.play();
-            }
-        });
     }
 
     public void closeConnection() {

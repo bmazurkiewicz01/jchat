@@ -13,67 +13,76 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.LoginController">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="800.0" styleClass="root" xmlns="http://javafx.com/javafx/11"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bmazurkiewicz01.client.controller.LoginController">
     <children>
-      <VBox alignment="CENTER" layoutX="211.0" layoutY="42.0" prefHeight="548.0" prefWidth="400.0">
-         <children>
-              <ImageView fitHeight="290.0" fitWidth="338.0">
-                  <image>
-                      <Image url="@../resources/logo.png" />
-                  </image>
-              </ImageView>
-              <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200" prefHeight="39.0" prefWidth="190.0" promptText="Name" styleClass="loginField">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </TextField>
-              <PasswordField fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200" prefHeight="39.0" prefWidth="190.0" promptText="Password" styleClass="loginField">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </PasswordField>
-              <Label fx:id="errorLabel" alignment="CENTER" managed="false" prefHeight="24.0" prefWidth="214.0" textFill="red" visible="false" />
-              <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#handleLoginButton" prefWidth="75.0" styleClass="loginButton" text="Login">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-              <Separator maxWidth="220.0" prefHeight="20.0" prefWidth="220.0">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin></Separator>
-              <Button fx:id="registerButton" alignment="CENTER" onAction="#handleRegisterButton" prefWidth="125.0" styleClass="loginButton" text="Register">
-               <font>
-                  <Font size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-        <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0" layoutY="16.0">
+        <VBox alignment="CENTER" layoutX="211.0" layoutY="42.0" prefHeight="548.0" prefWidth="400.0">
+            <children>
+                <ImageView fitHeight="290.0" fitWidth="338.0">
+                    <image>
+                        <Image url="@../../../../resources/logo.png"/>
+                    </image>
+                </ImageView>
+                <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200"
+                           prefHeight="39.0" prefWidth="190.0" promptText="Name" styleClass="loginField">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </TextField>
+                <PasswordField fx:id="passwordField" alignment="CENTER" focusTraversable="false" maxWidth="200"
+                               prefHeight="39.0" prefWidth="190.0" promptText="Password" styleClass="loginField">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="10.0"/>
+                    </VBox.margin>
+                </PasswordField>
+                <Label fx:id="errorLabel" alignment="CENTER" managed="false" prefHeight="24.0" prefWidth="214.0"
+                       textFill="red" visible="false"/>
+                <Button fx:id="loginButton" alignment="CENTER" defaultButton="true" onAction="#handleLoginButton"
+                        prefWidth="75.0" styleClass="loginButton" text="Login">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <Separator maxWidth="220.0" prefHeight="20.0" prefWidth="220.0">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </Separator>
+                <Button fx:id="registerButton" alignment="CENTER" onAction="#handleRegisterButton" prefWidth="125.0"
+                        styleClass="loginButton" text="Register">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </VBox>
+        <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0"
+                   layoutY="16.0">
             <image>
-                <Image url="@../resources/closeIcon.png" />
+                <Image url="@../../../../resources/close_icon.png"/>
             </image>
         </ImageView>
-      <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0" layoutY="16.0">
-         <image>
-            <Image url="@../resources/minimizeIcon.png" />
-         </image>
-      </ImageView>
+        <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0"
+                   layoutY="16.0">
+            <image>
+                <Image url="@../../../../resources/minimize_icon.png"/>
+            </image>
+        </ImageView>
     </children>
-   <stylesheets>
-      <URL value="@../css/appStyle.css" />
-      <URL value="@../css/loginStyle.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../css/appStyle.css"/>
+        <URL value="@../css/loginStyle.css"/>
+    </stylesheets>
 </AnchorPane>

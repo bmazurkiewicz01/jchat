@@ -42,6 +42,8 @@ public class RegisterController {
     private double x, y;
 
     public void initialize() {
+        ViewSwitcher.getInstance().setUpTitleBarButtons(closeButton, minimizeButton);
+
         root.setOnMousePressed(e -> {
             x = e.getSceneX();
             y = e.getSceneY();
@@ -49,13 +51,6 @@ public class RegisterController {
         root.setOnMouseDragged(e -> {
             ViewSwitcher.getInstance().getStage().setX(e.getScreenX() - this.x);
             ViewSwitcher.getInstance().getStage().setY(e.getScreenY() - this.y);
-        });
-
-        closeButton.setOnMouseClicked(e -> {
-            ViewSwitcher.getInstance().getStage().close();
-        });
-        minimizeButton.setOnMouseClicked(e -> {
-            ViewSwitcher.getInstance().getStage().setIconified(true);
         });
     }
 

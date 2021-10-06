@@ -27,13 +27,13 @@
         <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="518.0" layoutY="16.0"
                    styleClass="minimizeButton">
             <image>
-                <Image url="@../resources/minimizeIcon.png"/>
+                <Image url="@../../../../resources/minimize_icon.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="16.0"
                    styleClass="closeButton">
             <image>
-                <Image url="@../resources/closeIcon.png"/>
+                <Image url="@../../../../resources/close_icon.png"/>
             </image>
         </ImageView>
         <Label layoutX="41.0" layoutY="116.0" styleClass="fieldLabel" text="Your name">
