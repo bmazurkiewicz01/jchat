@@ -2,7 +2,6 @@ package com.bmazurkiewicz01.client.controller;
 
 import com.bmazurkiewicz01.client.model.ServerConnection;
 import com.bmazurkiewicz01.client.view.View;
-import com.bmazurkiewicz01.client.view.ViewSwitcher;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -25,8 +24,6 @@ public class UserPropertiesController {
     @FXML
     public AnchorPane root;
     @FXML
-    public ImageView minimizeButton;
-    @FXML
     public ImageView closeButton;
     @FXML
     public TextField nameField;
@@ -36,7 +33,7 @@ public class UserPropertiesController {
     public Button changePasswordButton;
 
     public void initialize() {
-        ViewSwitcher.getInstance().setUpTitleBarButtons(closeButton, minimizeButton);
+        closeButton.setOnMouseClicked(this::closeStage);
 
         nameField.setText(ServerConnection.getInstance().getUserName());
     }

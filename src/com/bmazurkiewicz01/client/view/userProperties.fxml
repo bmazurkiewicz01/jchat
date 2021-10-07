@@ -24,12 +24,6 @@
                 <Font size="28.0"/>
             </font>
         </Label>
-        <ImageView fx:id="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="518.0" layoutY="16.0"
-                   styleClass="minimizeButton">
-            <image>
-                <Image url="@../../../../resources/minimize_icon.png"/>
-            </image>
-        </ImageView>
         <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="16.0"
                    styleClass="closeButton">
             <image>

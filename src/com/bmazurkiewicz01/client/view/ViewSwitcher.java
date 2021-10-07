@@ -106,7 +106,7 @@ public final class ViewSwitcher {
         TranslateTransition closePane = new TranslateTransition(new Duration(550), leftPane);
         openPane.setToX(0);
 
-        hamburgerButton.setOnAction( e -> {
+        hamburgerButton.setOnAction(e -> {
             if (leftPane.getTranslateX() != 0) {
                 openPane.play();
             } else {
