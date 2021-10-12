@@ -2,7 +2,9 @@ package com.bmazurkiewicz01.server;
 
 import com.bmazurkiewicz01.server.database.User;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientThread extends Thread {
@@ -112,8 +114,20 @@ public class ClientThread extends Thread {
                             System.out.println(userName + " has been banned from " + currentRoom + ".");
                             JchatServer.getInstance().banClientFromRoom(userName, currentRoom);
                         }
-                    }
-                    else if (!message.isBlank()) {
+                    } else if (message.startsWith("deleteroom:\t")) {
+                        String userName = message.split("\t")[1];
+                        String roomName = message.split("\t")[2];
+
+                        if (userName.equals(this.clientName) && JchatServer.getInstance().isOwner(this, currentRoom)) {
+                            if (currentRoom.getName().equals(roomName)) {
+                                JchatServer.getInstance().kickAllFromRoom(currentRoom, this);
+                                JchatServer.getInstance().removeRoom(currentRoom);
+                                currentRoom = null;
+                                JchatServer.getInstance().sendRooms();
+                            }
+                        }
+
+                    } else if (!message.isBlank()) {
                         JchatServer.getInstance().sendMessage(message, this, currentRoom);
                     }
                 }

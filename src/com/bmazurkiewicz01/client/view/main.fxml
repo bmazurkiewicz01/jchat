@@ -19,7 +19,7 @@
         <URL value="@../../../../resources/css/app-style.css"/>
         <URL value="@../../../../resources/css/main-style.css"/>
     </stylesheets>
-    <TableView fx:id="roomTableView" layoutX="25.0" layoutY="75.0" onMouseClicked="#handleRowClick" prefHeight="506.0"
+    <TableView fx:id="roomTableView" layoutX="25.0" layoutY="75.0" onMouseClicked="#handleRowClick" prefHeight="478.0"
                prefWidth="751.0">
         <columns>
             <TableColumn fx:id="nameColumn" editable="false" minWidth="0.0" prefWidth="249.0" resizable="false"

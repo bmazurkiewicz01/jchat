@@ -117,6 +117,10 @@ public final class ServerConnection {
         createOutputTask("conn:roomleft");
     }
 
+    public void deleteRoom() {
+        createOutputTask("deleteroom:\t" + userName + "\t" + currentRoom);
+    }
+
     public void kickUser(String userName) {
         createOutputTask("kick:\t" + userName);
     }

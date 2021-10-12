@@ -81,11 +81,21 @@
     <AnchorPane fx:id="leftPane" prefWidth="160.0" styleClass="leftPane" translateX="-160"
                 AnchorPane.bottomAnchor="56.0" AnchorPane.topAnchor="56.0">
         <VBox alignment="CENTER">
+            <Button fx:id="removeRoomButton" layoutX="444.0" layoutY="28.0" onAction="#handleRemoveRoomButton" prefHeight="39.0"
+                    prefWidth="116.0" styleClass="removeRoomButton" text="       Remove room" GridPane.columnIndex="0"
+                    GridPane.rowIndex="0" managed="false" visible="false">
+                <font>
+                    <Font size="12.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="10" left="10" right="10" top="10"/>
+                </VBox.margin>
+            </Button>
             <Button fx:id="backButton" layoutX="444.0" layoutY="28.0" onAction="#handleBackButton" prefHeight="39.0"
-                    prefWidth="116.0" styleClass="goBackButton" text="    Go back" GridPane.columnIndex="0"
+                    prefWidth="116.0" styleClass="goBackButton" text="   Go back" GridPane.columnIndex="0"
                     GridPane.rowIndex="0">
                 <font>
-                    <Font size="14.0"/>
+                    <Font size="12.0"/>
                 </font>
                 <VBox.margin>
                     <Insets bottom="10" left="10" right="10" top="10"/>
@@ -95,7 +105,7 @@
                     onAction="#handleLogoutButton" prefHeight="39.0" prefWidth="116.0" styleClass="logoutButton"
                     text="  Logout" GridPane.columnIndex="1">
                 <font>
-                    <Font size="14.0"/>
+                    <Font size="12.0"/>
                 </font>
                 <VBox.margin>
                     <Insets bottom="10" left="10" right="10" top="10"/>

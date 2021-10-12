@@ -33,12 +33,19 @@ public class InputThread extends Thread {
 
                 if (roomController != null) {
                     if (message instanceof String) {
-                        if (message.equals("conn:\tkicked")) {
-                            ServerConnection.getInstance().leaveRoom();
-                            ViewSwitcher.getInstance().getMainController().handleError("You have been kicked from "
-                                    + ServerConnection.getInstance().getCurrentRoom() + ".");
+                        if (((String) message).startsWith("conn:\tkicked")) {
+                            String[] data = ((String) message).split("\t");
+
                             ServerConnection.getInstance().setRoomControllerInInputThread(null);
                             ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+                            ServerConnection.getInstance().leaveRoom();
+
+                            if (data.length > 2) {
+                                ViewSwitcher.getInstance().getMainController().handleError(ServerConnection.getInstance().getCurrentRoom() + " has been removed.");
+                            } else {
+                                ViewSwitcher.getInstance().getMainController().handleError("You have been kicked from "
+                                        + ServerConnection.getInstance().getCurrentRoom() + ".");
+                            }
 
                             ViewSwitcher.getInstance().switchView(View.MAIN, true);
                         } else if (message.equals("conn:\tbanned")) {

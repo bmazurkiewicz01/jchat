@@ -118,6 +118,14 @@ public final class JchatServer {
         }
     }
 
+    public void kickAllFromRoom(ServerRoom room, ClientThread excludeClient) throws IOException {
+        for (ClientThread client : room.getClientList()) {
+            if (client == excludeClient) continue;
+            client.getOutput().writeObject("conn:\tkicked\tremoved");
+            client.getOutput().flush();
+        }
+    }
+
     public void banClientFromRoom(String clientName, ServerRoom room) throws IOException {
         for (ClientThread client : room.getClientList()) {
             if (client.getClientName().equals(clientName)) {
@@ -185,7 +193,7 @@ public final class JchatServer {
     }
 
     public void removeRoom(ServerRoom room) {
-        if (room != null) {
+        if (room != null && getSingleRoom(room.getName(), room.getOwner()) != null) {
             rooms.remove(room);
         }
     }
@@ -202,11 +210,15 @@ public final class JchatServer {
             for (ServerRoom serverRoom : rooms) {
                 if (serverRoom.equals(room)) {
                     serverRoom.addClient(client);
-                    return serverRoom.getOwner().equals(client.getClientName());
+                    return isOwner(client, serverRoom);
                 }
             }
         }
         return false;
+    }
+
+    public boolean isOwner(ClientThread client, ServerRoom room) {
+        return room.getOwner().equals(client.getClientName());
     }
 
     public void removeClientFromRoom(ClientThread client, ServerRoom room) {

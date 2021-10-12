@@ -25,6 +25,8 @@ public class RoomController {
     @FXML
     public Button hamburgerButton;
     @FXML
+    public Button removeRoomButton;
+    @FXML
     public Button logoutButton;
     @FXML
     public Button backButton;
@@ -82,12 +84,15 @@ public class RoomController {
     }
 
     @FXML
-    public void handleBackButton() {
-        ServerConnection.getInstance().leaveRoom();
-        ServerConnection.getInstance().setRoomControllerInInputThread(null);
-        ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+    public void handleRemoveRoomButton() {
+        ServerConnection.getInstance().deleteRoom();
+        leaveRoom();
+        ViewSwitcher.getInstance().getMainController().handleError("Room was successfully deleted.");
+    }
 
-        ViewSwitcher.getInstance().switchView(View.MAIN, true);
+    @FXML
+    public void handleBackButton() {
+        leaveRoom();
     }
 
     @FXML
@@ -106,6 +111,9 @@ public class RoomController {
     }
 
     public void setUpOwnerRoom() {
+        removeRoomButton.setManaged(true);
+        removeRoomButton.setVisible(true);
+
         usersListView.setCellFactory(stringListView -> {
             ListCell<String> cell = new ListCell<>();
             ContextMenu menu = new ContextMenu();
@@ -165,6 +173,14 @@ public class RoomController {
             messageField.setDisable(true);
             sendMessageButton.setDisable(true);
         }
+    }
+
+    private void leaveRoom() {
+        ServerConnection.getInstance().leaveRoom();
+        ServerConnection.getInstance().setMainControllerInInputThread(ViewSwitcher.getInstance().getMainController());
+        ServerConnection.getInstance().setRoomControllerInInputThread(null);
+
+        ViewSwitcher.getInstance().switchView(View.MAIN, true);
     }
 
 }
