@@ -20,7 +20,7 @@
             <children>
                 <ImageView fitHeight="290.0" fitWidth="338.0">
                     <image>
-                        <Image url="@../../../../resources/logo.png"/>
+                        <Image url="@../../../../resources/icons/logo.png"/>
                     </image>
                 </ImageView>
                 <TextField fx:id="loginField" alignment="CENTER" focusTraversable="false" maxWidth="200"
@@ -71,18 +71,18 @@
         <ImageView fx:id="closeButton" styleClass="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="751.0"
                    layoutY="16.0">
             <image>
-                <Image url="@../../../../resources/close_icon.png"/>
+                <Image url="@../../../../resources/icons/close_icon.png"/>
             </image>
         </ImageView>
         <ImageView fx:id="minimizeButton" styleClass="minimizeButton" fitHeight="24.0" fitWidth="24.0" layoutX="718.0"
                    layoutY="16.0">
             <image>
-                <Image url="@../../../../resources/minimize_icon.png"/>
+                <Image url="@../../../../resources/icons/minimize_icon.png"/>
             </image>
         </ImageView>
     </children>
     <stylesheets>
-        <URL value="@../css/appStyle.css"/>
-        <URL value="@../css/loginStyle.css"/>
+        <URL value="@../../../../resources/css/app-style.css"/>
+        <URL value="@../../../../resources/css/login-style.css"/>
     </stylesheets>
 </AnchorPane>

@@ -75,7 +75,7 @@
 }
 .logoutButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
-    -fx-background-image: url("../../../../resources/logout_icon.png");
+    -fx-background-image: url("../icons/logout_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
@@ -86,7 +86,7 @@
 }
 .goBackButton {
     -fx-background-color: rgba(0, 0, 0, 0.05);
-    -fx-background-image: url("../../../../resources/back_icon.png");
+    -fx-background-image: url("../icons/back_icon.png");
     -fx-background-size: 32px 32px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: left;
@@ -97,11 +97,11 @@
 }
 .sendMessageButton {
     -fx-background-color: transparent;
-    -fx-background-image: url("../../../../resources/send_icon.png");
+    -fx-background-image: url("../icons/send_icon.png");
     -fx-background-size: 40px 40px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 .sendMessageButton:hover {
-    -fx-background-image: url("../../../../resources/send_icon_hover.png");
+    -fx-background-image: url("../icons/send_icon_hover.png");
 }

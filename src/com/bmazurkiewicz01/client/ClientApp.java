@@ -29,7 +29,7 @@ public class ClientApp extends Application {
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/resources/logo.png"))));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icons/logo.png"))));
         primaryStage.setTitle("JChat");
         primaryStage.setScene(scene);
         primaryStage.show();

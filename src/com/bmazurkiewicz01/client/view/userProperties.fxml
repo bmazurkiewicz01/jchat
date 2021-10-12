@@ -15,8 +15,8 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.bmazurkiewicz01.client.controller.UserPropertiesController">
     <stylesheets>
-        <URL value="@../css/appStyle.css"/>
-        <URL value="@../css/userPropertiesStyle.css"/>
+        <URL value="@../../../../resources/css/app-style.css"/>
+        <URL value="@../../../../resources/css/user-properties-style.css"/>
     </stylesheets>
     <children>
         <Label layoutX="219.0" layoutY="52.0" styleClass="mainLabel" text="User Properties">
@@ -27,7 +27,7 @@
         <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="551.0" layoutY="16.0"
                    styleClass="closeButton">
             <image>
-                <Image url="@../../../../resources/close_icon.png"/>
+                <Image url="@../../../../resources/icons/close_icon.png"/>
             </image>
         </ImageView>
         <Label layoutX="41.0" layoutY="116.0" styleClass="fieldLabel" text="Your name">

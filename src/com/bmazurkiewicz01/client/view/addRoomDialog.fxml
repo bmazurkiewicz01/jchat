@@ -41,12 +41,12 @@
         <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="16.0"
                    styleClass="closeButton">
             <image>
-                <Image url="@../../../../resources/close_icon.png"/>
+                <Image url="@../../../../resources/icons/close_icon.png"/>
             </image>
         </ImageView>
     </children>
     <stylesheets>
-        <URL value="@../css/addRoomDialogStyle.css"/>
-        <URL value="@../css/appStyle.css"/>
+        <URL value="@../../../../resources/css/add-room-dialog-style.css"/>
+        <URL value="@../../../../resources/css/app-style.css"/>
     </stylesheets>
 </AnchorPane>

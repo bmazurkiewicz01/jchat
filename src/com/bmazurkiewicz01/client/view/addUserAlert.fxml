@@ -15,14 +15,14 @@
 
 
     <stylesheets>
-        <URL value="@../css/addUserAlertStyle.css"/>
-        <URL value="@../css/appStyle.css"/>
+        <URL value="@../../../../resources/css/add-user-alert-style.css"/>
+        <URL value="@../../../../resources/css/app-style.css"/>
     </stylesheets>
     <children>
         <ImageView fx:id="closeButton" fitHeight="24.0" fitWidth="24.0" layoutX="303.0" layoutY="13.0"
                    styleClass="closeButton">
             <image>
-                <Image url="@../../../../resources/close_icon.png"/>
+                <Image url="@../../../../resources/icons/close_icon.png"/>
             </image>
         </ImageView>
         <Label layoutX="15.0" layoutY="69.0" styleClass="headerLabel" text="Register success!">
@@ -39,7 +39,7 @@
         </Label>
         <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="279.0" layoutY="61.0">
             <image>
-                <Image url="@../../../../resources/info_icon.png"/>
+                <Image url="@../../../../resources/icons/info_icon.png"/>
             </image>
         </ImageView>
         <Button fx:id="confirmButton" layoutX="112.0" layoutY="176.0" mnemonicParsing="false" prefWidth="125.0"
